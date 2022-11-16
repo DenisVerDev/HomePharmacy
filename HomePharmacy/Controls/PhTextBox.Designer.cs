@@ -42,6 +42,8 @@
             this.tb1.Name = "tb1";
             this.tb1.Size = new System.Drawing.Size(246, 16);
             this.tb1.TabIndex = 0;
+            this.tb1.MouseEnter += new System.EventHandler(this.PhTextBox_MouseEnter);
+            this.tb1.MouseLeave += new System.EventHandler(this.PhTextBox_MouseLeave);
             // 
             // PhTextBox
             // 
@@ -53,6 +55,9 @@
             this.Size = new System.Drawing.Size(274, 30);
             this.FillColorChanged += new HomePharmacy.Controls.RoundedBox.RoundedBoxColorEvent(this.PhTextBox_FillColorChanged);
             this.BorderColorChanged += new HomePharmacy.Controls.RoundedBox.RoundedBoxColorEvent(this.PhTextBox_BorderColorChanged);
+            this.Load += new System.EventHandler(this.PhTextBox_Resize);
+            this.MouseEnter += new System.EventHandler(this.PhTextBox_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.PhTextBox_MouseLeave);
             this.Resize += new System.EventHandler(this.PhTextBox_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();

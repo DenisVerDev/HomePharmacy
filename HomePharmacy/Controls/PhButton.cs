@@ -12,8 +12,10 @@ namespace HomePharmacy.Controls
 {
     public partial class PhButton : RoundedBox
     {
-
+        // Fill color when mouse enters contorl's area
         public Color HoverFillColor { get; set; }
+
+        // Border color when mouse enters control's area
         public Color HoverBorderColor { get; set; }
 
         public string Caption

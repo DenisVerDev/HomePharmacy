@@ -27,7 +27,7 @@ namespace HomePharmacy.Controls
                 this.fillColor = value;
                 this.Invalidate();
 
-                if(this.FillColorChanged != null)
+                if (this.FillColorChanged != null)
                     this.FillColorChanged(this, this.fillColor);
             }
         }
@@ -57,7 +57,15 @@ namespace HomePharmacy.Controls
             }
         }
 
-        public bool ShowBorder { get; set; }
+        public bool ShowBorder 
+        {
+            get { return this.showBorder; } 
+            set
+            {
+                this.showBorder = value;
+                this.Invalidate();
+            }
+        }
 
         private const int maxRadius = 30;
         private const int thickness = 1;
@@ -68,6 +76,8 @@ namespace HomePharmacy.Controls
 
         private int radius;
 
+        private bool showBorder;
+
         public RoundedBox()
         {
             InitializeComponent();
@@ -77,7 +87,7 @@ namespace HomePharmacy.Controls
 
             this.radius = 0;
 
-            this.ShowBorder = true;
+            this.showBorder = true;
         }
 
         private void RoundedBox_Paint(object sender, PaintEventArgs e)
@@ -86,7 +96,7 @@ namespace HomePharmacy.Controls
 
             if (this.radius > 0)
             {
-                using(GraphicsPath gp =new GraphicsPath())
+                using(GraphicsPath gp =new GraphicsPath()) // ellipse arcs should be in specific order
                 {
                     gp.AddArc(0,0,this.radius,this.radius,180,90);     // top left
                     gp.AddArc(this.Width - this.radius - offset, 0, this.radius,this.radius, 270, 90); //top right
@@ -95,13 +105,13 @@ namespace HomePharmacy.Controls
                     gp.CloseFigure();
 
                     e.Graphics.FillPath(new SolidBrush(this.fillColor), gp);
-                    if (this.ShowBorder) e.Graphics.DrawPath(new Pen(this.borderColor, thickness), gp);
+                    if (this.showBorder) e.Graphics.DrawPath(new Pen(this.borderColor, thickness), gp);
                 }
             }
             else
             {
                 e.Graphics.FillRectangle(new SolidBrush(this.fillColor), 0, 0, this.Width, this.Height);
-                if (this.ShowBorder) e.Graphics.DrawRectangle(new Pen(this.borderColor, thickness), 0, 0, this.Width - offset, this.Height - offset);
+                if (this.showBorder) e.Graphics.DrawRectangle(new Pen(this.borderColor, thickness), 0, 0, this.Width - offset, this.Height - offset);
             }
         }
     }

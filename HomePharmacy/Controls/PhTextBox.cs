@@ -12,6 +12,8 @@ namespace HomePharmacy.Controls
 {
     public partial class PhTextBox : RoundedBox
     {
+        // Border and text color when mouse enters control's area
+        public Color HoverColor { get; set; }
 
         public string PhText
         {
@@ -36,11 +38,7 @@ namespace HomePharmacy.Controls
             }
         }
 
-        public int MaxLength
-        {
-            get { return this.MaxLength; }
-            set { this.MaxLength = value; }
-        }
+        private Color prevBorderColor;
 
         private bool passwordMode;
 
@@ -48,6 +46,7 @@ namespace HomePharmacy.Controls
         {
             InitializeComponent();
 
+            this.HoverColor = this.BorderColor;
             this.passwordMode = false;
         }
 
@@ -67,6 +66,17 @@ namespace HomePharmacy.Controls
         private void PhTextBox_BorderColorChanged(object sender, Color color)
         {
             this.tb1.ForeColor = color;
+        }
+
+        private void PhTextBox_MouseEnter(object sender, EventArgs e)
+        {
+            this.prevBorderColor = this.BorderColor;
+            this.BorderColor = this.HoverColor;
+        }
+
+        private void PhTextBox_MouseLeave(object sender, EventArgs e)
+        {
+            this.BorderColor = this.prevBorderColor;
         }
     }
 }
