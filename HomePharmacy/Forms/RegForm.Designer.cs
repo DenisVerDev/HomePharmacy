@@ -36,10 +36,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_reg = new HomePharmacy.Controls.PhButton();
             this.btn_back = new HomePharmacy.Controls.PhButton();
-            this.tb_birthdate = new HomePharmacy.Controls.PhTextBox();
-            this.lb_birthdate = new System.Windows.Forms.Label();
             this.lb_title = new System.Windows.Forms.Label();
-            this.tb_sex = new HomePharmacy.Controls.PhTextBox();
+            this.phComboBox1 = new HomePharmacy.Controls.PhComboBox();
             this.SuspendLayout();
             // 
             // tb_email
@@ -48,8 +46,9 @@
             this.tb_email.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
             this.tb_email.BorderRadius = 10;
             this.tb_email.FillColor = System.Drawing.Color.White;
-            this.tb_email.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.tb_email.Location = new System.Drawing.Point(447, 81);
+            this.tb_email.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.tb_email.HoverFillColor = System.Drawing.Color.White;
+            this.tb_email.Location = new System.Drawing.Point(446, 97);
             this.tb_email.MinimumSize = new System.Drawing.Size(100, 30);
             this.tb_email.Name = "tb_email";
             this.tb_email.PasswordMode = false;
@@ -65,7 +64,7 @@
             this.lb_password_check.BackColor = System.Drawing.Color.Transparent;
             this.lb_password_check.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lb_password_check.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.lb_password_check.Location = new System.Drawing.Point(447, 165);
+            this.lb_password_check.Location = new System.Drawing.Point(446, 189);
             this.lb_password_check.Name = "lb_password_check";
             this.lb_password_check.Size = new System.Drawing.Size(149, 15);
             this.lb_password_check.TabIndex = 10;
@@ -78,8 +77,9 @@
             this.tb_password.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
             this.tb_password.BorderRadius = 10;
             this.tb_password.FillColor = System.Drawing.Color.White;
-            this.tb_password.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.tb_password.Location = new System.Drawing.Point(447, 132);
+            this.tb_password.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.tb_password.HoverFillColor = System.Drawing.Color.White;
+            this.tb_password.Location = new System.Drawing.Point(446, 156);
             this.tb_password.MinimumSize = new System.Drawing.Size(100, 30);
             this.tb_password.Name = "tb_password";
             this.tb_password.PasswordMode = true;
@@ -95,7 +95,7 @@
             this.lb_email_check.BackColor = System.Drawing.Color.Transparent;
             this.lb_email_check.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lb_email_check.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.lb_email_check.Location = new System.Drawing.Point(447, 114);
+            this.lb_email_check.Location = new System.Drawing.Point(446, 130);
             this.lb_email_check.Name = "lb_email_check";
             this.lb_email_check.Size = new System.Drawing.Size(174, 15);
             this.lb_email_check.TabIndex = 9;
@@ -108,8 +108,9 @@
             this.tb_name.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
             this.tb_name.BorderRadius = 10;
             this.tb_name.FillColor = System.Drawing.Color.White;
-            this.tb_name.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.tb_name.Location = new System.Drawing.Point(447, 183);
+            this.tb_name.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.tb_name.HoverFillColor = System.Drawing.Color.White;
+            this.tb_name.Location = new System.Drawing.Point(446, 216);
             this.tb_name.MinimumSize = new System.Drawing.Size(100, 30);
             this.tb_name.Name = "tb_name";
             this.tb_name.PasswordMode = false;
@@ -125,7 +126,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.label1.Location = new System.Drawing.Point(447, 216);
+            this.label1.Location = new System.Drawing.Point(446, 249);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 15);
             this.label1.TabIndex = 12;
@@ -164,64 +165,33 @@
             this.btn_back.Size = new System.Drawing.Size(274, 30);
             this.btn_back.TabIndex = 16;
             // 
-            // tb_birthdate
-            // 
-            this.tb_birthdate.BackColor = System.Drawing.Color.Transparent;
-            this.tb_birthdate.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
-            this.tb_birthdate.BorderRadius = 10;
-            this.tb_birthdate.FillColor = System.Drawing.Color.White;
-            this.tb_birthdate.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.tb_birthdate.Location = new System.Drawing.Point(447, 285);
-            this.tb_birthdate.MinimumSize = new System.Drawing.Size(100, 30);
-            this.tb_birthdate.Name = "tb_birthdate";
-            this.tb_birthdate.PasswordMode = false;
-            this.tb_birthdate.PhText = "";
-            this.tb_birthdate.Placeholder = "BirthDate";
-            this.tb_birthdate.ShowBorder = true;
-            this.tb_birthdate.Size = new System.Drawing.Size(274, 30);
-            this.tb_birthdate.TabIndex = 17;
-            // 
-            // lb_birthdate
-            // 
-            this.lb_birthdate.AutoSize = true;
-            this.lb_birthdate.BackColor = System.Drawing.Color.Transparent;
-            this.lb_birthdate.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lb_birthdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.lb_birthdate.Location = new System.Drawing.Point(447, 318);
-            this.lb_birthdate.Name = "lb_birthdate";
-            this.lb_birthdate.Size = new System.Drawing.Size(146, 15);
-            this.lb_birthdate.TabIndex = 18;
-            this.lb_birthdate.Text = "Your birthdate is too short";
-            this.lb_birthdate.Visible = false;
-            // 
             // lb_title
             // 
             this.lb_title.AutoSize = true;
             this.lb_title.BackColor = System.Drawing.Color.Transparent;
             this.lb_title.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lb_title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
-            this.lb_title.Location = new System.Drawing.Point(437, 24);
+            this.lb_title.Location = new System.Drawing.Point(436, 34);
             this.lb_title.Name = "lb_title";
             this.lb_title.Size = new System.Drawing.Size(300, 36);
             this.lb_title.TabIndex = 19;
             this.lb_title.Text = "HOME PHARMACY";
             // 
-            // tb_sex
+            // phComboBox1
             // 
-            this.tb_sex.BackColor = System.Drawing.Color.Transparent;
-            this.tb_sex.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
-            this.tb_sex.BorderRadius = 10;
-            this.tb_sex.FillColor = System.Drawing.Color.White;
-            this.tb_sex.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.tb_sex.Location = new System.Drawing.Point(447, 234);
-            this.tb_sex.MinimumSize = new System.Drawing.Size(100, 30);
-            this.tb_sex.Name = "tb_sex";
-            this.tb_sex.PasswordMode = false;
-            this.tb_sex.PhText = "";
-            this.tb_sex.Placeholder = "Sex";
-            this.tb_sex.ShowBorder = true;
-            this.tb_sex.Size = new System.Drawing.Size(274, 30);
-            this.tb_sex.TabIndex = 20;
+            this.phComboBox1.BackColor = System.Drawing.Color.Transparent;
+            this.phComboBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
+            this.phComboBox1.BorderRadius = 10;
+            this.phComboBox1.Caption = "Sex";
+            this.phComboBox1.FillColor = System.Drawing.Color.White;
+            this.phComboBox1.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.phComboBox1.HoverFillColor = System.Drawing.Color.White;
+            this.phComboBox1.Location = new System.Drawing.Point(446, 275);
+            this.phComboBox1.MinimumSize = new System.Drawing.Size(30, 30);
+            this.phComboBox1.Name = "phComboBox1";
+            this.phComboBox1.ShowBorder = true;
+            this.phComboBox1.Size = new System.Drawing.Size(274, 31);
+            this.phComboBox1.TabIndex = 20;
             // 
             // RegForm
             // 
@@ -230,10 +200,8 @@
             this.BackgroundImage = global::HomePharmacy.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.tb_sex);
+            this.Controls.Add(this.phComboBox1);
             this.Controls.Add(this.lb_title);
-            this.Controls.Add(this.tb_birthdate);
-            this.Controls.Add(this.lb_birthdate);
             this.Controls.Add(this.btn_back);
             this.Controls.Add(this.btn_reg);
             this.Controls.Add(this.tb_name);
@@ -262,9 +230,7 @@
         private Label label1;
         private Controls.PhButton btn_reg;
         private Controls.PhButton btn_back;
-        private Controls.PhTextBox tb_birthdate;
-        private Label lb_birthdate;
         private Label lb_title;
-        private Controls.PhTextBox tb_sex;
+        private Controls.PhComboBox phComboBox1;
     }
 }

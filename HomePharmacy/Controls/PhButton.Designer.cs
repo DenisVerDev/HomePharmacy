@@ -42,8 +42,6 @@
             this.lb_caption.Size = new System.Drawing.Size(45, 16);
             this.lb_caption.TabIndex = 0;
             this.lb_caption.Text = "label1";
-            this.lb_caption.MouseEnter += new System.EventHandler(this.PhButton_MouseEnter);
-            this.lb_caption.MouseLeave += new System.EventHandler(this.PhButton_MouseLeave);
             // 
             // PhButton
             // 
@@ -54,8 +52,6 @@
             this.FillColorChanged += new HomePharmacy.Controls.RoundedBox.RoundedBoxColorEvent(this.PhButton_FillColorChanged);
             this.BorderColorChanged += new HomePharmacy.Controls.RoundedBox.RoundedBoxColorEvent(this.PhButton_BorderColorChanged);
             this.Load += new System.EventHandler(this.PhButton_Resize);
-            this.MouseEnter += new System.EventHandler(this.PhButton_MouseEnter);
-            this.MouseLeave += new System.EventHandler(this.PhButton_MouseLeave);
             this.Resize += new System.EventHandler(this.PhButton_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();

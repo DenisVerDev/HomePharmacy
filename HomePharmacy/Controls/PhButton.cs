@@ -12,11 +12,6 @@ namespace HomePharmacy.Controls
 {
     public partial class PhButton : RoundedBox
     {
-        // Fill color when mouse enters contorl's area
-        public Color HoverFillColor { get; set; }
-
-        // Border color when mouse enters control's area
-        public Color HoverBorderColor { get; set; }
 
         public string Caption
         {
@@ -24,12 +19,11 @@ namespace HomePharmacy.Controls
             set { this.lb_caption.Text = value; }
         }
 
-        private Color prevFillColor;
-        private Color prevBorderColor;
-
         public PhButton()
         {
             InitializeComponent();
+            this.lb_caption.MouseEnter += this.RoundedBox_MouseEnter;
+            this.lb_caption.MouseLeave += this.RoundedBox_MouseLeave;
         }
 
         private void PhButton_FillColorChanged(object sender, Color color)
@@ -47,21 +41,6 @@ namespace HomePharmacy.Controls
             int x = this.Width / 2 - this.lb_caption.Width / 2;
             int y = this.Height / 2 - this.lb_caption.Height / 2;
             this.lb_caption.Location = new Point(x, y);
-        }
-
-        private void PhButton_MouseEnter(object sender, EventArgs e)
-        {
-            this.prevFillColor = this.FillColor;
-            this.prevBorderColor = this.BorderColor;
-
-            this.FillColor = this.HoverFillColor;
-            this.BorderColor = this.HoverBorderColor;
-        }
-
-        private void PhButton_MouseLeave(object sender, EventArgs e)
-        {
-            this.FillColor = this.prevFillColor;
-            this.BorderColor = this.prevBorderColor;
         }
     }
 }

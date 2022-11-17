@@ -43,7 +43,7 @@
             this.tb_email.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
             this.tb_email.BorderRadius = 10;
             this.tb_email.FillColor = System.Drawing.Color.White;
-            this.tb_email.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.tb_email.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
             this.tb_email.Location = new System.Drawing.Point(447, 122);
             this.tb_email.MinimumSize = new System.Drawing.Size(100, 30);
             this.tb_email.Name = "tb_email";
@@ -60,7 +60,7 @@
             this.tb_password.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
             this.tb_password.BorderRadius = 10;
             this.tb_password.FillColor = System.Drawing.Color.White;
-            this.tb_password.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.tb_password.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
             this.tb_password.Location = new System.Drawing.Point(447, 197);
             this.tb_password.MinimumSize = new System.Drawing.Size(100, 30);
             this.tb_password.Name = "tb_password";

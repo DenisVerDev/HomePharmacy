@@ -65,3 +65,4 @@ D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePh
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Forms.LogForm.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Properties.Resources.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Forms.RegForm.resources
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Controls.PhComboBox.resources

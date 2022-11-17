@@ -12,8 +12,6 @@ namespace HomePharmacy.Controls
 {
     public partial class PhTextBox : RoundedBox
     {
-        // Border and text color when mouse enters control's area
-        public Color HoverColor { get; set; }
 
         public string PhText
         {
@@ -29,25 +27,17 @@ namespace HomePharmacy.Controls
 
         public bool PasswordMode
         {
-            get { return this.passwordMode; }
-            set
-            {
-                this.passwordMode = value;
-                if (this.passwordMode) this.tb1.UseSystemPasswordChar = true;
-                else this.tb1.UseSystemPasswordChar = false;
-            }
+            get { return this.tb1.UseSystemPasswordChar; }
+            set{ this.tb1.UseSystemPasswordChar = value;}
         }
-
-        private Color prevBorderColor;
-
-        private bool passwordMode;
 
         public PhTextBox()
         {
             InitializeComponent();
+            this.tb1.MouseEnter += this.RoundedBox_MouseEnter;
+            this.tb1.MouseLeave += this.RoundedBox_MouseLeave;
 
-            this.HoverColor = this.BorderColor;
-            this.passwordMode = false;
+            this.PasswordMode = false;
         }
 
         private void PhTextBox_Resize(object sender, EventArgs e)
@@ -66,17 +56,6 @@ namespace HomePharmacy.Controls
         private void PhTextBox_BorderColorChanged(object sender, Color color)
         {
             this.tb1.ForeColor = color;
-        }
-
-        private void PhTextBox_MouseEnter(object sender, EventArgs e)
-        {
-            this.prevBorderColor = this.BorderColor;
-            this.BorderColor = this.HoverColor;
-        }
-
-        private void PhTextBox_MouseLeave(object sender, EventArgs e)
-        {
-            this.BorderColor = this.prevBorderColor;
         }
     }
 }

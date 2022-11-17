@@ -26,9 +26,6 @@ namespace HomePharmacy.Controls
             {
                 this.fillColor = value;
                 this.Invalidate();
-
-                if (this.FillColorChanged != null)
-                    this.FillColorChanged(this, this.fillColor);
             }
         }
 
@@ -39,11 +36,11 @@ namespace HomePharmacy.Controls
             {
                 this.borderColor = value;
                 this.Invalidate();
-
-                if (this.BorderColorChanged != null)
-                    this.BorderColorChanged(this, this.borderColor);
             }
         }
+
+        public Color HoverBorderColor { get; set; }
+        public Color HoverFillColor { get; set; }
 
         public int BorderRadius
         {
@@ -71,12 +68,16 @@ namespace HomePharmacy.Controls
         private const int thickness = 1;
         private const int offset = 1;
 
+        private Color actualFillColor;
+        private Color actualBorderColor;
+
         private Color fillColor;
         private Color borderColor;
 
         private int radius;
 
         private bool showBorder;
+        private bool mouseHover; // if mouse cursor is over control
 
         public RoundedBox()
         {
@@ -84,14 +85,43 @@ namespace HomePharmacy.Controls
 
             this.fillColor = Color.White;
             this.borderColor = Color.Black;
+            this.HoverFillColor = this.fillColor;
+            this.HoverBorderColor = this.borderColor;
+
+            this.actualFillColor = this.fillColor;
+            this.actualBorderColor = this.borderColor;
 
             this.radius = 0;
 
             this.showBorder = true;
+            this.mouseHover = false;
+        }
+
+        private void Notify()
+        {
+            if (this.FillColorChanged != null)
+                this.FillColorChanged(this, this.actualFillColor);
+
+            if (this.BorderColorChanged != null)
+                this.BorderColorChanged(this, this.actualBorderColor);
         }
 
         private void RoundedBox_Paint(object sender, PaintEventArgs e)
         {
+
+            if (!this.mouseHover)
+            {
+                this.actualFillColor = this.fillColor;
+                this.actualBorderColor = this.borderColor;
+            }
+            else
+            {
+                this.actualFillColor = this.HoverFillColor;
+                this.actualBorderColor = this.HoverBorderColor;
+            }
+
+            this.Notify();
+
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             if (this.radius > 0)
@@ -104,15 +134,27 @@ namespace HomePharmacy.Controls
                     gp.AddArc(0, this.Height - this.radius - offset, this.radius, this.radius, 90, 90); // bottom left
                     gp.CloseFigure();
 
-                    e.Graphics.FillPath(new SolidBrush(this.fillColor), gp);
-                    if (this.showBorder) e.Graphics.DrawPath(new Pen(this.borderColor, thickness), gp);
+                    e.Graphics.FillPath(new SolidBrush(this.actualFillColor), gp);
+                    if (this.showBorder) e.Graphics.DrawPath(new Pen(this.actualBorderColor, thickness), gp);
                 }
             }
             else
             {
-                e.Graphics.FillRectangle(new SolidBrush(this.fillColor), 0, 0, this.Width, this.Height);
-                if (this.showBorder) e.Graphics.DrawRectangle(new Pen(this.borderColor, thickness), 0, 0, this.Width - offset, this.Height - offset);
+                e.Graphics.FillRectangle(new SolidBrush(this.actualFillColor), 0, 0, this.Width, this.Height);
+                if (this.showBorder) e.Graphics.DrawRectangle(new Pen(this.actualBorderColor, thickness), 0, 0, this.Width - offset, this.Height - offset);
             }
+        }
+
+        protected void RoundedBox_MouseEnter(object sender, EventArgs e)
+        {
+            this.mouseHover = true;
+            this.Invalidate();
+        }
+
+        protected void RoundedBox_MouseLeave(object sender, EventArgs e)
+        {
+            this.mouseHover = false;
+            this.Invalidate();
         }
     }
 }

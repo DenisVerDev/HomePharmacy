@@ -4,6 +4,9 @@
     <Compile Update="Controls\PhButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\PhComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\PhTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>

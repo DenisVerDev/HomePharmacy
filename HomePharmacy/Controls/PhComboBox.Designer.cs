@@ -1,6 +1,6 @@
 ﻿namespace HomePharmacy.Controls
 {
-    partial class RoundedBox
+    partial class PhComboBox
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -28,22 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.cb1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // RoundedBox
+            // cb1
+            // 
+            this.cb1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cb1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb1.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cb1.FormattingEnabled = true;
+            this.cb1.Location = new System.Drawing.Point(12, 4);
+            this.cb1.Name = "cb1";
+            this.cb1.Size = new System.Drawing.Size(213, 24);
+            this.cb1.TabIndex = 0;
+            this.cb1.TextChanged += new System.EventHandler(this.cb1_TextChanged);
+            // 
+            // PhComboBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.MinimumSize = new System.Drawing.Size(30, 30);
-            this.Name = "RoundedBox";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.RoundedBox_Paint);
-            this.MouseEnter += new System.EventHandler(this.RoundedBox_MouseEnter);
-            this.MouseLeave += new System.EventHandler(this.RoundedBox_MouseLeave);
+            this.Controls.Add(this.cb1);
+            this.Name = "PhComboBox";
+            this.Size = new System.Drawing.Size(228, 31);
+            this.Load += new System.EventHandler(this.PhComboBox_Resize);
+            this.Resize += new System.EventHandler(this.PhComboBox_Resize);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private ComboBox cb1;
     }
 }
