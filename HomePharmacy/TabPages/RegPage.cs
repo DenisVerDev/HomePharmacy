@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HomePharmacy.Models;
 
-namespace HomePharmacy.Forms
+namespace HomePharmacy.TabPages
 {
-    public partial class RegForm : Form
+    public partial class RegPage : UserControl
     {
-        private Form previous;
+        public delegate void PageChangeEvent(object? sender, FormTabs tab);
+        public event PageChangeEvent? PageChange;
 
-        public RegForm(Form previous)
+        public RegPage()
         {
             InitializeComponent();
             this.cb_sex.Items.AddRange(DBValidation.PersonValidation.sexTypes);
-
-            this.previous = previous;
+            this.DoubleBuffered = true;
         }
 
         private void HideErrors()
@@ -43,33 +43,33 @@ namespace HomePharmacy.Forms
                 if (!DBValidation.PersonValidation.EmailValidation(tb_email.PhText))
                 {
                     validation = false;
-                    DBValidation.ShowValidationError(lb_email_check);
+                    lb_email_check.Text = DBValidation.ValidationErrorMsg;
                 }
 
                 // password check block
                 if (!DBValidation.PersonValidation.PasswordValidation(tb_password.PhText))
                 {
                     validation = false;
-                    DBValidation.ShowValidationError(lb_password_check);
+                    lb_password_check.Text = DBValidation.ValidationErrorMsg;
                 }
 
                 // name check block
                 if (!DBValidation.PersonValidation.NameValidation(tb_name.PhText))
                 {
                     validation = false;
-                    DBValidation.ShowValidationError(lb_name_check);
+                    lb_name_check.Text = DBValidation.ValidationErrorMsg;
                 }
 
                 // sex check block
                 if (!DBValidation.PersonValidation.SexValidation(cb_sex.PhText))
                 {
                     validation = false;
-                    DBValidation.ShowValidationError(lb_sex_check);
+                    lb_sex_check.Text = DBValidation.ValidationErrorMsg;
                 }
 
                 return validation;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Validation exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -89,7 +89,7 @@ namespace HomePharmacy.Forms
                     Sex = this.cb_sex.PhText
                 };
 
-                await Task.Run(() => 
+                await Task.Run(() =>
                 {
                     try
                     {
@@ -99,7 +99,7 @@ namespace HomePharmacy.Forms
                             context.SaveChanges();
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         if (this.InvokeRequired)
                         {
@@ -115,12 +115,7 @@ namespace HomePharmacy.Forms
 
         private void btn_back_PhClick(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        private void RegForm_Shown(object sender, EventArgs e)
-        {
-            this.Location = this.previous.Location;
+            if (this.PageChange != null) PageChange(this, FormTabs.Login);
         }
     }
 }

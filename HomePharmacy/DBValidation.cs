@@ -11,8 +11,6 @@ namespace HomePharmacy
         // error message state is different on each validation method call
         public static string? ValidationErrorMsg { get; private set; }
 
-        public static void ShowValidationError(Label label) => label.Text = ValidationErrorMsg;  
-
         #region Person validation
         public struct PersonValidation
         {

@@ -9,16 +9,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HomePharmacy.Models;
 
-namespace HomePharmacy.Forms
+namespace HomePharmacy.TabPages
 {
-    public partial class LogForm : Form
+    public partial class LogPage : UserControl
     {
-        private RegForm regForm;
 
-        public LogForm()
+        public delegate void PageChangeEvent(object? sender, FormTabs tab);
+        public event PageChangeEvent? PageChange;
+
+        public LogPage()
         {
             InitializeComponent();
-            this.regForm = new RegForm(this);
+            this.DoubleBuffered = true;
         }
 
         private void HideErrors()
@@ -39,14 +41,14 @@ namespace HomePharmacy.Forms
                 if (!DBValidation.PersonValidation.EmailValidation(tb_email.PhText))
                 {
                     validation = false;
-                    DBValidation.ShowValidationError(lb_email_check);
+                    lb_email_check.Text = DBValidation.ValidationErrorMsg;
                 }
 
                 // password check block
                 if (!DBValidation.PersonValidation.PasswordValidation(tb_password.PhText))
                 {
                     validation = false;
-                    DBValidation.ShowValidationError(lb_password_check);
+                    lb_password_check.Text = DBValidation.ValidationErrorMsg;
                 }
 
                 return validation;
@@ -60,14 +62,14 @@ namespace HomePharmacy.Forms
 
         private async void btn_log_PhClick(object sender, EventArgs e)
         {
-            if(LogValidation())
+            if (LogValidation())
             {
                 string email = this.tb_email.PhText;
                 string password = this.tb_password.PhText;
 
                 Person? person = null;
 
-                await Task.Run(() => 
+                await Task.Run(() =>
                 {
                     try
                     {
@@ -75,7 +77,7 @@ namespace HomePharmacy.Forms
                         {
                             person = context.Persons.Where(x => x.Email == email).FirstOrDefault();
 
-                            if(person == null)
+                            if (person == null)
                             {
                                 if (this.lb_email_check.InvokeRequired)
                                     this.lb_email_check.Invoke(new MethodInvoker(delegate
@@ -98,7 +100,7 @@ namespace HomePharmacy.Forms
                             }
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         if (this.InvokeRequired)
                         {
@@ -114,11 +116,7 @@ namespace HomePharmacy.Forms
 
         private void btn_reg_PhClick(object sender, EventArgs e)
         {
-            this.Hide();
-            this.regForm.ShowDialog();
-
-            this.Location = this.regForm.Location;
-            this.Show();
+            if (this.PageChange != null) PageChange(this, FormTabs.Registration);
         }
     }
 }

@@ -47,7 +47,6 @@ D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePh
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\bin\Debug\net6.0-windows\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\bin\Debug\net6.0-windows\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.csproj.AssemblyReference.cache
-D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Form1.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.csproj.GenerateResource.cache
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.GeneratedMSBuildEditorConfig.editorconfig
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.AssemblyInfoInputs.cache
@@ -62,8 +61,9 @@ D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePh
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Controls.RoundedBox.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Controls.PhTextBox.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Controls.PhButton.resources
-D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Forms.LogForm.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Properties.Resources.resources
-D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Forms.RegForm.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Controls.PhComboBox.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\bin\Debug\net6.0-windows\HomePharmacy.dll.config
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.MainForm.resources
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.TabPages.LogPage.resources
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.TabPages.RegPage.resources

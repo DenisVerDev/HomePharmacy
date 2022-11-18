@@ -13,14 +13,14 @@
     <Compile Update="Controls\RoundedBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Form1.cs">
+    <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\LogForm.cs">
-      <SubType>Form</SubType>
+    <Compile Update="TabPages\LogPage.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Forms\RegForm.cs">
-      <SubType>Form</SubType>
+    <Compile Update="TabPages\RegPage.cs">
+      <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
 </Project>
