@@ -33,7 +33,10 @@
             // 
             // lb_caption
             // 
-            this.lb_caption.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lb_caption.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_caption.AutoEllipsis = true;
             this.lb_caption.AutoSize = true;
             this.lb_caption.BackColor = System.Drawing.Color.Transparent;
             this.lb_caption.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -42,6 +45,7 @@
             this.lb_caption.Size = new System.Drawing.Size(45, 16);
             this.lb_caption.TabIndex = 0;
             this.lb_caption.Text = "label1";
+            this.lb_caption.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PhButton
             // 

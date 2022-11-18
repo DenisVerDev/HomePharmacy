@@ -11,9 +11,9 @@ using HomePharmacy.Models;
 
 namespace HomePharmacy.TabPages
 {
+
     public partial class RegPage : UserControl
-    {
-        public delegate void PageChangeEvent(object? sender, FormTabs tab);
+    { 
         public event PageChangeEvent? PageChange;
 
         public RegPage()
@@ -29,6 +29,14 @@ namespace HomePharmacy.TabPages
             this.lb_password_check.Text = String.Empty;
             this.lb_name_check.Text = String.Empty;
             this.lb_sex_check.Text = String.Empty;
+        }
+
+        private void ClearInput()
+        {
+            this.tb_email.PhText = String.Empty;
+            this.tb_password.PhText = String.Empty;
+            this.tb_name.PhText = String.Empty;
+            this.cb_sex.PhText = String.Empty;
         }
 
         private bool RegValidation()
@@ -81,6 +89,8 @@ namespace HomePharmacy.TabPages
             if (RegValidation())
             {
 
+                bool status = true;
+
                 Person person = new Person()
                 {
                     Email = this.tb_email.PhText,
@@ -101,6 +111,8 @@ namespace HomePharmacy.TabPages
                     }
                     catch (Exception ex)
                     {
+                        status = false;
+
                         if (this.InvokeRequired)
                         {
                             this.Invoke(new MethodInvoker(delegate
@@ -110,12 +122,19 @@ namespace HomePharmacy.TabPages
                         }
                     }
                 });
+
+                // clear Registration page and go to the Cabinet Selection page
+                if (status && this.PageChange != null)
+                {
+                    this.ClearInput();
+                    PageChange(FormTabs.CabinetSelection, person);
+                }
             }
         }
 
         private void btn_back_PhClick(object sender, EventArgs e)
         {
-            if (this.PageChange != null) PageChange(this, FormTabs.Login);
+            if (this.PageChange != null) PageChange(FormTabs.Login,null);
         }
     }
 }

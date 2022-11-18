@@ -34,9 +34,12 @@
             this.logPage = new HomePharmacy.TabPages.LogPage();
             this.tpage_reg = new System.Windows.Forms.TabPage();
             this.regPage = new HomePharmacy.TabPages.RegPage();
+            this.tpage_cabsel = new System.Windows.Forms.TabPage();
+            this.cabselPage = new HomePharmacy.TabPages.CabinetSelectionPage();
             this.tab_main.SuspendLayout();
             this.tpage_log.SuspendLayout();
             this.tpage_reg.SuspendLayout();
+            this.tpage_cabsel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab_main
@@ -44,6 +47,7 @@
             this.tab_main.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tab_main.Controls.Add(this.tpage_log);
             this.tab_main.Controls.Add(this.tpage_reg);
+            this.tab_main.Controls.Add(this.tpage_cabsel);
             this.tab_main.ItemSize = new System.Drawing.Size(0, 1);
             this.tab_main.Location = new System.Drawing.Point(-7, -8);
             this.tab_main.Margin = new System.Windows.Forms.Padding(0);
@@ -73,7 +77,7 @@
             this.logPage.Name = "logPage";
             this.logPage.Size = new System.Drawing.Size(800, 451);
             this.logPage.TabIndex = 0;
-            this.logPage.PageChange += new HomePharmacy.TabPages.LogPage.PageChangeEvent(this.PageChange);
+            this.logPage.PageChange += new HomePharmacy.PageChangeEvent(this.PageChange);
             // 
             // tpage_reg
             // 
@@ -95,7 +99,27 @@
             this.regPage.Name = "regPage";
             this.regPage.Size = new System.Drawing.Size(800, 451);
             this.regPage.TabIndex = 0;
-            this.regPage.PageChange += new HomePharmacy.TabPages.RegPage.PageChangeEvent(this.PageChange);
+            this.regPage.PageChange += new HomePharmacy.PageChangeEvent(this.PageChange);
+            // 
+            // tpage_cabsel
+            // 
+            this.tpage_cabsel.Controls.Add(this.cabselPage);
+            this.tpage_cabsel.Location = new System.Drawing.Point(4, 5);
+            this.tpage_cabsel.Name = "tpage_cabsel";
+            this.tpage_cabsel.Size = new System.Drawing.Size(806, 457);
+            this.tpage_cabsel.TabIndex = 2;
+            this.tpage_cabsel.Text = "Cabinet selection";
+            this.tpage_cabsel.UseVisualStyleBackColor = true;
+            // 
+            // cabselPage
+            // 
+            this.cabselPage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cabselPage.BackgroundImage")));
+            this.cabselPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cabselPage.Location = new System.Drawing.Point(3, 3);
+            this.cabselPage.Name = "cabselPage";
+            this.cabselPage.Size = new System.Drawing.Size(800, 451);
+            this.cabselPage.TabIndex = 0;
+            this.cabselPage.PageChange += new HomePharmacy.PageChangeEvent(this.PageChange);
             // 
             // MainForm
             // 
@@ -111,6 +135,7 @@
             this.tab_main.ResumeLayout(false);
             this.tpage_log.ResumeLayout(false);
             this.tpage_reg.ResumeLayout(false);
+            this.tpage_cabsel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -122,5 +147,7 @@
         private TabPage tpage_reg;
         private TabPages.LogPage logPage;
         private TabPages.RegPage regPage;
+        private TabPage tpage_cabsel;
+        private TabPages.CabinetSelectionPage cabselPage;
     }
 }

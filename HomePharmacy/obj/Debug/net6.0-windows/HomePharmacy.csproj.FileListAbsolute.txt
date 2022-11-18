@@ -67,3 +67,4 @@ D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePh
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.MainForm.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.TabPages.LogPage.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.TabPages.RegPage.resources
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.TabPages.CabinetSelectionPage.resources

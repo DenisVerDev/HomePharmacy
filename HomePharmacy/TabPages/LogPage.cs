@@ -13,8 +13,6 @@ namespace HomePharmacy.TabPages
 {
     public partial class LogPage : UserControl
     {
-
-        public delegate void PageChangeEvent(object? sender, FormTabs tab);
         public event PageChangeEvent? PageChange;
 
         public LogPage()
@@ -27,6 +25,12 @@ namespace HomePharmacy.TabPages
         {
             this.lb_email_check.Text = String.Empty;
             this.lb_password_check.Text = String.Empty;
+        }
+
+        private void ClearInput()
+        {
+            this.tb_email.PhText = String.Empty;
+            this.tb_password.PhText = String.Empty;
         }
 
         private bool LogValidation()
@@ -111,12 +115,20 @@ namespace HomePharmacy.TabPages
                         }
                     }
                 });
+
+
+                // clear Login page and go to the Cabinet Selection page
+                if (person != null && this.PageChange != null)
+                {
+                    this.ClearInput();
+                    PageChange(FormTabs.CabinetSelection, person);
+                }
             }
         }
 
         private void btn_reg_PhClick(object sender, EventArgs e)
         {
-            if (this.PageChange != null) PageChange(this, FormTabs.Registration);
+            if (this.PageChange != null) PageChange(FormTabs.Registration, null);
         }
     }
 }

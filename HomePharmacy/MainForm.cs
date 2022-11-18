@@ -1,6 +1,8 @@
 namespace HomePharmacy
 {
 
+    public delegate void PageChangeEvent(FormTabs tab, object? data);
+
     public enum FormTabs
     {
         Login,
@@ -18,9 +20,10 @@ namespace HomePharmacy
             this.DoubleBuffered = true;
         }
 
-        private void PageChange(object? sender, FormTabs tab)
+        private void PageChange(FormTabs tab, object? data)
         {
             this.tab_main.SelectTab(Convert.ToInt32(tab));
+            this.tab_main.SelectedTab.Tag = data;
         }
     }
 }

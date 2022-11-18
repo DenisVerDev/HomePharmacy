@@ -16,7 +16,11 @@ namespace HomePharmacy.Controls
         public string Caption
         {
             get { return this.lb_caption.Text; }
-            set { this.lb_caption.Text = value; }
+            set 
+            { 
+                this.lb_caption.Text = value;
+                this.PhButton_Resize(this, null!);
+            }
         }
 
         public PhButton()
@@ -42,6 +46,8 @@ namespace HomePharmacy.Controls
             int x = this.Width / 2 - this.lb_caption.Width / 2;
             int y = this.Height / 2 - this.lb_caption.Height / 2;
             this.lb_caption.Location = new Point(x, y);
+
+            this.lb_caption.MaximumSize = this.Size;
         }
     }
 }
