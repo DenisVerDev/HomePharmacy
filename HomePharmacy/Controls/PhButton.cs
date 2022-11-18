@@ -24,6 +24,7 @@ namespace HomePharmacy.Controls
             InitializeComponent();
             this.lb_caption.MouseEnter += this.RoundedBox_MouseEnter;
             this.lb_caption.MouseLeave += this.RoundedBox_MouseLeave;
+            this.lb_caption.Click += this.RoundedBox_Click;
         }
 
         private void PhButton_FillColorChanged(object sender, Color color)

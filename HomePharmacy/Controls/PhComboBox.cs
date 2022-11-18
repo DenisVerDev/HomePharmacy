@@ -13,12 +13,18 @@ namespace HomePharmacy.Controls
     public partial class PhComboBox : RoundedBox
     {
 
-        public string Caption
+        public string PhText
         {
-            get { return this.caption; }
+            get { return this.cb1.Text; }
+            set { this.cb1.Text = value; }
+        }
+
+        public string Placeholder
+        {
+            get { return this.placeholder; }
             set
             {
-                this.caption = value;
+                this.placeholder = value;
                 this.cb1.Text = value;
             }
         }
@@ -28,15 +34,17 @@ namespace HomePharmacy.Controls
             get { return this.cb1.Items; }
         }
 
-        private string caption;
+        private string placeholder;
 
         public PhComboBox()
         {
             InitializeComponent();
 
+            this.cb1.Click += this.RoundedBox_Click;
+
             this.cb1.MouseEnter += this.RoundedBox_MouseEnter;
             this.cb1.LostFocus += this.RoundedBox_MouseLeave;
-
+            
             this.FillColorChanged += this.PhComboBox_FillColorChanged;
             this.BorderColorChanged += this.PhComboBox_BorderColorChanged;
         }
@@ -61,7 +69,12 @@ namespace HomePharmacy.Controls
 
         private void cb1_TextChanged(object sender, EventArgs e)
         {
-            if (this.cb1.Text == String.Empty) this.cb1.Text = this.caption;
+            if (this.cb1.Text == String.Empty) this.cb1.Text = this.placeholder;
+        }
+
+        private void cb1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.cb1.Text = this.cb1.Items[this.cb1.SelectedIndex].ToString();
         }
     }
 }

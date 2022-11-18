@@ -33,11 +33,12 @@
             this.tb_password = new HomePharmacy.Controls.PhTextBox();
             this.lb_email_check = new System.Windows.Forms.Label();
             this.tb_name = new HomePharmacy.Controls.PhTextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lb_name_check = new System.Windows.Forms.Label();
             this.btn_reg = new HomePharmacy.Controls.PhButton();
             this.btn_back = new HomePharmacy.Controls.PhButton();
             this.lb_title = new System.Windows.Forms.Label();
-            this.phComboBox1 = new HomePharmacy.Controls.PhComboBox();
+            this.cb_sex = new HomePharmacy.Controls.PhComboBox();
+            this.lb_sex_check = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tb_email
@@ -66,10 +67,8 @@
             this.lb_password_check.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
             this.lb_password_check.Location = new System.Drawing.Point(446, 189);
             this.lb_password_check.Name = "lb_password_check";
-            this.lb_password_check.Size = new System.Drawing.Size(149, 15);
+            this.lb_password_check.Size = new System.Drawing.Size(0, 15);
             this.lb_password_check.TabIndex = 10;
-            this.lb_password_check.Text = "You password is too short";
-            this.lb_password_check.Visible = false;
             // 
             // tb_password
             // 
@@ -97,10 +96,8 @@
             this.lb_email_check.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
             this.lb_email_check.Location = new System.Drawing.Point(446, 130);
             this.lb_email_check.Name = "lb_email_check";
-            this.lb_email_check.Size = new System.Drawing.Size(174, 15);
+            this.lb_email_check.Size = new System.Drawing.Size(0, 15);
             this.lb_email_check.TabIndex = 9;
-            this.lb_email_check.Text = "You email address is too short";
-            this.lb_email_check.Visible = false;
             // 
             // tb_name
             // 
@@ -120,18 +117,16 @@
             this.tb_name.Size = new System.Drawing.Size(274, 30);
             this.tb_name.TabIndex = 11;
             // 
-            // label1
+            // lb_name_check
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.label1.Location = new System.Drawing.Point(446, 249);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 15);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Your name is too short";
-            this.label1.Visible = false;
+            this.lb_name_check.AutoSize = true;
+            this.lb_name_check.BackColor = System.Drawing.Color.Transparent;
+            this.lb_name_check.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lb_name_check.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.lb_name_check.Location = new System.Drawing.Point(446, 249);
+            this.lb_name_check.Name = "lb_name_check";
+            this.lb_name_check.Size = new System.Drawing.Size(0, 15);
+            this.lb_name_check.TabIndex = 12;
             // 
             // btn_reg
             // 
@@ -148,6 +143,7 @@
             this.btn_reg.ShowBorder = true;
             this.btn_reg.Size = new System.Drawing.Size(274, 30);
             this.btn_reg.TabIndex = 15;
+            this.btn_reg.PhClick += new System.EventHandler(this.btn_reg_PhClick);
             // 
             // btn_back
             // 
@@ -164,6 +160,7 @@
             this.btn_back.ShowBorder = true;
             this.btn_back.Size = new System.Drawing.Size(274, 30);
             this.btn_back.TabIndex = 16;
+            this.btn_back.PhClick += new System.EventHandler(this.btn_back_PhClick);
             // 
             // lb_title
             // 
@@ -177,21 +174,33 @@
             this.lb_title.TabIndex = 19;
             this.lb_title.Text = "HOME PHARMACY";
             // 
-            // phComboBox1
+            // cb_sex
             // 
-            this.phComboBox1.BackColor = System.Drawing.Color.Transparent;
-            this.phComboBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
-            this.phComboBox1.BorderRadius = 10;
-            this.phComboBox1.Caption = "Sex";
-            this.phComboBox1.FillColor = System.Drawing.Color.White;
-            this.phComboBox1.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.phComboBox1.HoverFillColor = System.Drawing.Color.White;
-            this.phComboBox1.Location = new System.Drawing.Point(446, 275);
-            this.phComboBox1.MinimumSize = new System.Drawing.Size(30, 30);
-            this.phComboBox1.Name = "phComboBox1";
-            this.phComboBox1.ShowBorder = true;
-            this.phComboBox1.Size = new System.Drawing.Size(274, 31);
-            this.phComboBox1.TabIndex = 20;
+            this.cb_sex.BackColor = System.Drawing.Color.Transparent;
+            this.cb_sex.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
+            this.cb_sex.BorderRadius = 10;
+            this.cb_sex.FillColor = System.Drawing.Color.White;
+            this.cb_sex.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.cb_sex.HoverFillColor = System.Drawing.Color.White;
+            this.cb_sex.Location = new System.Drawing.Point(446, 275);
+            this.cb_sex.MinimumSize = new System.Drawing.Size(30, 30);
+            this.cb_sex.Name = "cb_sex";
+            this.cb_sex.PhText = "Sex";
+            this.cb_sex.Placeholder = "Sex";
+            this.cb_sex.ShowBorder = true;
+            this.cb_sex.Size = new System.Drawing.Size(274, 31);
+            this.cb_sex.TabIndex = 20;
+            // 
+            // lb_sex_check
+            // 
+            this.lb_sex_check.AutoSize = true;
+            this.lb_sex_check.BackColor = System.Drawing.Color.Transparent;
+            this.lb_sex_check.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lb_sex_check.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.lb_sex_check.Location = new System.Drawing.Point(446, 309);
+            this.lb_sex_check.Name = "lb_sex_check";
+            this.lb_sex_check.Size = new System.Drawing.Size(0, 15);
+            this.lb_sex_check.TabIndex = 21;
             // 
             // RegForm
             // 
@@ -200,12 +209,13 @@
             this.BackgroundImage = global::HomePharmacy.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.phComboBox1);
+            this.Controls.Add(this.lb_sex_check);
+            this.Controls.Add(this.cb_sex);
             this.Controls.Add(this.lb_title);
             this.Controls.Add(this.btn_back);
             this.Controls.Add(this.btn_reg);
             this.Controls.Add(this.tb_name);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lb_name_check);
             this.Controls.Add(this.tb_email);
             this.Controls.Add(this.lb_password_check);
             this.Controls.Add(this.tb_password);
@@ -213,8 +223,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "RegForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Home Pharmacy";
+            this.Shown += new System.EventHandler(this.RegForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,10 +238,11 @@
         private Controls.PhTextBox tb_password;
         private Label lb_email_check;
         private Controls.PhTextBox tb_name;
-        private Label label1;
+        private Label lb_name_check;
         private Controls.PhButton btn_reg;
         private Controls.PhButton btn_back;
         private Label lb_title;
-        private Controls.PhComboBox phComboBox1;
+        private Controls.PhComboBox cb_sex;
+        private Label lb_sex_check;
     }
 }

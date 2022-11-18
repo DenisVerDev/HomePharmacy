@@ -19,6 +19,8 @@ namespace HomePharmacy.Controls
         public event RoundedBoxColorEvent FillColorChanged;
         public event RoundedBoxColorEvent BorderColorChanged;
 
+        public event EventHandler PhClick; // custom click event, because WinForms doesn't consider user control as one element
+
         public Color FillColor 
         {
             get { return this.fillColor; }
@@ -82,6 +84,7 @@ namespace HomePharmacy.Controls
         public RoundedBox()
         {
             InitializeComponent();
+            this.Click += RoundedBox_Click;
 
             this.fillColor = Color.White;
             this.borderColor = Color.Black;
@@ -155,6 +158,11 @@ namespace HomePharmacy.Controls
         {
             this.mouseHover = false;
             this.Invalidate();
+        }
+
+        protected void RoundedBox_Click(object? sender, EventArgs e)
+        {
+            if (PhClick != null) PhClick(sender, e);
         }
     }
 }

@@ -36,6 +36,7 @@ namespace HomePharmacy.Controls
             InitializeComponent();
             this.tb1.MouseEnter += this.RoundedBox_MouseEnter;
             this.tb1.MouseLeave += this.RoundedBox_MouseLeave;
+            this.tb1.Click += this.RoundedBox_Click;
 
             this.PasswordMode = false;
         }

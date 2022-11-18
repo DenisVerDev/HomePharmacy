@@ -44,6 +44,7 @@
             this.tb_email.BorderRadius = 10;
             this.tb_email.FillColor = System.Drawing.Color.White;
             this.tb_email.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.tb_email.HoverFillColor = System.Drawing.Color.White;
             this.tb_email.Location = new System.Drawing.Point(447, 122);
             this.tb_email.MinimumSize = new System.Drawing.Size(100, 30);
             this.tb_email.Name = "tb_email";
@@ -61,6 +62,7 @@
             this.tb_password.BorderRadius = 10;
             this.tb_password.FillColor = System.Drawing.Color.White;
             this.tb_password.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.tb_password.HoverFillColor = System.Drawing.Color.White;
             this.tb_password.Location = new System.Drawing.Point(447, 197);
             this.tb_password.MinimumSize = new System.Drawing.Size(100, 30);
             this.tb_password.Name = "tb_password";
@@ -86,6 +88,7 @@
             this.btn_log.ShowBorder = true;
             this.btn_log.Size = new System.Drawing.Size(274, 30);
             this.btn_log.TabIndex = 2;
+            this.btn_log.PhClick += new System.EventHandler(this.btn_log_PhClick);
             // 
             // btn_reg
             // 
@@ -102,6 +105,7 @@
             this.btn_reg.ShowBorder = true;
             this.btn_reg.Size = new System.Drawing.Size(274, 30);
             this.btn_reg.TabIndex = 3;
+            this.btn_reg.PhClick += new System.EventHandler(this.btn_reg_PhClick);
             // 
             // lb_title
             // 
@@ -123,10 +127,8 @@
             this.lb_email_check.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
             this.lb_email_check.Location = new System.Drawing.Point(447, 164);
             this.lb_email_check.Name = "lb_email_check";
-            this.lb_email_check.Size = new System.Drawing.Size(174, 15);
+            this.lb_email_check.Size = new System.Drawing.Size(0, 15);
             this.lb_email_check.TabIndex = 5;
-            this.lb_email_check.Text = "You email address is too short";
-            this.lb_email_check.Visible = false;
             // 
             // lb_password_check
             // 
@@ -136,10 +138,8 @@
             this.lb_password_check.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
             this.lb_password_check.Location = new System.Drawing.Point(447, 239);
             this.lb_password_check.Name = "lb_password_check";
-            this.lb_password_check.Size = new System.Drawing.Size(149, 15);
+            this.lb_password_check.Size = new System.Drawing.Size(0, 15);
             this.lb_password_check.TabIndex = 6;
-            this.lb_password_check.Text = "You password is too short";
-            this.lb_password_check.Visible = false;
             // 
             // LogForm
             // 

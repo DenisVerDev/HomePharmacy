@@ -43,6 +43,7 @@
             this.cb1.Name = "cb1";
             this.cb1.Size = new System.Drawing.Size(213, 24);
             this.cb1.TabIndex = 0;
+            this.cb1.SelectedIndexChanged += new System.EventHandler(this.cb1_SelectedIndexChanged);
             this.cb1.TextChanged += new System.EventHandler(this.cb1_TextChanged);
             // 
             // PhComboBox
