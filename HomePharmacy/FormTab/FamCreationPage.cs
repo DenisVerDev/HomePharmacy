@@ -41,6 +41,8 @@ namespace HomePharmacy.FormTab
 
             if (DBValidation.PersonValidation.EmailValidation(other_email))
             {
+                this.DbOperation = true;
+
                 Family? family = new Family();
 
                 await Task.Run(() =>
@@ -93,13 +95,15 @@ namespace HomePharmacy.FormTab
 
                 // transfer data
                 if (family != null && this.ChangePage != null) this.ChangePage(Tabs.Main, user, family);
+
+                this.DbOperation = false;
             }
             else lb_email_check.Text = DBValidation.ValidationErrorMsg;
         }
 
         private void btn_back_PhClick(object sender, EventArgs e)
         {
-            if (this.ChangePage != null) this.ChangePage(Tabs.CabinetSelection);
+            if (!this.DbOperation && this.ChangePage != null) this.ChangePage(Tabs.CabinetSelection);
         }
 
         private void FamCreationPage_DataReceived()

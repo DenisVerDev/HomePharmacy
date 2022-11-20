@@ -68,6 +68,8 @@ namespace HomePharmacy.FormTab
         {
             if (LogValidation())
             {
+                this.DbOperation = true; // start of the operation with database
+
                 string email = this.tb_email.PhText;
                 string password = this.tb_password.PhText;
 
@@ -116,15 +118,16 @@ namespace HomePharmacy.FormTab
                     }
                 });
 
-
                 // clear Login page and go to the Cabinet Selection page
                 if (person != null && this.ChangePage != null) ChangePage(Tabs.CabinetSelection, person);
+
+                this.DbOperation = false;
             }
         }
 
         private void btn_reg_PhClick(object sender, EventArgs e)
         {
-            if (this.ChangePage != null) ChangePage(Tabs.Registration);
+            if (!this.DbOperation && this.ChangePage != null) ChangePage(Tabs.Registration);
         }
     }
 }

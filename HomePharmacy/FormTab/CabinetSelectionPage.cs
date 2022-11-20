@@ -30,12 +30,12 @@ namespace HomePharmacy.FormTab
 
         private void btn_createfam_PhClick(object sender, EventArgs e)
         {
-            if (ChangePage != null) ChangePage(Tabs.CreateFamily, user);
+            if (!this.DbOperation && ChangePage != null) ChangePage(Tabs.CreateFamily, user);
         }
 
         private void btn_back_PhClick(object sender, EventArgs e)
         {
-            if (ChangePage != null) ChangePage(Tabs.Login);
+            if (!this.DbOperation && ChangePage != null) ChangePage(Tabs.Login);
         }
 
         private void CabinetSelectionPage_DataReceived()

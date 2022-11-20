@@ -27,12 +27,15 @@ namespace HomePharmacy.Controls
             }
         }
 
+        public bool DbOperation { get; protected set; }
+
         private object[]? data;
 
         public PhPage()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
+            this.DbOperation = false;
         }
 
         public virtual void HideErrors() { }

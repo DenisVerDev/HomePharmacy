@@ -88,6 +88,7 @@ namespace HomePharmacy.FormTab
         {
             if (RegValidation())
             {
+                this.DbOperation = true;
 
                 bool status = true;
 
@@ -125,12 +126,14 @@ namespace HomePharmacy.FormTab
 
                 // clear Registration page and go to the Cabinet Selection page
                 if (status && this.ChangePage != null) ChangePage(Tabs.CabinetSelection, person);
+
+                this.DbOperation = false;
             }
         }
 
         private void btn_back_PhClick(object sender, EventArgs e)
         {
-            if (this.ChangePage != null) ChangePage(Tabs.Login);
+            if (!this.DbOperation && this.ChangePage != null) ChangePage(Tabs.Login);
         }
     }
 }
