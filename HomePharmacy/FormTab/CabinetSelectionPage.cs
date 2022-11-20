@@ -7,17 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HomePharmacy.Controls;
 
-namespace HomePharmacy.TabPages
+namespace HomePharmacy.FormTab
 {
-    public partial class CabinetSelectionPage : UserControl
+    public partial class CabinetSelectionPage : PhPage
     {
-        public event PageChangeEvent? PageChange;
+        public event ChangePageEvent? ChangePage;
 
         public CabinetSelectionPage()
         {
             InitializeComponent();
-            this.DoubleBuffered = true;
         }
 
         private void btn_personalcab_PhClick(object sender, EventArgs e)
@@ -32,7 +32,7 @@ namespace HomePharmacy.TabPages
 
         private void btn_back_PhClick(object sender, EventArgs e)
         {
-            if (PageChange != null) PageChange(FormTabs.Login, null);
+            if (ChangePage != null) ChangePage(Tabs.Login, null);
         }
     }
 }

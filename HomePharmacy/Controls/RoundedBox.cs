@@ -84,6 +84,8 @@ namespace HomePharmacy.Controls
         public RoundedBox()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
+
             this.Click += RoundedBox_Click;
 
             this.fillColor = Color.White;

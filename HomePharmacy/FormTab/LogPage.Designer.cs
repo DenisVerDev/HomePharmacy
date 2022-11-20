@@ -1,4 +1,4 @@
-﻿namespace HomePharmacy.TabPages
+﻿namespace HomePharmacy.FormTab
 {
     partial class LogPage
     {

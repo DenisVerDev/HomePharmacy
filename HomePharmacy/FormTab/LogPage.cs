@@ -8,38 +8,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HomePharmacy.Models;
+using HomePharmacy.Controls;
 
-namespace HomePharmacy.TabPages
+namespace HomePharmacy.FormTab
 {
+    public partial class LogPage : PhPage
+    {
+        public event ChangePageEvent? ChangePage;
 
-    public partial class RegPage : UserControl
-    { 
-        public event PageChangeEvent? PageChange;
-
-        public RegPage()
+        public LogPage()
         {
             InitializeComponent();
-            this.cb_sex.Items.AddRange(DBValidation.PersonValidation.sexTypes);
-            this.DoubleBuffered = true;
         }
 
-        private void HideErrors()
+        public override void HideErrors()
         {
             this.lb_email_check.Text = String.Empty;
             this.lb_password_check.Text = String.Empty;
-            this.lb_name_check.Text = String.Empty;
-            this.lb_sex_check.Text = String.Empty;
         }
 
-        private void ClearInput()
+        public override void ClearInput()
         {
             this.tb_email.PhText = String.Empty;
             this.tb_password.PhText = String.Empty;
-            this.tb_name.PhText = String.Empty;
-            this.cb_sex.PhText = String.Empty;
         }
 
-        private bool RegValidation()
+        private bool LogValidation()
         {
             try
             {
@@ -61,20 +55,6 @@ namespace HomePharmacy.TabPages
                     lb_password_check.Text = DBValidation.ValidationErrorMsg;
                 }
 
-                // name check block
-                if (!DBValidation.PersonValidation.NameValidation(tb_name.PhText))
-                {
-                    validation = false;
-                    lb_name_check.Text = DBValidation.ValidationErrorMsg;
-                }
-
-                // sex check block
-                if (!DBValidation.PersonValidation.SexValidation(cb_sex.PhText))
-                {
-                    validation = false;
-                    lb_sex_check.Text = DBValidation.ValidationErrorMsg;
-                }
-
                 return validation;
             }
             catch (Exception ex)
@@ -84,20 +64,14 @@ namespace HomePharmacy.TabPages
             }
         }
 
-        private async void btn_reg_PhClick(object sender, EventArgs e)
+        private async void btn_log_PhClick(object sender, EventArgs e)
         {
-            if (RegValidation())
+            if (LogValidation())
             {
+                string email = this.tb_email.PhText;
+                string password = this.tb_password.PhText;
 
-                bool status = true;
-
-                Person person = new Person()
-                {
-                    Email = this.tb_email.PhText,
-                    Password = this.tb_password.PhText,
-                    Name = this.tb_name.PhText,
-                    Sex = this.cb_sex.PhText
-                };
+                Person? person = null;
 
                 await Task.Run(() =>
                 {
@@ -105,14 +79,33 @@ namespace HomePharmacy.TabPages
                     {
                         using (HomePharmacyContext context = new HomePharmacyContext())
                         {
-                            context.Persons.Add(person);
-                            context.SaveChanges();
+                            person = context.Persons.Where(x => x.Email == email).FirstOrDefault();
+
+                            if (person == null)
+                            {
+                                if (this.lb_email_check.InvokeRequired)
+                                    this.lb_email_check.Invoke(new MethodInvoker(delegate
+                                    {
+                                        this.lb_email_check.Text = "Account with such email does not exist!";
+                                    }));
+                            }
+                            else
+                            {
+                                if (person.Password != password)
+                                {
+                                    if (this.lb_password_check.InvokeRequired)
+                                        this.lb_password_check.Invoke(new MethodInvoker(delegate
+                                        {
+                                            this.lb_password_check.Text = "Incorrect password!";
+                                        }));
+
+                                    person = null;
+                                }
+                            }
                         }
                     }
                     catch (Exception ex)
                     {
-                        status = false;
-
                         if (this.InvokeRequired)
                         {
                             this.Invoke(new MethodInvoker(delegate
@@ -123,18 +116,15 @@ namespace HomePharmacy.TabPages
                     }
                 });
 
-                // clear Registration page and go to the Cabinet Selection page
-                if (status && this.PageChange != null)
-                {
-                    this.ClearInput();
-                    PageChange(FormTabs.CabinetSelection, person);
-                }
+
+                // clear Login page and go to the Cabinet Selection page
+                if (person != null && this.ChangePage != null) ChangePage(Tabs.CabinetSelection, person);
             }
         }
 
-        private void btn_back_PhClick(object sender, EventArgs e)
+        private void btn_reg_PhClick(object sender, EventArgs e)
         {
-            if (this.PageChange != null) PageChange(FormTabs.Login,null);
+            if (this.ChangePage != null) ChangePage(Tabs.Registration, null);
         }
     }
 }
