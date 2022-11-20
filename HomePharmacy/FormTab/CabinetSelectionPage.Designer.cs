@@ -108,6 +108,7 @@
             this.Controls.Add(this.flowPanel);
             this.Name = "CabinetSelectionPage";
             this.Size = new System.Drawing.Size(792, 422);
+            this.DataReceived += new HomePharmacy.Controls.PhPage.GetData(this.CabinetSelectionPage_DataReceived);
             this.flowPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 

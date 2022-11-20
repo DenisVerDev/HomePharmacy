@@ -154,7 +154,7 @@ public partial class HomePharmacyContext : DbContext
 
             entity.HasMany(d => d.IdFamilies).WithMany(p => p.People)
                 .UsingEntity<Dictionary<string, object>>(
-                    "PersonsFamily",
+                    "PersonsFamilies",
                     r => r.HasOne<Family>().WithMany()
                         .HasForeignKey("IdFamily")
                         .HasConstraintName("FK_Family"),

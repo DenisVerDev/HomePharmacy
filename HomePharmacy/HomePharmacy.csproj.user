@@ -7,6 +7,9 @@
     <Compile Update="FormTab\CabinetSelectionPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="FormTab\FamCreationPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="FormTab\FormTab.cs">
       <SubType>UserControl</SubType>
     </Compile>

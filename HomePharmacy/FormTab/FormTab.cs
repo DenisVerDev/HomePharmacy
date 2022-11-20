@@ -38,6 +38,7 @@ namespace HomePharmacy.FormTab
             this.tpage_log.Tag = Tabs.Login;
             this.tpage_reg.Tag = Tabs.Registration;
             this.tpage_cabsel.Tag = Tabs.CabinetSelection;
+            this.tpage_famcre.Tag = Tabs.CreateFamily;
         }
 
         private void ChangePage(Tabs next, object? data)
@@ -52,10 +53,16 @@ namespace HomePharmacy.FormTab
                 // change tab
                 var tab_pages = this.tab_form.TabPages.Cast<TabPage>().ToArray();
                 var next_page = tab_pages.Where(x => (Tabs)x.Tag == next).FirstOrDefault();
+
                 if (next_page != null)
                 {
-                    current = next_page.Controls[0] as PhPage;
-                    current.Data = data;
+                    if (data != null)
+                    {
+                        var arr_data = (object[])data;
+
+                        current = next_page.Controls[0] as PhPage;
+                        current.Data = arr_data;
+                    }
 
                     this.tab_form.SelectTab(next_page);
                 }

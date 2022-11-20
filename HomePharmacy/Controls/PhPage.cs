@@ -16,7 +16,7 @@ namespace HomePharmacy.Controls
         public delegate void GetData();
         public event GetData? DataReceived;
 
-        public object? Data 
+        public object[]? Data 
         {
             get { return this.data; }
             set
@@ -27,7 +27,7 @@ namespace HomePharmacy.Controls
             }
         }
 
-        private object? data;
+        private object[]? data;
 
         public PhPage()
         {

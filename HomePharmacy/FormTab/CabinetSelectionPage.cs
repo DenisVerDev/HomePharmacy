@@ -8,12 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HomePharmacy.Controls;
+using HomePharmacy.Models;
 
 namespace HomePharmacy.FormTab
 {
     public partial class CabinetSelectionPage : PhPage
     {
         public event ChangePageEvent? ChangePage;
+
+        private Person user;
 
         public CabinetSelectionPage()
         {
@@ -27,12 +30,17 @@ namespace HomePharmacy.FormTab
 
         private void btn_createfam_PhClick(object sender, EventArgs e)
         {
-
+            if (ChangePage != null) ChangePage(Tabs.CreateFamily, user);
         }
 
         private void btn_back_PhClick(object sender, EventArgs e)
         {
-            if (ChangePage != null) ChangePage(Tabs.Login, null);
+            if (ChangePage != null) ChangePage(Tabs.Login);
+        }
+
+        private void CabinetSelectionPage_DataReceived()
+        {
+            if(this.Data != null && this.Data.Length > 0) this.user = (Person)this.Data[0];
         }
     }
 }

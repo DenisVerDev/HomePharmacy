@@ -130,7 +130,7 @@ namespace HomePharmacy.FormTab
 
         private void btn_back_PhClick(object sender, EventArgs e)
         {
-            if (this.ChangePage != null) ChangePage(Tabs.Login,null);
+            if (this.ChangePage != null) ChangePage(Tabs.Login);
         }
     }
 }

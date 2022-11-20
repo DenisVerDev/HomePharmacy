@@ -124,7 +124,7 @@ namespace HomePharmacy.FormTab
 
         private void btn_reg_PhClick(object sender, EventArgs e)
         {
-            if (this.ChangePage != null) ChangePage(Tabs.Registration, null);
+            if (this.ChangePage != null) ChangePage(Tabs.Registration);
         }
     }
 }

@@ -36,10 +36,13 @@
             this.regPage = new HomePharmacy.FormTab.RegPage();
             this.tpage_cabsel = new System.Windows.Forms.TabPage();
             this.cabSelPage = new HomePharmacy.FormTab.CabinetSelectionPage();
+            this.tpage_famcre = new System.Windows.Forms.TabPage();
+            this.famCrePage = new HomePharmacy.FormTab.FamCreationPage();
             this.tab_form.SuspendLayout();
             this.tpage_log.SuspendLayout();
             this.tpage_reg.SuspendLayout();
             this.tpage_cabsel.SuspendLayout();
+            this.tpage_famcre.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab_form
@@ -47,6 +50,7 @@
             this.tab_form.Controls.Add(this.tpage_log);
             this.tab_form.Controls.Add(this.tpage_reg);
             this.tab_form.Controls.Add(this.tpage_cabsel);
+            this.tab_form.Controls.Add(this.tpage_famcre);
             this.tab_form.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tab_form.ItemSize = new System.Drawing.Size(0, 1);
             this.tab_form.Location = new System.Drawing.Point(0, 0);
@@ -71,6 +75,7 @@
             // 
             this.logPage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("logPage.BackgroundImage")));
             this.logPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.logPage.Data = null;
             this.logPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logPage.Location = new System.Drawing.Point(3, 3);
             this.logPage.Name = "logPage";
@@ -92,6 +97,7 @@
             // 
             this.regPage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("regPage.BackgroundImage")));
             this.regPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.regPage.Data = null;
             this.regPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.regPage.Location = new System.Drawing.Point(3, 3);
             this.regPage.Name = "regPage";
@@ -112,11 +118,33 @@
             // 
             this.cabSelPage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cabSelPage.BackgroundImage")));
             this.cabSelPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cabSelPage.Data = null;
             this.cabSelPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cabSelPage.Location = new System.Drawing.Point(0, 0);
             this.cabSelPage.Name = "cabSelPage";
             this.cabSelPage.Size = new System.Drawing.Size(806, 457);
             this.cabSelPage.TabIndex = 0;
+            // 
+            // tpage_famcre
+            // 
+            this.tpage_famcre.Controls.Add(this.famCrePage);
+            this.tpage_famcre.Location = new System.Drawing.Point(4, 5);
+            this.tpage_famcre.Name = "tpage_famcre";
+            this.tpage_famcre.Size = new System.Drawing.Size(806, 457);
+            this.tpage_famcre.TabIndex = 3;
+            this.tpage_famcre.Text = "Family creation";
+            this.tpage_famcre.UseVisualStyleBackColor = true;
+            // 
+            // famCrePage
+            // 
+            this.famCrePage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("famCrePage.BackgroundImage")));
+            this.famCrePage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.famCrePage.Data = null;
+            this.famCrePage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.famCrePage.Location = new System.Drawing.Point(0, 0);
+            this.famCrePage.Name = "famCrePage";
+            this.famCrePage.Size = new System.Drawing.Size(806, 457);
+            this.famCrePage.TabIndex = 0;
             // 
             // FormTab
             // 
@@ -129,6 +157,7 @@
             this.tpage_log.ResumeLayout(false);
             this.tpage_reg.ResumeLayout(false);
             this.tpage_cabsel.ResumeLayout(false);
+            this.tpage_famcre.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -142,5 +171,7 @@
         private RegPage regPage;
         private TabPage tpage_cabsel;
         private CabinetSelectionPage cabSelPage;
+        private TabPage tpage_famcre;
+        private FamCreationPage famCrePage;
     }
 }
