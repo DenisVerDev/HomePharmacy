@@ -34,6 +34,7 @@ namespace HomePharmacy.FormTab
             this.logPage.ChangePage += ChangePage;
             this.regPage.ChangePage += ChangePage;
             this.cabSelPage.ChangePage += ChangePage;
+            this.famCrePage.ChangePage += ChangePage;
 
             this.tpage_log.Tag = Tabs.Login;
             this.tpage_reg.Tag = Tabs.Registration;

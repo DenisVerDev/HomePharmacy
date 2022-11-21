@@ -125,7 +125,7 @@ namespace HomePharmacy.FormTab
                 });
 
                 // clear Registration page and go to the Cabinet Selection page
-                if (status && this.ChangePage != null) ChangePage(Tabs.CabinetSelection, person);
+                if (status && this.ChangePage != null) ChangePage(Tabs.CabinetSelection, person,Tabs.Registration);
 
                 this.DbOperation = false;
             }

@@ -119,7 +119,7 @@ namespace HomePharmacy.FormTab
                 });
 
                 // clear Login page and go to the Cabinet Selection page
-                if (person != null && this.ChangePage != null) ChangePage(Tabs.CabinetSelection, person);
+                if (person != null && this.ChangePage != null) ChangePage(Tabs.CabinetSelection, person, Tabs.Login);
 
                 this.DbOperation = false;
             }
