@@ -35,11 +35,13 @@ namespace HomePharmacy.FormTab
             this.regPage.ChangePage += ChangePage;
             this.cabSelPage.ChangePage += ChangePage;
             this.famCrePage.ChangePage += ChangePage;
+            this.mainPage.ChangePage += ChangePage;
 
             this.tpage_log.Tag = Tabs.Login;
             this.tpage_reg.Tag = Tabs.Registration;
             this.tpage_cabsel.Tag = Tabs.CabinetSelection;
             this.tpage_famcre.Tag = Tabs.CreateFamily;
+            this.tpage_main.Tag = Tabs.Main;
         }
 
         private void ChangePage(Tabs next, object? data)

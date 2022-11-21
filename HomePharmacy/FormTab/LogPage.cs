@@ -66,7 +66,7 @@ namespace HomePharmacy.FormTab
 
         private async void btn_log_PhClick(object sender, EventArgs e)
         {
-            if (LogValidation())
+            if (!this.DbOperation && LogValidation())
             {
                 this.DbOperation = true; // start of the operation with database
 

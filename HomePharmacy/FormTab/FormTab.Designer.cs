@@ -38,11 +38,14 @@
             this.cabSelPage = new HomePharmacy.FormTab.CabinetSelectionPage();
             this.tpage_famcre = new System.Windows.Forms.TabPage();
             this.famCrePage = new HomePharmacy.FormTab.FamCreationPage();
+            this.tpage_main = new System.Windows.Forms.TabPage();
+            this.mainPage = new HomePharmacy.FormTab.MainPage();
             this.tab_form.SuspendLayout();
             this.tpage_log.SuspendLayout();
             this.tpage_reg.SuspendLayout();
             this.tpage_cabsel.SuspendLayout();
             this.tpage_famcre.SuspendLayout();
+            this.tpage_main.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab_form
@@ -51,6 +54,7 @@
             this.tab_form.Controls.Add(this.tpage_reg);
             this.tab_form.Controls.Add(this.tpage_cabsel);
             this.tab_form.Controls.Add(this.tpage_famcre);
+            this.tab_form.Controls.Add(this.tpage_main);
             this.tab_form.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tab_form.ItemSize = new System.Drawing.Size(0, 1);
             this.tab_form.Location = new System.Drawing.Point(0, 0);
@@ -146,6 +150,27 @@
             this.famCrePage.Size = new System.Drawing.Size(806, 457);
             this.famCrePage.TabIndex = 0;
             // 
+            // tpage_main
+            // 
+            this.tpage_main.Controls.Add(this.mainPage);
+            this.tpage_main.Location = new System.Drawing.Point(4, 5);
+            this.tpage_main.Name = "tpage_main";
+            this.tpage_main.Size = new System.Drawing.Size(806, 457);
+            this.tpage_main.TabIndex = 4;
+            this.tpage_main.Text = "Main module";
+            this.tpage_main.UseVisualStyleBackColor = true;
+            // 
+            // mainPage
+            // 
+            this.mainPage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("mainPage.BackgroundImage")));
+            this.mainPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.mainPage.Data = null;
+            this.mainPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPage.Location = new System.Drawing.Point(0, 0);
+            this.mainPage.Name = "mainPage";
+            this.mainPage.Size = new System.Drawing.Size(806, 457);
+            this.mainPage.TabIndex = 0;
+            // 
             // FormTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -158,6 +183,7 @@
             this.tpage_reg.ResumeLayout(false);
             this.tpage_cabsel.ResumeLayout(false);
             this.tpage_famcre.ResumeLayout(false);
+            this.tpage_main.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -173,5 +199,7 @@
         private CabinetSelectionPage cabSelPage;
         private TabPage tpage_famcre;
         private FamCreationPage famCrePage;
+        private TabPage tpage_main;
+        private MainPage mainPage;
     }
 }

@@ -86,7 +86,7 @@ namespace HomePharmacy.FormTab
 
         private async void btn_reg_PhClick(object sender, EventArgs e)
         {
-            if (RegValidation())
+            if (!this.DbOperation && RegValidation())
             {
                 this.DbOperation = true;
 

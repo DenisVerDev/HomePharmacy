@@ -66,6 +66,16 @@ namespace HomePharmacy.Controls
             }
         }
 
+        public bool IsSelected
+        {
+            get { return this.selectedMode; }
+            set
+            {
+                this.selectedMode = value;
+                this.Invalidate();
+            }
+        }
+
         private const int maxRadius = 30;
         private const int thickness = 1;
         private const int offset = 1;
@@ -80,11 +90,13 @@ namespace HomePharmacy.Controls
 
         private bool showBorder;
         private bool mouseHover; // if mouse cursor is over control
+        private bool selectedMode;
 
         public RoundedBox()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
+            this.TabStop = false;
 
             this.Click += RoundedBox_Click;
 
@@ -100,6 +112,7 @@ namespace HomePharmacy.Controls
 
             this.showBorder = true;
             this.mouseHover = false;
+            this.selectedMode = false;
         }
 
         private void Notify()
@@ -113,8 +126,7 @@ namespace HomePharmacy.Controls
 
         private void RoundedBox_Paint(object sender, PaintEventArgs e)
         {
-
-            if (!this.mouseHover)
+            if (!this.mouseHover && !this.selectedMode)
             {
                 this.actualFillColor = this.fillColor;
                 this.actualBorderColor = this.borderColor;

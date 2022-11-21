@@ -39,7 +39,7 @@ namespace HomePharmacy.FormTab
 
             string other_email = tb_email.PhText;
 
-            if (DBValidation.PersonValidation.EmailValidation(other_email))
+            if (!this.DbOperation && DBValidation.PersonValidation.EmailValidation(other_email))
             {
                 this.DbOperation = true;
 
