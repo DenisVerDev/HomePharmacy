@@ -162,7 +162,7 @@
             // 
             // mainPage
             // 
-            this.mainPage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("mainPage.BackgroundImage")));
+            this.mainPage.BackColor = System.Drawing.Color.Gainsboro;
             this.mainPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.mainPage.Data = null;
             this.mainPage.Dock = System.Windows.Forms.DockStyle.Fill;

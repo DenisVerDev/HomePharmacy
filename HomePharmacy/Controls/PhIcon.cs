@@ -29,7 +29,7 @@ namespace HomePharmacy.Controls
             get { return this.fillPercent; }
             set
             {
-                if (value > 0 & value <= 1) this.fillPercent = value;
+                if (value >= 0 & value <= 1) this.fillPercent = value;
                 else this.fillPercent = 0.5f;
 
                 this.Invalidate();
@@ -51,7 +51,8 @@ namespace HomePharmacy.Controls
         {
             if(this.iconImage != null)
             {
-                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+                e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
 
                 SizeF image_size = new SizeF(this.Width * this.FillPercent, this.Height * this.fillPercent);
 

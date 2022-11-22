@@ -126,15 +126,23 @@ namespace HomePharmacy.Controls
 
         private void RoundedBox_Paint(object sender, PaintEventArgs e)
         {
-            if (!this.mouseHover && !this.selectedMode)
+            if (this.Enabled)
             {
-                this.actualFillColor = this.fillColor;
-                this.actualBorderColor = this.borderColor;
+                if (!this.mouseHover && !this.selectedMode)
+                {
+                    this.actualFillColor = this.fillColor;
+                    this.actualBorderColor = this.borderColor;
+                }
+                else
+                {
+                    this.actualFillColor = this.HoverFillColor;
+                    this.actualBorderColor = this.HoverBorderColor;
+                }
             }
             else
             {
-                this.actualFillColor = this.HoverFillColor;
-                this.actualBorderColor = this.HoverBorderColor;
+                this.actualFillColor = Color.LightGray;
+                this.actualBorderColor = Color.Gray;
             }
 
             this.Notify();
