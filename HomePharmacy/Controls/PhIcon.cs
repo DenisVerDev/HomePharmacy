@@ -64,7 +64,6 @@ namespace HomePharmacy.Controls
 
         private void PhIcon_BorderColorChanged(object sender, Color color)
         {
-            if (this.previousBorderColor == Color.Empty) this.previousBorderColor = color;
 
             if(this.iconImage != null && this.previousBorderColor != color)
             {
@@ -93,6 +92,11 @@ namespace HomePharmacy.Controls
 
                 }
             }
+        }
+
+        private void PhIcon_Load(object sender, EventArgs e)
+        {
+            this.previousBorderColor = this.BorderColor;
         }
     }
 }

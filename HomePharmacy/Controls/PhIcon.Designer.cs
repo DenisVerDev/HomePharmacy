@@ -36,6 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "PhIcon";
             this.BorderColorChanged += new HomePharmacy.Controls.RoundedBox.RoundedBoxColorEvent(this.PhIcon_BorderColorChanged);
+            this.Load += new System.EventHandler(this.PhIcon_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.PhIcon_Paint);
             this.ResumeLayout(false);
 

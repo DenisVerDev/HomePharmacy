@@ -38,6 +38,7 @@ partial class MainPage
             this.panel = new System.Windows.Forms.Panel();
             this.tab_main = new System.Windows.Forms.TabControl();
             this.tpage_profile = new System.Windows.Forms.TabPage();
+            this.profilePage = new HomePharmacy.MainPages.ProfilePage();
             this.tpage_family = new System.Windows.Forms.TabPage();
             this.tpage_ilnesses = new System.Windows.Forms.TabPage();
             this.tpage_medicines = new System.Windows.Forms.TabPage();
@@ -47,6 +48,7 @@ partial class MainPage
             this.flowPanelTabs.SuspendLayout();
             this.panel.SuspendLayout();
             this.tab_main.SuspendLayout();
+            this.tpage_profile.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_family
@@ -156,7 +158,7 @@ partial class MainPage
             // 
             // flowPanelTabs
             // 
-            this.flowPanelTabs.BackColor = System.Drawing.Color.White;
+            this.flowPanelTabs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
             this.flowPanelTabs.Controls.Add(this.btn_profile);
             this.flowPanelTabs.Controls.Add(this.btn_family);
             this.flowPanelTabs.Controls.Add(this.btn_illneses);
@@ -178,7 +180,7 @@ partial class MainPage
             this.btn_profile.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
             this.btn_profile.BorderRadius = 0;
             this.btn_profile.FillColor = System.Drawing.Color.White;
-            this.btn_profile.FillPercent = 0.67F;
+            this.btn_profile.FillPercent = 0.56F;
             this.btn_profile.HoverBorderColor = System.Drawing.Color.DimGray;
             this.btn_profile.HoverFillColor = System.Drawing.Color.White;
             this.btn_profile.IconImage = global::HomePharmacy.Properties.Resources.account_info;
@@ -213,38 +215,50 @@ partial class MainPage
             this.tab_main.Controls.Add(this.tpage_statistics);
             this.tab_main.Controls.Add(this.tpage_appoint);
             this.tab_main.ItemSize = new System.Drawing.Size(0, 1);
-            this.tab_main.Location = new System.Drawing.Point(-7, 0);
+            this.tab_main.Location = new System.Drawing.Point(-9, -4);
             this.tab_main.Name = "tab_main";
             this.tab_main.SelectedIndex = 0;
-            this.tab_main.Size = new System.Drawing.Size(735, 466);
+            this.tab_main.Size = new System.Drawing.Size(743, 478);
             this.tab_main.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tab_main.TabIndex = 0;
             // 
             // tpage_profile
             // 
+            this.tpage_profile.AutoScroll = true;
             this.tpage_profile.BackColor = System.Drawing.SystemColors.Control;
+            this.tpage_profile.Controls.Add(this.profilePage);
             this.tpage_profile.Location = new System.Drawing.Point(4, 5);
             this.tpage_profile.Name = "tpage_profile";
             this.tpage_profile.Padding = new System.Windows.Forms.Padding(3);
-            this.tpage_profile.Size = new System.Drawing.Size(727, 457);
+            this.tpage_profile.Size = new System.Drawing.Size(735, 469);
             this.tpage_profile.TabIndex = 0;
             this.tpage_profile.Text = "Profile";
             // 
+            // profilePage
+            // 
+            this.profilePage.Data = null;
+            this.profilePage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.profilePage.Location = new System.Drawing.Point(3, 3);
+            this.profilePage.Name = "profilePage";
+            this.profilePage.Size = new System.Drawing.Size(729, 463);
+            this.profilePage.TabIndex = 0;
+            this.profilePage.LogoutEvent += new System.EventHandler(this.profilePage_LogoutEvent);
+            // 
             // tpage_family
             // 
+            this.tpage_family.BackColor = System.Drawing.SystemColors.Control;
             this.tpage_family.Location = new System.Drawing.Point(4, 5);
             this.tpage_family.Name = "tpage_family";
             this.tpage_family.Padding = new System.Windows.Forms.Padding(3);
-            this.tpage_family.Size = new System.Drawing.Size(727, 457);
+            this.tpage_family.Size = new System.Drawing.Size(735, 469);
             this.tpage_family.TabIndex = 1;
             this.tpage_family.Text = "Family";
-            this.tpage_family.UseVisualStyleBackColor = true;
             // 
             // tpage_ilnesses
             // 
             this.tpage_ilnesses.Location = new System.Drawing.Point(4, 5);
             this.tpage_ilnesses.Name = "tpage_ilnesses";
-            this.tpage_ilnesses.Size = new System.Drawing.Size(727, 457);
+            this.tpage_ilnesses.Size = new System.Drawing.Size(735, 469);
             this.tpage_ilnesses.TabIndex = 2;
             this.tpage_ilnesses.Text = "Ilnesses";
             this.tpage_ilnesses.UseVisualStyleBackColor = true;
@@ -253,7 +267,7 @@ partial class MainPage
             // 
             this.tpage_medicines.Location = new System.Drawing.Point(4, 5);
             this.tpage_medicines.Name = "tpage_medicines";
-            this.tpage_medicines.Size = new System.Drawing.Size(727, 457);
+            this.tpage_medicines.Size = new System.Drawing.Size(735, 469);
             this.tpage_medicines.TabIndex = 3;
             this.tpage_medicines.Text = "Medicines";
             this.tpage_medicines.UseVisualStyleBackColor = true;
@@ -262,7 +276,7 @@ partial class MainPage
             // 
             this.tpage_takemed.Location = new System.Drawing.Point(4, 5);
             this.tpage_takemed.Name = "tpage_takemed";
-            this.tpage_takemed.Size = new System.Drawing.Size(727, 457);
+            this.tpage_takemed.Size = new System.Drawing.Size(735, 469);
             this.tpage_takemed.TabIndex = 4;
             this.tpage_takemed.Text = "Taking medicines";
             this.tpage_takemed.UseVisualStyleBackColor = true;
@@ -271,7 +285,7 @@ partial class MainPage
             // 
             this.tpage_statistics.Location = new System.Drawing.Point(4, 5);
             this.tpage_statistics.Name = "tpage_statistics";
-            this.tpage_statistics.Size = new System.Drawing.Size(727, 457);
+            this.tpage_statistics.Size = new System.Drawing.Size(735, 469);
             this.tpage_statistics.TabIndex = 5;
             this.tpage_statistics.Text = "Statisctics";
             this.tpage_statistics.UseVisualStyleBackColor = true;
@@ -280,7 +294,7 @@ partial class MainPage
             // 
             this.tpage_appoint.Location = new System.Drawing.Point(4, 5);
             this.tpage_appoint.Name = "tpage_appoint";
-            this.tpage_appoint.Size = new System.Drawing.Size(727, 457);
+            this.tpage_appoint.Size = new System.Drawing.Size(735, 469);
             this.tpage_appoint.TabIndex = 6;
             this.tpage_appoint.Text = "Appointments";
             this.tpage_appoint.UseVisualStyleBackColor = true;
@@ -295,9 +309,11 @@ partial class MainPage
             this.Controls.Add(this.flowPanelTabs);
             this.Name = "MainPage";
             this.Size = new System.Drawing.Size(806, 466);
+            this.DataReceived += new HomePharmacy.Controls.PhPage.GetData(this.MainPage_DataReceived);
             this.flowPanelTabs.ResumeLayout(false);
             this.panel.ResumeLayout(false);
             this.tab_main.ResumeLayout(false);
+            this.tpage_profile.ResumeLayout(false);
             this.ResumeLayout(false);
 
     }
@@ -319,4 +335,5 @@ partial class MainPage
     private TabPage tpage_takemed;
     private TabPage tpage_statistics;
     private TabPage tpage_appoint;
+    private MainPages.ProfilePage profilePage;
 }

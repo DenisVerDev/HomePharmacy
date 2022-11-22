@@ -40,5 +40,8 @@
     <Compile Update="FormTab\LogPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="MainPages\ProfilePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

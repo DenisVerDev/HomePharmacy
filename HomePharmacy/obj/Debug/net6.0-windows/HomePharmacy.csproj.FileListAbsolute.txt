@@ -73,3 +73,4 @@ D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePh
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.FormTab.FamCreationPage.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.FormTab.MainPage.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Controls.PhIcon.resources
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.MainPages.ProfilePage.resources
