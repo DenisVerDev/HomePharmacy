@@ -50,8 +50,7 @@ namespace HomePharmacy.FormTab
             {
                 // clear errors and input
                 var current = this.tab_form.SelectedTab.Controls[0] as PhPage;
-                current.HideErrors();
-                current.ClearInput();
+                current.HideClear();
 
                 // change tab
                 var tab_pages = this.tab_form.TabPages.Cast<TabPage>().ToArray();

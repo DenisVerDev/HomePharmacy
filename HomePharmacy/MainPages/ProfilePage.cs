@@ -15,6 +15,7 @@ namespace HomePharmacy.MainPages
     public partial class ProfilePage : PhPage
     {
         public event EventHandler LogoutEvent;
+        public event EventHandler ChangeCabinetEvent;
 
         private const long max_size = 204800; // size in bytes(200kb)
 
@@ -26,7 +27,16 @@ namespace HomePharmacy.MainPages
             this.datebirthCalendar.MaxDate = DateTime.Today;
         }
 
-        private void ShowInformation()
+        public override void ClearDataUI()
+        {
+            this.lb_email.Text = String.Empty;
+            this.lb_name.Text = String.Empty;
+            this.lb_sex.Text = String.Empty;
+            this.datebirthCalendar.SetDate(this.datebirthCalendar.MaxDate);
+            this.ResetImage();
+        }
+
+        public override void LoadDataUI()
         {
             // load base info
             this.lb_email.Text = this.user.Email;
@@ -170,6 +180,11 @@ namespace HomePharmacy.MainPages
             this.DbOperation = false;
         }
 
+        private void btn_changecab_PhClick(object sender, EventArgs e)
+        {
+            if (!this.DbOperation && this.ChangeCabinetEvent != null) this.ChangeCabinetEvent(this, e);
+        }
+
         private void btn_logout_PhClick(object sender, EventArgs e)
         {
             if (!this.DbOperation && this.LogoutEvent != null) this.LogoutEvent(this, e);
@@ -180,7 +195,9 @@ namespace HomePharmacy.MainPages
             if (this.Data != null && this.Data.Length > 0)
             {
                 this.user = (Person)this.Data[0];
-                this.ShowInformation();
+
+                this.ClearDataUI();
+                this.LoadDataUI();
             }
         }
     }

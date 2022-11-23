@@ -243,6 +243,7 @@ partial class MainPage
             this.profilePage.Size = new System.Drawing.Size(729, 463);
             this.profilePage.TabIndex = 0;
             this.profilePage.LogoutEvent += new System.EventHandler(this.profilePage_LogoutEvent);
+            this.profilePage.ChangeCabinetEvent += new System.EventHandler(this.profilePage_ChangeCabinetEvent);
             // 
             // tpage_family
             // 

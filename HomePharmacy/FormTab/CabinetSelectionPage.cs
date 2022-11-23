@@ -27,6 +27,44 @@ namespace HomePharmacy.FormTab
             InitializeComponent();
         }
 
+        public override void LoadDataUI()
+        {
+            try
+            {
+                // load families ui
+                for (int i = 0; i < this.families.Length; i++)
+                {
+                    var people = this.families[i].People.ToArray();
+
+                    var btn_family = new PhButton();
+                    btn_family.Size = new Size(136, 150);
+                    btn_family.BorderRadius = 30;
+                    btn_family.BorderColor = btn_createfam.BorderColor;
+                    btn_family.HoverBorderColor = btn_createfam.HoverBorderColor;
+                    btn_family.Caption = $"Family ID: {this.families[i].IdFamily}\n{people[0].Name}\n{people[1].Name}";
+                    btn_family.Tag = i;
+                    btn_family.Name = $"btn_{this.families[i].IdFamily}";
+                    btn_family.PhClick += Btn_family_PhClick;
+
+                    this.flowPanel.Controls.Add(btn_family);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Families UI exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public override void ClearDataUI()
+        {
+            int index = 2; // skip personal cabinet and create family
+            int count = this.flowPanel.Controls.Count - index;
+            for(int i = 0; i < count; i++)
+            {
+                this.flowPanel.Controls.RemoveAt(index);
+            }
+        }
+
         private async void LoadFamilies()
         {
             this.DbOperation = true;
@@ -38,27 +76,13 @@ namespace HomePharmacy.FormTab
                     using (HomePharmacyContext context = new HomePharmacyContext())
                     {
                         this.families = context.Persons.Where(x => x.Email == this.user.Email).SelectMany(s => s.IdFamilies).Include(c => c.People).ToArray();
-                        for (int i = 0; i < this.families.Length; i++)
+
+                        if (this.InvokeRequired)
                         {
-                            var people = this.families[i].People.ToArray();
-
-                            if (this.InvokeRequired)
+                            this.Invoke(new MethodInvoker(delegate
                             {
-                                this.Invoke(new MethodInvoker(delegate
-                                {
-                                    var btn_family = new PhButton();
-                                    btn_family.Size = new Size(136, 150);
-                                    btn_family.BorderRadius = 30;
-                                    btn_family.BorderColor = btn_createfam.BorderColor;
-                                    btn_family.HoverBorderColor = btn_createfam.HoverBorderColor;
-                                    btn_family.Caption = $"Family ID: {this.families[i].IdFamily}\n{people[0].Name}\n{people[1].Name}";
-                                    btn_family.Tag = i;
-                                    btn_family.Name = $"btn_{this.families[i].IdFamily}";
-                                    btn_family.PhClick += Btn_family_PhClick;
-
-                                    this.flowPanel.Controls.Add(btn_family);
-                                }));
-                            }
+                                this.LoadDataUI();
+                            }));
                         }
                     }
                 }
@@ -108,6 +132,8 @@ namespace HomePharmacy.FormTab
             {
                 this.user = (Person)this.Data[0];
                 this.previous = (Tabs)this.Data[1];
+
+                this.ClearDataUI();
                 this.LoadFamilies();
             }
         }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.EntityFrameworkCore;
 using HomePharmacy.Controls;
 using HomePharmacy.MainPages;
 using HomePharmacy.Models;
@@ -20,6 +21,8 @@ namespace HomePharmacy.FormTab
 
         private Person user;
         private Family? family;
+        private List<Illness> illnesses;
+        private List<Medicine> medicines;
 
         public MainPage()
         {
@@ -46,11 +49,6 @@ namespace HomePharmacy.FormTab
         {
             try
             {
-                // clear errors, input and other info
-                //var current = this.tab_main.SelectedTab.Controls[0] as PhPage;
-                //current.HideErrors();
-                //current.ClearInput();
-
                 // change tab
                 var tab_pages = this.tab_main.TabPages.Cast<TabPage>().ToArray();
                 var next_page = tab_pages.Where(x => (MainTabs)x.Tag == next).FirstOrDefault();
@@ -79,7 +77,20 @@ namespace HomePharmacy.FormTab
             var button = (PhIcon)sender;
             button.IsSelected = true;
 
-            this.ChangeMainTabs((MainTabs)button.Tag,this.user,this.family);
+            MainTabs next = (MainTabs)button.Tag;
+            switch (next)
+            {
+                case MainTabs.TakeMedicines:
+                    this.ChangeMainTabs((MainTabs)button.Tag, this.medicines);
+                    break;
+
+                default: this.ChangeMainTabs((MainTabs)button.Tag); break;
+            }
+        }
+
+        private void profilePage_ChangeCabinetEvent(object sender, EventArgs e)
+        {
+            if (this.ChangePage != null) this.ChangePage(Tabs.CabinetSelection,this.user,Tabs.Main);
         }
 
         private void profilePage_LogoutEvent(object sender, EventArgs e)
@@ -92,10 +103,50 @@ namespace HomePharmacy.FormTab
             if (this.Data != null && this.Data.Length > 0)
             {
                 this.user = (Person)this.Data[0];
-                if (this.Data.Length > 1) this.family = (Family)this.Data[1];
-                else this.family = null;
+                if (this.Data.Length > 1) this.family = (Family?)this.Data[1];
 
+                this.LoadData();
                 this.Page_Select(this.btn_profile, null);
+            }
+        }
+
+        private void LoadData()
+        {
+            try
+            {
+                using (HomePharmacyContext context = new HomePharmacyContext())
+                {
+
+                    if (this.family != null)
+                    {
+                        // load illnesses and appointments
+                        var people = this.family.People.ToArray();
+                        for (int i = 0; i < people.Length; i++)
+                        {
+                            var illnesses = context.Persons.Where(x => x.Email == people[i].Email).SelectMany(s => s.Illnesses).Include(c => c.Appointments).ToList();
+                            if(illnesses.Count > 0) this.illnesses.AddRange(illnesses);
+                        }
+
+                        // load medicines
+                        this.medicines = context.Families.Where(x => x.IdFamily == this.family.IdFamily).SelectMany(s => s.Medicines).ToList();
+                    }
+                    else
+                    {
+                        // load illnesses and appointments
+                        this.illnesses = context.Persons.Where(x => x.Email == this.user.Email).SelectMany(s => s.Illnesses).Include(c => c.Appointments).ToList();
+
+                        // load medicines
+                        this.medicines = context.Medicines.Where(x => x.BelongsToFamily == null && x.ForWhom == this.user.Email).ToList();
+                    }
+                }
+
+                // give data to the pages
+                this.profilePage.Data = new object[1] { this.user }; // profile page
+            }
+            catch(Exception ex)
+            {
+                this.flowPanelTabs.Controls.Cast<PhIcon>().ToList().ForEach(x => x.Enabled = false);
+                MessageBox.Show(ex.ToString(), "Loading data exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

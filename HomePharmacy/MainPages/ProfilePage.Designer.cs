@@ -45,6 +45,7 @@
             this.btn_save = new HomePharmacy.Controls.PhButton();
             this.btn_logout = new HomePharmacy.Controls.PhButton();
             this.btn_remove = new HomePharmacy.Controls.PhButton();
+            this.btn_changecab = new HomePharmacy.Controls.PhButton();
             this.SuspendLayout();
             // 
             // phPhoto
@@ -299,7 +300,7 @@
             this.btn_remove.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
             this.btn_remove.HoverFillColor = System.Drawing.Color.White;
             this.btn_remove.IsSelected = false;
-            this.btn_remove.Location = new System.Drawing.Point(221, 89);
+            this.btn_remove.Location = new System.Drawing.Point(221, 43);
             this.btn_remove.MinimumSize = new System.Drawing.Size(30, 30);
             this.btn_remove.Name = "btn_remove";
             this.btn_remove.ShowBorder = true;
@@ -308,10 +309,30 @@
             this.btn_remove.TabStop = false;
             this.btn_remove.PhClick += new System.EventHandler(this.btn_remove_PhClick);
             // 
+            // btn_changecab
+            // 
+            this.btn_changecab.BackColor = System.Drawing.Color.White;
+            this.btn_changecab.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
+            this.btn_changecab.BorderRadius = 30;
+            this.btn_changecab.Caption = "Change cabinet";
+            this.btn_changecab.FillColor = System.Drawing.Color.White;
+            this.btn_changecab.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.btn_changecab.HoverFillColor = System.Drawing.Color.White;
+            this.btn_changecab.IsSelected = false;
+            this.btn_changecab.Location = new System.Drawing.Point(221, 90);
+            this.btn_changecab.MinimumSize = new System.Drawing.Size(30, 30);
+            this.btn_changecab.Name = "btn_changecab";
+            this.btn_changecab.ShowBorder = true;
+            this.btn_changecab.Size = new System.Drawing.Size(122, 30);
+            this.btn_changecab.TabIndex = 18;
+            this.btn_changecab.TabStop = false;
+            this.btn_changecab.PhClick += new System.EventHandler(this.btn_changecab_PhClick);
+            // 
             // ProfilePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn_changecab);
             this.Controls.Add(this.btn_remove);
             this.Controls.Add(this.btn_logout);
             this.Controls.Add(this.btn_save);
@@ -356,5 +377,6 @@
         private Controls.PhButton btn_save;
         private Controls.PhButton btn_logout;
         private Controls.PhButton btn_remove;
+        private Controls.PhButton btn_changecab;
     }
 }

@@ -38,8 +38,18 @@ namespace HomePharmacy.Controls
             this.DbOperation = false;
         }
 
+        public void HideClear()
+        {
+            this.HideErrors();
+            this.ClearInput();
+        }
+
         public virtual void HideErrors() { }
 
         public virtual void ClearInput() { }
+
+        public virtual void LoadDataUI() { }
+
+        public virtual void ClearDataUI() { }
     }
 }
