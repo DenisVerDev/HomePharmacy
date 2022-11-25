@@ -100,12 +100,11 @@ namespace HomePharmacy.FormTab
 
         private void MainPage_DataReceived()
         {
-            if (this.Data != null && this.Data.Length > 0)
+            if (this.Data != null && this.Data.Length == 2)
             {
                 // gettind new data
                 this.user = (Person)this.Data[0];
-                if (this.Data.Length > 1) this.family = (Family?)this.Data[1];
-                else this.family = null; // ???
+                this.family = (Family?)this.Data[1];
 
                 // analyzing data
                 if (this.family != null) this.btn_family.Enabled = true;

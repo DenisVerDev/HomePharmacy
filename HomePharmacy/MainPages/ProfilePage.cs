@@ -192,7 +192,7 @@ namespace HomePharmacy.MainPages
 
         private void ProfilePage_DataReceived()
         {
-            if (this.Data != null && this.Data.Length > 0)
+            if (this.Data != null && this.Data.Length == 1)
             {
                 this.user = (Person)this.Data[0];
 

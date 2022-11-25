@@ -80,6 +80,8 @@ namespace HomePharmacy.FormTab
                 }
                 catch (Exception ex)
                 {
+                    this.families = null;
+
                     if (this.InvokeRequired)
                     {
                         this.Invoke(new MethodInvoker(delegate
@@ -90,7 +92,7 @@ namespace HomePharmacy.FormTab
                 }
             });
 
-            if(this.families != null) this.LoadDataUI();
+            if(this.families != null && this.families.Length > 0) this.LoadDataUI();
 
             this.DbOperation = false;
         }
@@ -107,7 +109,7 @@ namespace HomePharmacy.FormTab
 
         private void btn_personalcab_PhClick(object sender, EventArgs e)
         {
-            if (!this.DbOperation && ChangePage != null) ChangePage(Tabs.Main, user);
+            if (!this.DbOperation && ChangePage != null) ChangePage(Tabs.Main, user,null);
         }
 
         private void btn_createfam_PhClick(object sender, EventArgs e)
@@ -122,7 +124,7 @@ namespace HomePharmacy.FormTab
 
         private void CabinetSelectionPage_DataReceived()
         {
-            if (this.Data != null && this.Data.Length > 0)
+            if (this.Data != null && this.Data.Length == 2)
             {
                 this.user = (Person)this.Data[0];
                 this.previous = (Tabs)this.Data[1];

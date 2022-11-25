@@ -35,70 +35,74 @@ namespace HomePharmacy.FormTab
 
         private async void btn_create_PhClick(object sender, EventArgs e)
         {
-            this.HideErrors();
-
             string other_email = tb_email.PhText;
 
-            if (!this.DbOperation && DBValidation.PersonValidation.EmailValidation(other_email))
+            if (!this.DbOperation)
             {
-                this.DbOperation = true;
+                this.HideErrors();
 
-                Family? family = new Family();
-
-                await Task.Run(() =>
+                if (DBValidation.PersonValidation.EmailValidation(other_email))
                 {
-                    try
+                    this.DbOperation = true;
+
+                    Family? family = new Family();
+
+                    await Task.Run(() =>
                     {
-                        using (HomePharmacyContext context = new HomePharmacyContext())
+                        try
                         {
-                            Person? other_person = context.Persons.Where(x => x.Email == other_email).FirstOrDefault();
-
-                            if (other_person != null)
+                            using (HomePharmacyContext context = new HomePharmacyContext())
                             {
-                                // create new family
-                                context.Families.Add(family);
-                                context.SaveChanges();
+                                Person? user = context.Persons.Where(x => x.Email == this.user.Email).FirstOrDefault();
+                                Person? other_person = context.Persons.Where(x => x.Email == other_email).FirstOrDefault();
 
-                                // create relation between persons and family
-                                user.IdFamilies.Add(family);
-                                other_person.IdFamilies.Add(family);
-                                context.Update(user);
-                                context.SaveChanges();
+                                if (user != null && other_person != null)
+                                {
+                                    // create new family
+                                    context.Families.Add(family);
+                                    context.SaveChanges();
+
+                                    // create relation between persons and family
+                                    user.IdFamilies.Add(family);
+                                    other_person.IdFamilies.Add(family);
+                                    context.Update(user);
+                                    context.SaveChanges();
+                                }
+                                else
+                                {
+                                    family = null;
+
+                                    if (this.lb_email_check.InvokeRequired)
+                                        this.lb_email_check.Invoke(new MethodInvoker(delegate
+                                        {
+                                            this.lb_email_check.Text = "Account with such email does not exist!";
+                                        }));
+                                }
+
                             }
-                            else
-                            {
-                                family = null;
-
-                                if (this.lb_email_check.InvokeRequired)
-                                    this.lb_email_check.Invoke(new MethodInvoker(delegate
-                                    {
-                                        this.lb_email_check.Text = "Account with such email does not exist!";
-                                    }));
-                            }
-
                         }
-                    }
-                    catch(Exception ex)
-                    {
-                        family = null;
-
-                        if (this.InvokeRequired)
+                        catch (Exception ex)
                         {
-                            this.Invoke(new MethodInvoker(delegate
+                            family = null;
+
+                            if (this.InvokeRequired)
                             {
-                                MessageBox.Show(ex.ToString(), "Database exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }));
+                                this.Invoke(new MethodInvoker(delegate
+                                {
+                                    MessageBox.Show(ex.ToString(), "Database exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }));
+                            }
                         }
-                    }
-                });
+                    });
 
 
-                // transfer data
-                if (family != null && this.ChangePage != null) this.ChangePage(Tabs.Main, user, family);
+                    // transfer data
+                    if (family != null && this.ChangePage != null) this.ChangePage(Tabs.Main, user, family);
 
-                this.DbOperation = false;
+                    this.DbOperation = false;
+                }
+                else lb_email_check.Text = DBValidation.ValidationErrorMsg;
             }
-            else lb_email_check.Text = DBValidation.ValidationErrorMsg;
         }
 
         private void btn_back_PhClick(object sender, EventArgs e)
@@ -108,7 +112,7 @@ namespace HomePharmacy.FormTab
 
         private void FamCreationPage_DataReceived()
         {
-            if (this.Data != null && this.Data.Length > 0) this.user = (Person)this.Data[0];
+            if (this.Data != null && this.Data.Length == 1) this.user = (Person)this.Data[0];
         }
     }
 }

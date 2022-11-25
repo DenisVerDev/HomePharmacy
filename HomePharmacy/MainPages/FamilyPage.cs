@@ -42,19 +42,22 @@ namespace HomePharmacy.MainPages
         public override void LoadDataUI()
         {
             var persons = this.GetPersonsByFilter();
-            for(int i = 0; i < persons.Length; i++)
+            if (persons != null)
             {
-                if(persons[i].Email != this.user.Email) this.flowPanel.Controls.Add(new PersonInfo() { Person = persons[i]});
+                for (int i = 0; i < persons.Length; i++)
+                {
+                    if (persons[i].Email != this.user.Email) this.flowPanel.Controls.Add(new PersonInfo() { Person = persons[i] });
+                }
             }
         }
 
-        private Person[] GetPersonsByFilter()
+        private Person[]? GetPersonsByFilter()
         {
-            Person[] person;
+            Person[]? person = null;
 
             if (DBValidation.PersonValidation.SexValidation(this.cb_sex.PhText))
-                person = this.family.People.Where(x => x.Sex == cb_sex.PhText).ToArray();
-            else person = this.family.People.ToArray();
+                person = this.family?.People.Where(x => x.Sex == cb_sex.PhText).ToArray();
+            else person = this.family?.People.ToArray();
 
             return person;
         }
@@ -161,7 +164,7 @@ namespace HomePharmacy.MainPages
                 this.family = (Family?)this.Data[1];
 
                 this.ClearDataUI();
-                if(this.family != null) this.LoadDataUI();
+                this.LoadDataUI();
             }
         }
 
