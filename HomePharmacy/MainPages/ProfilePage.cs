@@ -68,7 +68,7 @@ namespace HomePharmacy.MainPages
             }
             catch(Exception ex)
             {
-                this.phPhoto.IconImage = null;
+                this.ResetImage();
             }
         }
 

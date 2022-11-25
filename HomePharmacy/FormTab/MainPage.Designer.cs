@@ -40,6 +40,7 @@ partial class MainPage
             this.tpage_profile = new System.Windows.Forms.TabPage();
             this.profilePage = new HomePharmacy.MainPages.ProfilePage();
             this.tpage_family = new System.Windows.Forms.TabPage();
+            this.familyPage = new HomePharmacy.MainPages.FamilyPage();
             this.tpage_ilnesses = new System.Windows.Forms.TabPage();
             this.tpage_medicines = new System.Windows.Forms.TabPage();
             this.tpage_takemed = new System.Windows.Forms.TabPage();
@@ -49,6 +50,7 @@ partial class MainPage
             this.panel.SuspendLayout();
             this.tab_main.SuspendLayout();
             this.tpage_profile.SuspendLayout();
+            this.tpage_family.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_family
@@ -248,12 +250,23 @@ partial class MainPage
             // tpage_family
             // 
             this.tpage_family.BackColor = System.Drawing.SystemColors.Control;
+            this.tpage_family.Controls.Add(this.familyPage);
             this.tpage_family.Location = new System.Drawing.Point(4, 5);
             this.tpage_family.Name = "tpage_family";
             this.tpage_family.Padding = new System.Windows.Forms.Padding(3);
             this.tpage_family.Size = new System.Drawing.Size(735, 469);
             this.tpage_family.TabIndex = 1;
             this.tpage_family.Text = "Family";
+            // 
+            // familyPage
+            // 
+            this.familyPage.Data = null;
+            this.familyPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.familyPage.Location = new System.Drawing.Point(3, 3);
+            this.familyPage.Name = "familyPage";
+            this.familyPage.Size = new System.Drawing.Size(729, 463);
+            this.familyPage.TabIndex = 0;
+            this.familyPage.LeaveFamily += new System.EventHandler(this.profilePage_ChangeCabinetEvent);
             // 
             // tpage_ilnesses
             // 
@@ -315,6 +328,7 @@ partial class MainPage
             this.panel.ResumeLayout(false);
             this.tab_main.ResumeLayout(false);
             this.tpage_profile.ResumeLayout(false);
+            this.tpage_family.ResumeLayout(false);
             this.ResumeLayout(false);
 
     }
@@ -337,4 +351,5 @@ partial class MainPage
     private TabPage tpage_statistics;
     private TabPage tpage_appoint;
     private MainPages.ProfilePage profilePage;
+    private MainPages.FamilyPage familyPage;
 }

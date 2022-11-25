@@ -102,8 +102,14 @@ namespace HomePharmacy.FormTab
         {
             if (this.Data != null && this.Data.Length > 0)
             {
+                // gettind new data
                 this.user = (Person)this.Data[0];
                 if (this.Data.Length > 1) this.family = (Family?)this.Data[1];
+                else this.family = null; // ???
+
+                // analyzing data
+                if (this.family != null) this.btn_family.Enabled = true;
+                else this.btn_family.Enabled = false;
 
                 this.LoadData();
                 this.Page_Select(this.btn_profile, null);
@@ -142,6 +148,7 @@ namespace HomePharmacy.FormTab
 
                 // give data to the pages
                 this.profilePage.Data = new object[1] { this.user }; // profile page
+                this.familyPage.Data = new object[2] { this.user, this.family }; // family page
             }
             catch(Exception ex)
             {

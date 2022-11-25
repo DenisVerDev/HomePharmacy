@@ -76,14 +76,6 @@ namespace HomePharmacy.FormTab
                     using (HomePharmacyContext context = new HomePharmacyContext())
                     {
                         this.families = context.Persons.Where(x => x.Email == this.user.Email).SelectMany(s => s.IdFamilies).Include(c => c.People).ToArray();
-
-                        if (this.InvokeRequired)
-                        {
-                            this.Invoke(new MethodInvoker(delegate
-                            {
-                                this.LoadDataUI();
-                            }));
-                        }
                     }
                 }
                 catch (Exception ex)
@@ -97,6 +89,8 @@ namespace HomePharmacy.FormTab
                     }
                 }
             });
+
+            if(this.families != null) this.LoadDataUI();
 
             this.DbOperation = false;
         }
