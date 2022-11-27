@@ -27,6 +27,8 @@ namespace HomePharmacy.FormTab
         public MainPage()
         {
             InitializeComponent();
+            this.illnesses = new List<Illness>();
+            this.medicines = new List<Medicine>();
            
             // buttons Tag
             this.btn_profile.Tag = MainTabs.Profile;
@@ -121,7 +123,11 @@ namespace HomePharmacy.FormTab
             {
                 using (HomePharmacyContext context = new HomePharmacyContext())
                 {
+                    // clear all previous data
+                    this.illnesses.Clear();
+                    this.medicines.Clear();
 
+                    // load new data
                     if (this.family != null)
                     {
                         // load illnesses and appointments
@@ -148,6 +154,7 @@ namespace HomePharmacy.FormTab
                 // give data to the pages
                 this.profilePage.Data = new object[1] { this.user }; // profile page
                 this.familyPage.Data = new object[2] { this.user, this.family }; // family page
+                this.illnessesPage.Data = new object[3] { this.user,this.family,this.illnesses }; // illnesses page
             }
             catch(Exception ex)
             {

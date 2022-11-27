@@ -78,5 +78,37 @@ namespace HomePharmacy
             }
         }
         #endregion
+
+        #region Illness validation
+        public struct IllnessValidation
+        { 
+            public static bool DiagnoseValidation(string diagnose)
+            {
+                if(diagnose == null || diagnose == String.Empty)
+                {
+                    ValidationErrorMsg = "Diagnose must not be null!";
+                    return false;
+                }
+
+                return true;
+            }
+
+            public static bool DateValidation(DateTime start, DateTime? end)
+            {
+                if(end != null)
+                {
+                    if(end <= start)
+                    {
+                        ValidationErrorMsg = "End date must be later than the start date!";
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
+
+
+        #endregion
     }
 }

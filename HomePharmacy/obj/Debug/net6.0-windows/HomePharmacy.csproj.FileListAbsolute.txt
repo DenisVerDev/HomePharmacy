@@ -76,3 +76,5 @@ D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePh
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.MainPages.ProfilePage.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Controls.PersonInfo.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.MainPages.FamilyPage.resources
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Forms.IllnessForm.resources
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.MainPages.IllnessesPage.resources

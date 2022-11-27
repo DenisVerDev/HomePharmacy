@@ -46,11 +46,13 @@ partial class MainPage
             this.tpage_takemed = new System.Windows.Forms.TabPage();
             this.tpage_statistics = new System.Windows.Forms.TabPage();
             this.tpage_appoint = new System.Windows.Forms.TabPage();
+            this.illnessesPage = new HomePharmacy.MainPages.IllnessesPage();
             this.flowPanelTabs.SuspendLayout();
             this.panel.SuspendLayout();
             this.tab_main.SuspendLayout();
             this.tpage_profile.SuspendLayout();
             this.tpage_family.SuspendLayout();
+            this.tpage_ilnesses.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_family
@@ -270,6 +272,7 @@ partial class MainPage
             // 
             // tpage_ilnesses
             // 
+            this.tpage_ilnesses.Controls.Add(this.illnessesPage);
             this.tpage_ilnesses.Location = new System.Drawing.Point(4, 5);
             this.tpage_ilnesses.Name = "tpage_ilnesses";
             this.tpage_ilnesses.Size = new System.Drawing.Size(735, 469);
@@ -313,6 +316,15 @@ partial class MainPage
             this.tpage_appoint.Text = "Appointments";
             this.tpage_appoint.UseVisualStyleBackColor = true;
             // 
+            // illnessesPage
+            // 
+            this.illnessesPage.Data = null;
+            this.illnessesPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.illnessesPage.Location = new System.Drawing.Point(0, 0);
+            this.illnessesPage.Name = "illnessesPage";
+            this.illnessesPage.Size = new System.Drawing.Size(735, 469);
+            this.illnessesPage.TabIndex = 0;
+            // 
             // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -329,6 +341,7 @@ partial class MainPage
             this.tab_main.ResumeLayout(false);
             this.tpage_profile.ResumeLayout(false);
             this.tpage_family.ResumeLayout(false);
+            this.tpage_ilnesses.ResumeLayout(false);
             this.ResumeLayout(false);
 
     }
@@ -352,4 +365,5 @@ partial class MainPage
     private TabPage tpage_appoint;
     private MainPages.ProfilePage profilePage;
     private MainPages.FamilyPage familyPage;
+    private MainPages.IllnessesPage illnessesPage;
 }
