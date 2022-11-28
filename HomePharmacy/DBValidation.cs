@@ -86,7 +86,7 @@ namespace HomePharmacy
             {
                 if(diagnose == null || diagnose == String.Empty)
                 {
-                    ValidationErrorMsg = "Diagnose must not be null!";
+                    ValidationErrorMsg = "Diagnose must not be empty!";
                     return false;
                 }
 
@@ -108,6 +108,36 @@ namespace HomePharmacy
             }
         }
 
+
+        #endregion
+
+        #region Appointment validation
+
+        public struct AppointmentValidation
+        { 
+            
+            public static bool MedicineListValidation(string meds)
+            {
+                if(meds == null || meds == String.Empty)
+                {
+                    ValidationErrorMsg = "Medicine list must not be empty!";
+                    return false;
+                }
+
+                return true;
+            }
+
+            public static bool RecommendatorValidation(string recom)
+            {
+                if(recom == null || recom == String.Empty)
+                {
+                    ValidationErrorMsg = "Recommendator must not be empty!";
+                    return false;
+                }
+
+                return true;
+            }
+        }
 
         #endregion
     }

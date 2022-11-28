@@ -15,6 +15,8 @@ namespace HomePharmacy.MainPages
 {
     public partial class IllnessesPage : PhPage
     {
+        public ChangeMainPageEvent? ChangeMainPageEvent;
+
         private Person user;
         private Family? family;
         private List<Illness> illnesses;
@@ -159,6 +161,16 @@ namespace HomePharmacy.MainPages
 
             this.ClearDataUI();
             this.LoadDataUI();
+        }
+
+        private void btn_appointments_PhClick(object sender, EventArgs e)
+        {
+            var selected_row = this.dgv_illnesses.SelectedRows[0];
+            int id_illness = (int)selected_row.Cells["Id Illness"].Value;
+
+            Illness illness = this.illnesses.Where(x => x.IdIllness == id_illness).First();
+
+            if (this.ChangeMainPageEvent != null) this.ChangeMainPageEvent(MainTabs.Appointments, illness);
         }
 
         private void IllnessesPage_DataReceived()

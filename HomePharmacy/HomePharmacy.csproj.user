@@ -10,6 +10,9 @@
     <Compile Update="Controls\PhPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Forms\AppointmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\IllnessForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -44,6 +47,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FormTab\LogPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="MainPages\AppointmentsPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="MainPages\FamilyPage.cs">

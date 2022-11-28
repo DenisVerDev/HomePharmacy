@@ -114,6 +114,7 @@
             this.btn_appointments.Size = new System.Drawing.Size(133, 31);
             this.btn_appointments.TabIndex = 36;
             this.btn_appointments.TabStop = false;
+            this.btn_appointments.PhClick += new System.EventHandler(this.btn_appointments_PhClick);
             // 
             // btn_add
             // 

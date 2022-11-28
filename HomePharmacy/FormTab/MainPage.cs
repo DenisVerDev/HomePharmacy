@@ -45,6 +45,8 @@ namespace HomePharmacy.FormTab
             this.tpage_medicines.Tag = MainTabs.Medicines;
             this.tpage_takemed.Tag = MainTabs.TakeMedicines;
             this.tpage_statistics.Tag = MainTabs.Statisctics;
+
+            this.illnessesPage.ChangeMainPageEvent += this.ChangeMainTabs;
         }
 
         private void ChangeMainTabs(MainTabs next, params object[]? data)
@@ -82,6 +84,7 @@ namespace HomePharmacy.FormTab
             MainTabs next = (MainTabs)button.Tag;
             switch (next)
             {
+
                 case MainTabs.TakeMedicines:
                     this.ChangeMainTabs((MainTabs)button.Tag, this.medicines);
                     break;

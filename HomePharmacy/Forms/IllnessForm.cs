@@ -16,13 +16,6 @@ namespace HomePharmacy.Forms
     {
         public Illness Illness { get; private set; }
 
-        public enum ActionType 
-        {
-            ADD,
-            UPDATE,
-            INFORMATION
-        }
-
         private ActionType current_action;
 
         public IllnessForm()
