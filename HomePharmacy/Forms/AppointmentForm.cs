@@ -25,9 +25,12 @@ namespace HomePharmacy.Forms
 
         private ActionType current_action;
 
+        private bool DbOperation;
+
         public AppointmentForm()
         {
             InitializeComponent();
+            this.DbOperation = false;
         }
 
         public void InitAdd(int id_illness)
@@ -39,10 +42,10 @@ namespace HomePharmacy.Forms
 
             this.Controls.OfType<TextBox>().ToList().ForEach(x => x.ReadOnly = false);
 
-            this.tb_medicines.Text = "List of medicines";
-            this.tb_recommendator.Text = "Recommendator";
-            this.tb_volume.Text = "Appointment's volume";
-            this.tb_comment.Text = "Additional information";
+            this.tb_medicines.Text = String.Empty;
+            this.tb_recommendator.Text = String.Empty;
+            this.tb_volume.Text = String.Empty;
+            this.tb_comment.Text = String.Empty;
 
             this.btn_action.Caption = "Add appointment";
             this.btn_action.Enabled = true;
@@ -97,6 +100,8 @@ namespace HomePharmacy.Forms
 
         private async void AddAppointment(string meds, string recom, string? volume, string? addition_info)
         {
+            this.DbOperation = true;
+
             DialogResult result = DialogResult.None;
 
             this.Appointment.MedicineList = meds;
@@ -143,11 +148,14 @@ namespace HomePharmacy.Forms
 
             // exit if everything was good or exception
             if (result == DialogResult.OK || result == DialogResult.Abort) this.DialogResult = result;
-            else this.Appointment = null;
+
+            this.DbOperation = false;
         }
 
         private async void UpdateAppointment(string meds, string recom, string? volume, string? addition_info)
         {
+            this.DbOperation = true;
+
             DialogResult result = DialogResult.None;
 
             await Task.Run(() => 
@@ -156,30 +164,37 @@ namespace HomePharmacy.Forms
                 {
                     using(HomePharmacyContext context = new HomePharmacyContext())
                     {
-                        if(!context.Appointments.Any(x => x.IdIllness == this.Appointment.IdIllness && x.MedicineList == meds && x.Recommendator == recom))
+                        int count = context.Appointments.Count(x => x.IdIllness == this.Appointment.IdIllness && x.MedicineList == meds && x.Recommendator == recom);
+                       
+                        if (count == 0) result = DialogResult.OK; // we dont have updated appointment
+                        else if (count == 1) // we have the same appointment but we dont know if its the old one(the new values are the same as the old ones)
                         {
-                            // update every illness related appointment, it should not work like that!!!!!!!!!!!
-                            int rows = context.Database.ExecuteSql($"update Appointments set MedicineList={meds},Recommendator={recom},AppointmentVolume={volume},AdditionalInfo={addition_info} where IdIllness={this.Appointment.IdIllness}");
-                            if(rows == 1)
+                            if (this.Appointment.MedicineList == meds && this.Appointment.Recommendator == recom) result = DialogResult.OK;
+                            else result = DialogResult.TryAgain;
+                        }
+
+                        // processing and analyzing result
+                        if(result == DialogResult.OK)
+                        {
+                            int rows = context.Database.ExecuteSql($"update Appointments set MedicineList={meds},Recommendator={recom},AppointmentVolume={volume},AdditionalInfo={addition_info} where IdIllness={this.Appointment.IdIllness} and MedicineList={this.Appointment.MedicineList} and Recommendator={this.Appointment.Recommendator}");
+                            if (rows == 1)
                             {
                                 this.Appointment.MedicineList = meds;
                                 this.Appointment.Recommendator = recom;
                                 this.Appointment.AppointmentVolume = volume;
                                 this.Appointment.AdditionalInfo = addition_info;
-                                result = DialogResult.OK;
                             }
                             else throw new Exception("Exception with the update function!");
                         }
                         else
                         {
-                            result = DialogResult.TryAgain;
-
                             if (this.InvokeRequired)
                                 this.Invoke(new MethodInvoker(delegate
                                 {
                                     MessageBox.Show("There is already such appointment", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }));
                         }
+
                     }
                 }
                 catch(Exception ex)
@@ -196,7 +211,8 @@ namespace HomePharmacy.Forms
 
             // exit if everything was good or exception
             if (result == DialogResult.OK || result == DialogResult.Abort) this.DialogResult = result;
-            else this.Appointment = null;
+
+            this.DbOperation = false;
         }
 
         private void btn_action_PhClick(object sender, EventArgs e)
@@ -206,7 +222,7 @@ namespace HomePharmacy.Forms
             string? volume = this.tb_volume.Text != String.Empty ? this.tb_volume.Text : null;
             string? addition_info = this.tb_comment.Text != String.Empty ? this.tb_comment.Text : null;
 
-            if (this.DataValidation(meds, recom))
+            if (!this.DbOperation && this.DataValidation(meds, recom))
             {
                 if (this.current_action == ActionType.ADD) this.AddAppointment(meds, recom, volume, addition_info);
                 else if (this.current_action == ActionType.UPDATE) this.UpdateAppointment(meds, recom, volume, addition_info);

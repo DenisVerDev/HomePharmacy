@@ -18,17 +18,19 @@ namespace HomePharmacy.Forms
 
         private ActionType current_action;
 
+        private bool DbOperation;
+
         public IllnessForm()
         {
             InitializeComponent();
             this.dateStartCalendar.MaxDate = DateTime.Today;
             this.dateEndCalendar.MaxDate = DateTime.Today;
+
+            this.DbOperation = false;
         }
 
-        #region Interface init
-        private void GuiInit(string[] people)
+        private void InitEmail(string[] people)
         {
-            // cb_email init
             this.cb_email.Items.Clear();
 
             if (people.Length == 1)
@@ -43,60 +45,77 @@ namespace HomePharmacy.Forms
                 this.cb_email.Items.AddRange(people);
             }
 
-            // init other things
-            switch(this.current_action)
+        }
+
+        public void InitAdd(string[] people)
+        {
+            if (people != null)
             {
-                case ActionType.ADD:
-                    // tb_diagnose init
-                    this.tb_diagnose.Text = "Diagnoses";
-                    this.tb_diagnose.ReadOnly = false;
-                    // start date calendar init
-                    this.dateStartCalendar.SetDate(DateTime.Today);
-                    this.DateStartCalendarEnable(true);
-                    // end date calendar init
-                    this.dateEndCalendar.SetDate(DateTime.Today);
-                    this.chb_enddate.Checked = false;
-                    this.chb_enddate.Enabled = true;
-                    // action button init
-                    this.btn_action.Caption = "Add illness";
-                    this.btn_action.Enabled = true;
-                    break;
+                DialogResult = DialogResult.None;
+                this.current_action = ActionType.ADD;
 
-                case ActionType.UPDATE:
-                    // tb_diagnose init
-                    this.tb_diagnose.Text = this.Illness.Diagnoses;
-                    this.tb_diagnose.ReadOnly = false;
-                    // start date calendar init
-                    this.dateStartCalendar.SetDate(this.Illness.StartDate);
-                    this.DateStartCalendarEnable(true);
-                    // end date calendar init
-                    this.chb_enddate.Checked = (this.Illness.EndDate != null);
-                    if (this.chb_enddate.Checked) this.dateEndCalendar.SetDate((DateTime)this.Illness.EndDate);
-                    else this.dateEndCalendar.SetDate(DateTime.Today);
-                    this.chb_enddate.Enabled = true;
-                    // action button init
-                    this.btn_action.Caption = "Update illness";
-                    this.btn_action.Enabled = true;
-                    break;
+                this.InitEmail(people);
 
-                case ActionType.INFORMATION:
-                    // tb_diagnose init
+                this.tb_diagnose.Text = String.Empty;
+                this.tb_diagnose.ReadOnly = false;
+
+                this.dateStartCalendar.SetDate(DateTime.Today);
+                this.DateStartCalendarEnable(true);
+
+                this.dateEndCalendar.SetDate(DateTime.Today);
+                this.chb_enddate.Checked = false;
+                this.chb_enddate.Enabled = true;
+
+                this.btn_action.Caption = "Add illness";
+                this.btn_action.Enabled = true;
+            }
+            else this.btn_action.Enabled = false;
+        }
+
+        public void InitInfoOrUpdate(ActionType action, Illness illness)
+        {
+            if (illness != null)
+            {
+                if (action != ActionType.ADD)
+                {
+                    DialogResult = DialogResult.None;
+                    this.current_action = action;
+
+                    this.Illness = illness;
+
+                    if (this.current_action == ActionType.INFORMATION)
+                    {
+                        this.tb_diagnose.ReadOnly = true;
+
+                        this.DateStartCalendarEnable(false);
+                        this.chb_enddate.Checked = false;
+                        this.chb_enddate.Enabled = false;
+
+                        this.btn_action.Caption = "Information";
+                        this.btn_action.Enabled = false;
+                    }
+                    else
+                    {
+                        this.tb_diagnose.ReadOnly = false;
+
+                        this.DateStartCalendarEnable(true);
+                        this.chb_enddate.Checked = (this.Illness.EndDate != null);
+                        this.chb_enddate.Enabled = true;
+
+                        this.btn_action.Caption = "Update illness";
+                        this.btn_action.Enabled = true;
+                    }
+
+                    this.InitEmail(new string[1] { this.Illness.IlledPerson });
                     this.tb_diagnose.Text = this.Illness.Diagnoses;
-                    this.tb_diagnose.ReadOnly = true;
-                    // start date calendar init
                     this.dateStartCalendar.SetDate(this.Illness.StartDate);
-                    this.DateStartCalendarEnable(false);
-                    // end date calendar init
+
                     if (this.Illness.EndDate != null) this.dateEndCalendar.SetDate((DateTime)this.Illness.EndDate);
                     else this.dateEndCalendar.SetDate(DateTime.Today);
-                    this.chb_enddate.Checked = false;
-                    this.chb_enddate.Enabled = false;
-                    // action button init
-                    this.btn_action.Caption = "Information";
-                    this.btn_action.Enabled = false;
-                    break;
+                }
+                else this.btn_action.Enabled = false;
             }
-
+            else this.btn_action.Enabled = false;
         }
 
         private void DateStartCalendarEnable(bool enable)
@@ -105,42 +124,6 @@ namespace HomePharmacy.Forms
             this.rb_startdate.Enabled = enable;
             this.dateStartCalendar.Enabled = enable;
         }
-
-        public void InitAdd(string[] people)
-        {
-            DialogResult = DialogResult.None;
-            this.current_action = ActionType.ADD;
-
-            if (people != null && people.Length > 0) this.GuiInit(people);
-            else this.btn_action.Enabled = false;
-        }
-
-        public void InitUpdate(Illness illness)
-        {
-            DialogResult = DialogResult.None;
-            this.current_action = ActionType.UPDATE;
-
-            if (illness != null)
-            {
-                this.Illness = illness;
-                this.GuiInit(new string[1] { this.Illness.IlledPerson });
-            }
-            else this.btn_action.Enabled = false;
-        }
-
-        public void InitInformation(Illness illness)
-        {
-            DialogResult = DialogResult.None;
-            this.current_action = ActionType.INFORMATION;
-
-            if (illness != null)
-            {
-                this.Illness = illness;
-                this.GuiInit(new string[1] { this.Illness.IlledPerson });
-            }
-            else this.btn_action.Enabled = false;
-        }
-        #endregion
 
         private bool DataValidation(string email, string diagnose, DateTime start, DateTime? end)
         {
@@ -156,6 +139,8 @@ namespace HomePharmacy.Forms
 
         private async void CreateIllness(string email, string diagnose, DateTime start, DateTime? end)
         {
+            this.DbOperation = true;
+
             DialogResult result = DialogResult.None;
 
             this.Illness = new Illness()
@@ -172,7 +157,7 @@ namespace HomePharmacy.Forms
                 {
                     using (HomePharmacyContext context = new HomePharmacyContext())
                     {
-                        if (!context.Illnesses.Any(x => x.IlledPerson == Illness.IlledPerson && x.Diagnoses == Illness.Diagnoses && x.StartDate == Illness.StartDate))
+                        if (!context.Illnesses.Any(x => x.IlledPerson == email && x.Diagnoses == diagnose && x.StartDate == start))
                         {
                             context.Illnesses.Add(this.Illness);
                             context.SaveChanges();
@@ -205,11 +190,14 @@ namespace HomePharmacy.Forms
 
             // exit if everything was good or exception
             if (result == DialogResult.OK || result == DialogResult.Abort) this.DialogResult = result;
-            else this.Illness = null;
+
+            this.DbOperation = false;
         }
 
         private async void UpdateIllness(string email, string diagnose, DateTime start, DateTime? end)
         {
+            this.DbOperation = true;
+
             DialogResult result = DialogResult.None;
 
             await Task.Run(() => 
@@ -218,7 +206,17 @@ namespace HomePharmacy.Forms
                 {
                     using(HomePharmacyContext context = new HomePharmacyContext())
                     {
-                        if (!context.Illnesses.Any(x => x.IlledPerson == email && x.Diagnoses == diagnose && x.StartDate == start)) // check for the updated|same version
+                        int count = context.Illnesses.Count(x => x.IlledPerson == email && x.Diagnoses == diagnose && x.StartDate == start);
+
+                        if (count == 0) result = DialogResult.OK;
+                        else if(count == 1)
+                        {
+                            if (this.Illness.IlledPerson == email && this.Illness.Diagnoses == diagnose && this.Illness.StartDate == start) result = DialogResult.OK;
+                            else result = DialogResult.TryAgain;
+                        }
+
+                        // processing and analyzing result
+                        if (result == DialogResult.OK) 
                         {
                             // ef core cant update primary keys, so i have to do it in a raw way
                             int rows = context.Database.ExecuteSql($"update Illnesses set Diagnoses={diagnose},StartDate={start},EndDate={end} where IdIllness = {this.Illness.IdIllness}");
@@ -228,20 +226,18 @@ namespace HomePharmacy.Forms
                                 this.Illness.Diagnoses = diagnose;
                                 this.Illness.StartDate = start;
                                 this.Illness.EndDate = end;
-                                result = DialogResult.OK;
                             }
                             else throw new Exception("Exception with the update function!");
                         }
                         else
                         {
-                            result = DialogResult.TryAgain;
-
                             if (this.InvokeRequired)
                                 this.Invoke(new MethodInvoker(delegate
                                 {
                                     MessageBox.Show("There is already such illness", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }));
                         }
+
                     }
                 }
                 catch(Exception ex)
@@ -258,7 +254,8 @@ namespace HomePharmacy.Forms
 
             // exit if everything was good or exception
             if (result == DialogResult.OK || result == DialogResult.Abort) this.DialogResult = result;
-            else this.Illness = null;
+
+            this.DbOperation = false;
         }
 
         private void chb_enddate_CheckedChanged(object sender, EventArgs e)
@@ -276,7 +273,7 @@ namespace HomePharmacy.Forms
             DateTime start = this.dateStartCalendar.SelectionRange.Start;
             DateTime? end = this.chb_enddate.Checked ? this.dateEndCalendar.SelectionRange.Start : null;
 
-            if (this.DataValidation(email, diagnose, start, end))
+            if (!this.DbOperation && this.DataValidation(email, diagnose, start, end))
             {
                 if (this.current_action == ActionType.ADD) this.CreateIllness(email, diagnose, start, end);
                 else if(this.current_action == ActionType.UPDATE) this.UpdateIllness(email, diagnose, start, end);

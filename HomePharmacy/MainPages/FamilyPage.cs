@@ -155,19 +155,6 @@ namespace HomePharmacy.MainPages
             this.DbOperation = false;
         }
 
-
-        private void FamilyPage_DataReceived()
-        {
-            if(this.Data != null && this.Data.Length == 2)
-            {
-                this.user = (Person)this.Data[0];
-                this.family = (Family?)this.Data[1];
-
-                this.ClearDataUI();
-                this.LoadDataUI();
-            }
-        }
-
         private void btn_apply_PhClick(object sender, EventArgs e)
         {
             this.flowPanel.Controls.Clear();
@@ -190,6 +177,18 @@ namespace HomePharmacy.MainPages
         private void btn_leave_PhClick(object sender, EventArgs e)
         {
             if (!this.DbOperation) this.LeaveFromFamily();
+        }
+
+        private void FamilyPage_DataReceived()
+        {
+            if (this.Data != null && this.Data.Length == 2)
+            {
+                this.user = (Person)this.Data[0];
+                this.family = (Family?)this.Data[1];
+
+                this.ClearDataUI();
+                this.LoadDataUI();
+            }
         }
     }
 }

@@ -111,73 +111,82 @@ namespace HomePharmacy.MainPages
 
         private void phPhoto_PhClick(object sender, EventArgs e)
         {
-            try
+            if (!this.DbOperation)
             {
-                OpenFileDialog opf = new OpenFileDialog();
-                opf.Title = "Select image to load";
-                opf.Filter = "png|*.png|jpg|*.jpg";
-
-                if (opf.ShowDialog() == DialogResult.OK)
+                try
                 {
-                    string filename = opf.FileName;
-                    long size = new FileInfo(filename).Length;
+                    OpenFileDialog opf = new OpenFileDialog();
+                    opf.Title = "Select image to load";
+                    opf.Filter = "png|*.png|jpg|*.jpg";
 
-                    if (size <= max_size)
+                    if (opf.ShowDialog() == DialogResult.OK)
                     {
-                        Image img = Image.FromFile(filename);
-                        ImageConverter converter = new ImageConverter();
+                        string filename = opf.FileName;
+                        long size = new FileInfo(filename).Length;
 
-                        byte[] data = new byte[1]; 
-                        data = (byte[])converter.ConvertTo(img, data.GetType());
+                        if (size <= max_size)
+                        {
+                            Image img = Image.FromFile(filename);
+                            ImageConverter converter = new ImageConverter();
 
-                        this.LoadImage(img);
-                        this.UploadPhoto(data);
+                            byte[] data = new byte[1];
+                            data = (byte[])converter.ConvertTo(img, data.GetType());
+
+                            this.LoadImage(img);
+                            this.UploadPhoto(data);
+                        }
+                        else MessageBox.Show("Size of the uploaded image must be under 200kb", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                    else MessageBox.Show("Size of the uploaded image must be under 200kb", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "File exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "File exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         private void btn_remove_PhClick(object sender, EventArgs e)
         {
-            this.UploadPhoto(null);
-            this.ResetImage();
+            if (!this.DbOperation)
+            {
+                this.UploadPhoto(null);
+                this.ResetImage();
+            }
         }
 
         private async void btn_save_PhClick(object sender, EventArgs e)
         {
-            this.DbOperation = true;
-
-            DateTime selectedDate = this.datebirthCalendar.SelectionRange.Start;
-
-            await Task.Run(() =>
+            if (!this.DbOperation)
             {
-                try
-                {
-                    using (HomePharmacyContext context = new HomePharmacyContext())
-                    {
-                        this.user.BirthDate = selectedDate;
-                        context.Update(this.user);
-                        context.SaveChanges();
-                    }
-                }
-                catch(Exception ex)
-                {
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke(new MethodInvoker(delegate
-                        {
-                            MessageBox.Show(ex.ToString(), "Database exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }));
-                    }
-                }
-            });
+                this.DbOperation = true;
 
-            this.DbOperation = false;
+                DateTime selectedDate = this.datebirthCalendar.SelectionRange.Start;
+
+                await Task.Run(() =>
+                {
+                    try
+                    {
+                        using (HomePharmacyContext context = new HomePharmacyContext())
+                        {
+                            this.user.BirthDate = selectedDate;
+                            context.Update(this.user);
+                            context.SaveChanges();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        if (this.InvokeRequired)
+                        {
+                            this.Invoke(new MethodInvoker(delegate
+                            {
+                                MessageBox.Show(ex.ToString(), "Database exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }));
+                        }
+                    }
+                });
+
+                this.DbOperation = false;
+            }
         }
 
         private void btn_changecab_PhClick(object sender, EventArgs e)

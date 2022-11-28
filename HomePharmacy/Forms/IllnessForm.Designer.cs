@@ -39,6 +39,7 @@
             this.rb_enddate = new HomePharmacy.Controls.RoundedBox();
             this.btn_action = new HomePharmacy.Controls.PhButton();
             this.chb_enddate = new System.Windows.Forms.CheckBox();
+            this.lb_diagnose_title = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cb_email
@@ -66,13 +67,12 @@
             this.tb_diagnose.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_diagnose.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tb_diagnose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.tb_diagnose.Location = new System.Drawing.Point(21, 91);
+            this.tb_diagnose.Location = new System.Drawing.Point(21, 119);
             this.tb_diagnose.MaxLength = 400;
             this.tb_diagnose.Multiline = true;
             this.tb_diagnose.Name = "tb_diagnose";
-            this.tb_diagnose.Size = new System.Drawing.Size(257, 308);
+            this.tb_diagnose.Size = new System.Drawing.Size(257, 280);
             this.tb_diagnose.TabIndex = 35;
-            this.tb_diagnose.Text = "Diagnoses";
             // 
             // rb_diagnoses
             // 
@@ -103,8 +103,8 @@
             // 
             this.lb_startdate.AutoSize = true;
             this.lb_startdate.BackColor = System.Drawing.Color.White;
-            this.lb_startdate.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lb_startdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
+            this.lb_startdate.Font = new System.Drawing.Font("Arial", 9.7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lb_startdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
             this.lb_startdate.Location = new System.Drawing.Point(316, 51);
             this.lb_startdate.Name = "lb_startdate";
             this.lb_startdate.Size = new System.Drawing.Size(73, 16);
@@ -140,11 +140,11 @@
             // 
             this.lb_enddate.AutoSize = true;
             this.lb_enddate.BackColor = System.Drawing.Color.White;
-            this.lb_enddate.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lb_enddate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
+            this.lb_enddate.Font = new System.Drawing.Font("Arial", 9.7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lb_enddate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
             this.lb_enddate.Location = new System.Drawing.Point(316, 237);
             this.lb_enddate.Name = "lb_enddate";
-            this.lb_enddate.Size = new System.Drawing.Size(68, 16);
+            this.lb_enddate.Size = new System.Drawing.Size(67, 16);
             this.lb_enddate.TabIndex = 40;
             this.lb_enddate.Text = "End date:";
             // 
@@ -196,6 +196,18 @@
             this.chb_enddate.UseVisualStyleBackColor = true;
             this.chb_enddate.CheckedChanged += new System.EventHandler(this.chb_enddate_CheckedChanged);
             // 
+            // lb_diagnose_title
+            // 
+            this.lb_diagnose_title.AutoSize = true;
+            this.lb_diagnose_title.BackColor = System.Drawing.Color.White;
+            this.lb_diagnose_title.Font = new System.Drawing.Font("Arial", 9.7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lb_diagnose_title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.lb_diagnose_title.Location = new System.Drawing.Point(21, 91);
+            this.lb_diagnose_title.Name = "lb_diagnose_title";
+            this.lb_diagnose_title.Size = new System.Drawing.Size(70, 16);
+            this.lb_diagnose_title.TabIndex = 45;
+            this.lb_diagnose_title.Text = "Diagnose:";
+            // 
             // IllnessForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -204,6 +216,7 @@
             this.BackgroundImage = global::HomePharmacy.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(595, 476);
+            this.Controls.Add(this.lb_diagnose_title);
             this.Controls.Add(this.chb_enddate);
             this.Controls.Add(this.btn_action);
             this.Controls.Add(this.dateEndCalendar);
@@ -237,5 +250,6 @@
         private Controls.RoundedBox rb_enddate;
         private Controls.PhButton btn_action;
         private CheckBox chb_enddate;
+        private Label lb_diagnose_title;
     }
 }

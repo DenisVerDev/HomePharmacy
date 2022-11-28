@@ -58,6 +58,16 @@ namespace HomePharmacy.MainPages
             }
         }
 
+        private Appointment GetSelectedAppointment()
+        {
+            var selected_row = this.dgv_appointments.SelectedRows[0];
+
+            string meds = (string)selected_row.Cells["Medicines list"].Value;
+            string recom = (string)selected_row.Cells["Recommendator"].Value;
+
+            return this.illness.Appointments.Where(x => x.MedicineList == meds && x.Recommendator == recom).First();
+        }
+
         private void btn_add_PhClick(object sender, EventArgs e)
         {
             this.form.InitAdd(this.illness.IdIllness);
@@ -69,20 +79,9 @@ namespace HomePharmacy.MainPages
             }
         }
 
-        private void btn_update_info(object sender, EventArgs e)
+        private void btn_update_PhClick(object sender, EventArgs e)
         {
-            var selected_row = this.dgv_appointments.SelectedRows[0];
-
-            string meds = (string)selected_row.Cells["Medicines list"].Value;
-            string recom = (string)selected_row.Cells["Recommendator"].Value;
-
-            Appointment appointment = this.illness.Appointments.Where(x => x.MedicineList == meds && x.Recommendator == recom).First();
-
-            ActionType action;
-            if (sender == this.btn_update) action = ActionType.UPDATE;
-            else action = ActionType.INFORMATION;
-
-            this.form.InitAction(action, appointment);
+            this.form.InitAction(ActionType.UPDATE, this.GetSelectedAppointment());
             if(this.form.ShowDialog() == DialogResult.OK)
             {
                 this.ClearDataUI();
@@ -90,36 +89,46 @@ namespace HomePharmacy.MainPages
             }
         }
 
+        private void btn_info_PhClick(object sender, EventArgs e)
+        {
+            this.form.InitAction(ActionType.INFORMATION, this.GetSelectedAppointment());
+            this.form.ShowDialog();
+        }
+
         private async void btn_delete_PhClick(object sender, EventArgs e)
         {
-            var selected_row = this.dgv_appointments.SelectedRows[0];
-
-            string meds = (string)selected_row.Cells["Medicines list"].Value;
-            string recom = (string)selected_row.Cells["Recommendator"].Value;
-            this.dgv_appointments.Rows.Remove(selected_row);
-
-            Appointment appointment = this.illness.Appointments.Where(x => x.MedicineList == meds && x.Recommendator == recom).First();
-            this.illness.Appointments.Remove(appointment);
-
-            await Task.Run(() =>
+            if (!this.DbOperation)
             {
-                try
+                this.DbOperation = true;
+
+                Appointment appointment = this.GetSelectedAppointment();
+                this.illness.Appointments.Remove(appointment);
+
+                await Task.Run(() =>
                 {
-                    using(HomePharmacyContext context = new HomePharmacyContext())
+                    try
                     {
-                        context.Appointments.Remove(appointment);
-                        context.SaveChanges();
-                    }
-                }
-                catch(Exception ex)
-                {
-                    if (this.InvokeRequired)
-                        this.Invoke(new MethodInvoker(delegate
+                        using (HomePharmacyContext context = new HomePharmacyContext())
                         {
-                            MessageBox.Show(ex.ToString(), "Database exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }));
-                }
-            });
+                            context.Appointments.Remove(appointment);
+                            context.SaveChanges();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        if (this.InvokeRequired)
+                            this.Invoke(new MethodInvoker(delegate
+                            {
+                                MessageBox.Show(ex.ToString(), "Database exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }));
+                    }
+                });
+
+                this.ClearDataUI();
+                this.LoadDataUI();
+
+                this.DbOperation = false;
+            }
         }
 
         private void AppointmentsPage_DataReceived()

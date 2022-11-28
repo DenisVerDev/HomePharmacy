@@ -56,13 +56,15 @@ namespace HomePharmacy.MainPages
         public override void LoadDataUI()
         {
             this.cb_email.Items.Add("All");
-            this.cb_email.Items.AddRange(this.illnesses.Select(x => x.IlledPerson).ToArray());
+            if(this.family != null) this.cb_email.Items.AddRange(this.family.People.Select(x=>x.Email).ToArray());
 
-            this.LoadSpecificDataUI(this.illnesses);
+            this.UpdateDataGridView(this.illnesses);
         }
 
-        private void LoadSpecificDataUI(List<Illness> illnesses)
+        private void UpdateDataGridView(List<Illness> illnesses)
         {
+            this.table.Rows.Clear();
+
             foreach (Illness illness in illnesses)
             {
                 var row = table.NewRow();
@@ -75,22 +77,27 @@ namespace HomePharmacy.MainPages
             }
         }
 
+        private Illness GetSelectedIllness()
+        {
+            var selected_row = this.dgv_illnesses.SelectedRows[0];
+            int id_illness = (int)selected_row.Cells["Id Illness"].Value;
+
+            return this.illnesses.Where(x => x.IdIllness == id_illness).First();
+        }
+
         private void btn_apply_PhClick(object sender, EventArgs e)
         {
-            List<Illness> filter_illnesses = null;
-            if (DBValidation.PersonValidation.EmailValidation(this.cb_email.PhText))
-            {
+            List<Illness>? filter_illnesses = null;
+            if (DBValidation.PersonValidation.EmailValidation(this.cb_email.PhText)) 
                 filter_illnesses = this.illnesses.Where(x => x.IlledPerson == this.cb_email.PhText).ToList();
-            }
             else filter_illnesses = this.illnesses;
 
-            this.table.Rows.Clear();
-            this.LoadSpecificDataUI(filter_illnesses);
+            this.UpdateDataGridView(filter_illnesses);
         }
 
         private void btn_add_PhClick(object sender, EventArgs e)
         {
-            string[] people = null;
+            string[]? people = null;
 
             if (this.family != null) people = this.family.People.Select(x => x.Email).ToArray();
             else people = new string[1] { this.user.Email }; // personal cabinet mode
@@ -99,78 +106,60 @@ namespace HomePharmacy.MainPages
             if(this.form.ShowDialog() == DialogResult.OK)
             {
                 this.illnesses.Add(this.form.Illness);
-                this.ClearDataUI();
-                this.LoadDataUI();
+                this.UpdateDataGridView(this.illnesses);
             }
         }
 
         private void btn_update_PhClick(object sender, EventArgs e)
         {
-            var selected_row = this.dgv_illnesses.SelectedRows[0];
-            int id_illness = (int)selected_row.Cells["Id Illness"].Value;
-
-            Illness illness = this.illnesses.Where(x => x.IdIllness == id_illness).First();
-
-            this.form.InitUpdate(illness);
-            if (this.form.ShowDialog() == DialogResult.OK)
-            {
-                this.ClearDataUI();
-                this.LoadDataUI();
-            }
+            this.form.InitInfoOrUpdate(ActionType.UPDATE, this.GetSelectedIllness());
+            if (this.form.ShowDialog() == DialogResult.OK) this.UpdateDataGridView(this.illnesses);
         }
 
         private void btn_info_PhClick(object sender, EventArgs e)
         {
-            var selected_row = this.dgv_illnesses.SelectedRows[0];
-            int id_illness = (int)selected_row.Cells["Id Illness"].Value;
-
-            Illness illness = this.illnesses.Where(x => x.IdIllness == id_illness).First();
-
-            this.form.InitInformation(illness);
+            this.form.InitInfoOrUpdate(ActionType.INFORMATION, this.GetSelectedIllness());
             this.form.ShowDialog();
         }
 
         private async void btn_delete_PhClick(object sender, EventArgs e)
         {
-            var selected_row = this.dgv_illnesses.SelectedRows[0];
-            int id_illness = (int)selected_row.Cells["Id Illness"].Value;
-            this.dgv_illnesses.Rows.Remove(selected_row);
-
-            Illness illness = this.illnesses.Where(x => x.IdIllness == id_illness).First();
-            this.illnesses.Remove(illness);
-
-            await Task.Run(() => 
+            if (!this.DbOperation)
             {
-                try
-                {
-                    using(HomePharmacyContext context = new HomePharmacyContext())
-                    {
-                        context.Illnesses.Remove(illness);
-                        context.SaveChanges();
-                    }
-                }
-                catch(Exception ex)
-                {
-                    if (this.InvokeRequired)
-                        this.Invoke(new MethodInvoker(delegate
-                        {
-                            MessageBox.Show(ex.ToString(), "Database exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }));
-                }
-            });
+                this.DbOperation = true;
 
-            this.ClearDataUI();
-            this.LoadDataUI();
+                Illness illness = this.GetSelectedIllness();
+                this.illnesses.Remove(illness);
+
+                await Task.Run(() =>
+                {
+                    try
+                    {
+                        using (HomePharmacyContext context = new HomePharmacyContext())
+                        {
+                            context.Illnesses.Remove(illness);
+                            context.SaveChanges();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        if (this.InvokeRequired)
+                            this.Invoke(new MethodInvoker(delegate
+                            {
+                                MessageBox.Show(ex.ToString(), "Database exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }));
+                    }
+                });
+
+                this.UpdateDataGridView(this.illnesses);
+
+                this.DbOperation = false;
+            }
         }
 
         private void btn_appointments_PhClick(object sender, EventArgs e)
         {
-            var selected_row = this.dgv_illnesses.SelectedRows[0];
-            int id_illness = (int)selected_row.Cells["Id Illness"].Value;
-
-            Illness illness = this.illnesses.Where(x => x.IdIllness == id_illness).First();
-
-            if (this.ChangeMainPageEvent != null) this.ChangeMainPageEvent(MainTabs.Appointments, illness);
+            if (this.ChangeMainPageEvent != null) this.ChangeMainPageEvent(MainTabs.Appointments, this.GetSelectedIllness());
         }
 
         private void IllnessesPage_DataReceived()

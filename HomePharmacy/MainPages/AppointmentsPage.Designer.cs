@@ -72,7 +72,7 @@
             this.btn_info.Size = new System.Drawing.Size(100, 31);
             this.btn_info.TabIndex = 44;
             this.btn_info.TabStop = false;
-            this.btn_info.PhClick += new System.EventHandler(this.btn_update_info);
+            this.btn_info.PhClick += new System.EventHandler(this.btn_info_PhClick);
             // 
             // btn_update
             // 
@@ -91,7 +91,7 @@
             this.btn_update.Size = new System.Drawing.Size(100, 31);
             this.btn_update.TabIndex = 43;
             this.btn_update.TabStop = false;
-            this.btn_update.PhClick += new System.EventHandler(this.btn_update_info);
+            this.btn_update.PhClick += new System.EventHandler(this.btn_update_PhClick);
             // 
             // btn_add
             // 
