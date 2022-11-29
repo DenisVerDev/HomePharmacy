@@ -48,12 +48,14 @@ partial class MainPage
             this.tpage_statistics = new System.Windows.Forms.TabPage();
             this.tpage_appoint = new System.Windows.Forms.TabPage();
             this.appointmentsPage = new HomePharmacy.MainPages.AppointmentsPage();
+            this.medicinesPage = new HomePharmacy.MainPages.MedicinesPage();
             this.flowPanelTabs.SuspendLayout();
             this.panel.SuspendLayout();
             this.tab_main.SuspendLayout();
             this.tpage_profile.SuspendLayout();
             this.tpage_family.SuspendLayout();
             this.tpage_ilnesses.SuspendLayout();
+            this.tpage_medicines.SuspendLayout();
             this.tpage_appoint.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -293,6 +295,7 @@ partial class MainPage
             // 
             // tpage_medicines
             // 
+            this.tpage_medicines.Controls.Add(this.medicinesPage);
             this.tpage_medicines.Location = new System.Drawing.Point(4, 5);
             this.tpage_medicines.Name = "tpage_medicines";
             this.tpage_medicines.Size = new System.Drawing.Size(735, 469);
@@ -337,6 +340,15 @@ partial class MainPage
             this.appointmentsPage.Size = new System.Drawing.Size(735, 469);
             this.appointmentsPage.TabIndex = 0;
             // 
+            // medicinesPage
+            // 
+            this.medicinesPage.Data = null;
+            this.medicinesPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.medicinesPage.Location = new System.Drawing.Point(0, 0);
+            this.medicinesPage.Name = "medicinesPage";
+            this.medicinesPage.Size = new System.Drawing.Size(735, 469);
+            this.medicinesPage.TabIndex = 0;
+            // 
             // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -354,6 +366,7 @@ partial class MainPage
             this.tpage_profile.ResumeLayout(false);
             this.tpage_family.ResumeLayout(false);
             this.tpage_ilnesses.ResumeLayout(false);
+            this.tpage_medicines.ResumeLayout(false);
             this.tpage_appoint.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -380,4 +393,5 @@ partial class MainPage
     private MainPages.FamilyPage familyPage;
     private MainPages.IllnessesPage illnessesPage;
     private MainPages.AppointmentsPage appointmentsPage;
+    private MainPages.MedicinesPage medicinesPage;
 }

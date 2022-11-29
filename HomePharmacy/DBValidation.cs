@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomePharmacy.Models;
 
 namespace HomePharmacy
 {
@@ -139,6 +140,45 @@ namespace HomePharmacy
             }
         }
 
+        #endregion
+
+        #region Medicine validation
+
+        public struct MedicineValidation
+        {
+            public static MedicinesType[] types;
+
+            public static bool Validation(Medicine medicine)
+            {
+                // name validation
+                if (medicine.Name == null || medicine.Name == String.Empty)
+                {
+                    ValidationErrorMsg = "Medicine name must not be empty!";
+                    return false;
+                }
+
+                // type validation
+                if(!types.Select(x=>x.Type).Contains(medicine.Type))
+                {
+                    ValidationErrorMsg = "Medicine type is incorrect!";
+                    return false;
+                }
+
+                if(!(medicine.CountOrAmount > 0 && medicine.ExemplearsCount > 0 && medicine.Remainings >= 0))
+                {
+                    ValidationErrorMsg = "Medicine count properties are incorrect!";
+                    return false;
+                }
+
+                if(medicine.Remainings > medicine.CountOrAmount*medicine.ExemplearsCount)
+                {
+                    ValidationErrorMsg = "Medicine remainings is higher than the max value!";
+                    return false;
+                }
+
+                return true;
+            }
+        }
         #endregion
     }
 }

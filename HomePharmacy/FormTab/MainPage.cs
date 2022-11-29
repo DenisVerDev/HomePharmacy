@@ -130,6 +130,9 @@ namespace HomePharmacy.FormTab
                     this.illnesses.Clear();
                     this.medicines.Clear();
 
+                    // load medicines types
+                    DBValidation.MedicineValidation.types = context.MedicinesTypes.ToArray();
+
                     // load new data
                     if (this.family != null)
                     {
@@ -158,6 +161,7 @@ namespace HomePharmacy.FormTab
                 this.profilePage.Data = new object[1] { this.user }; // profile page
                 this.familyPage.Data = new object[2] { this.user, this.family }; // family page
                 this.illnessesPage.Data = new object[3] { this.user,this.family,this.illnesses }; // illnesses page
+                this.medicinesPage.Data = new object[3] { this.user, this.family, this.medicines }; // medicines page
             }
             catch(Exception ex)
             {
