@@ -44,11 +44,11 @@ partial class MainPage
             this.tpage_ilnesses = new System.Windows.Forms.TabPage();
             this.illnessesPage = new HomePharmacy.MainPages.IllnessesPage();
             this.tpage_medicines = new System.Windows.Forms.TabPage();
+            this.medicinesPage = new HomePharmacy.MainPages.MedicinesPage();
             this.tpage_takemed = new System.Windows.Forms.TabPage();
             this.tpage_statistics = new System.Windows.Forms.TabPage();
             this.tpage_appoint = new System.Windows.Forms.TabPage();
             this.appointmentsPage = new HomePharmacy.MainPages.AppointmentsPage();
-            this.medicinesPage = new HomePharmacy.MainPages.MedicinesPage();
             this.flowPanelTabs.SuspendLayout();
             this.panel.SuspendLayout();
             this.tab_main.SuspendLayout();
@@ -303,6 +303,14 @@ partial class MainPage
             this.tpage_medicines.Text = "Medicines";
             this.tpage_medicines.UseVisualStyleBackColor = true;
             // 
+            // medicinesPage
+            // 
+            this.medicinesPage.Data = null;
+            this.medicinesPage.Location = new System.Drawing.Point(3, 3);
+            this.medicinesPage.Name = "medicinesPage";
+            this.medicinesPage.Size = new System.Drawing.Size(729, 463);
+            this.medicinesPage.TabIndex = 0;
+            // 
             // tpage_takemed
             // 
             this.tpage_takemed.Location = new System.Drawing.Point(4, 5);
@@ -339,15 +347,6 @@ partial class MainPage
             this.appointmentsPage.Name = "appointmentsPage";
             this.appointmentsPage.Size = new System.Drawing.Size(735, 469);
             this.appointmentsPage.TabIndex = 0;
-            // 
-            // medicinesPage
-            // 
-            this.medicinesPage.Data = null;
-            this.medicinesPage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.medicinesPage.Location = new System.Drawing.Point(0, 0);
-            this.medicinesPage.Name = "medicinesPage";
-            this.medicinesPage.Size = new System.Drawing.Size(735, 469);
-            this.medicinesPage.TabIndex = 0;
             // 
             // MainPage
             // 

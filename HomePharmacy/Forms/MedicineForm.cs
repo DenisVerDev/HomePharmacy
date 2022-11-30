@@ -48,14 +48,18 @@ namespace HomePharmacy.Forms
             this.tb_name.ReadOnly = read_only;
         }
 
-        private void InitForWhom()
+        private void InitForWhom(bool action_enable)
         {
             this.cb_forwhom.Items.Clear();
 
             if (this.family != null)
             {
                 this.cb_forwhom.Items.AddRange(this.family.People.Select(x => x.Email).ToArray());
-                this.cb_forwhom.Enabled = true;
+
+                if (this.Medicine.ForWhom != null) this.cb_forwhom.PhText = this.Medicine.ForWhom;
+                else this.cb_forwhom.PhText = this.cb_forwhom.Placeholder;
+
+                this.cb_forwhom.Enabled = action_enable;
             }
             else
             {
@@ -97,7 +101,8 @@ namespace HomePharmacy.Forms
 
         private void InitDates(bool action_enable)
         {
-            this.ExpDateEnable(action_enable);
+            this.dateExpCalendar.Enabled = action_enable;
+            this.datePurchaseCalendar.Enabled = action_enable;
             this.chb_purchasedate.Enabled = action_enable;
 
             if (this.current_action == ActionType.ADD)
@@ -117,13 +122,14 @@ namespace HomePharmacy.Forms
             }
         }
 
-        private void InitButton(bool acion_enable)
+        private void InitButtons(bool action_enable)
         {
             if (this.current_action == ActionType.ADD) this.btn_action.Caption = "Add medicine";
             else if (this.current_action == ActionType.UPDATE) this.btn_action.Caption = "Update medicine";
             else this.btn_action.Caption = "Information";
 
-            this.btn_action.Enabled = acion_enable;
+            this.btn_action.Enabled = action_enable;
+            this.btn_remcount.Enabled = action_enable;
         }
 
         #endregion
@@ -152,10 +158,10 @@ namespace HomePharmacy.Forms
                
                 this.InitName(!action_enable);
                 this.InitType(action_enable);
-                this.InitForWhom();
+                this.InitForWhom(action_enable);
                 this.InitNumerics(action_enable);
                 this.InitDates(action_enable);
-                this.InitButton(action_enable);
+                this.InitButtons(action_enable);
             }
             else this.btn_action.Enabled = false;
         }
@@ -163,7 +169,7 @@ namespace HomePharmacy.Forms
         private void InputToMedicine()
         {
             this.Medicine.Name = this.tb_name.Text;
-            this.Medicine.Type = this.cb_type.PhText;
+            this.Medicine.Type = (string)this.cb_type.PhText;
             this.Medicine.ForWhom = this.cb_forwhom.PhText;
             this.Medicine.Price = this.nm_price.Value;
             this.Medicine.CountOrAmount = (int)this.nm_count.Value;
@@ -172,10 +178,20 @@ namespace HomePharmacy.Forms
             this.Medicine.ExpiryDate = this.dateExpCalendar.SelectionRange.Start;
             this.Medicine.PurchaseDate = this.chb_purchasedate.Checked ? this.datePurchaseCalendar.SelectionRange.Start : null;
             this.Medicine.BelongsToFamily = this.family != null ? this.family.IdFamily : null;
+
+            // to update this problematic foreign key
+            if(this.current_action == ActionType.UPDATE)
+                this.Medicine.TypeNavigation = DBValidation.MedicineValidation.types.Where(x => x.Type == this.cb_type.PhText).FirstOrDefault();
         }
 
         private bool Validation()
         {
+            if(this.family != null && !this.family.People.Select(x=>x.Email).Contains(this.Medicine.ForWhom))
+            {
+                MessageBox.Show("There is no such person in your family!", "Validation warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
             if(!DBValidation.MedicineValidation.Validation(this.Medicine))
             {
                 MessageBox.Show(DBValidation.ValidationErrorMsg, "Validation warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -266,18 +282,9 @@ namespace HomePharmacy.Forms
             }
         }
 
-        private void ExpDateEnable(bool acion_enable)
+        private void btn_remcount_PhClick(object sender, EventArgs e)
         {
-            this.lb_expdate_title.Enabled = acion_enable;
-            this.rb_expdate.Enabled = acion_enable;
-            this.dateExpCalendar.Enabled = acion_enable;
-        }
-
-        private void chb_purchasedate_CheckedChanged(object sender, EventArgs e)
-        {
-            this.lb_purchasedate_title.Enabled = this.chb_purchasedate.Checked;
-            this.rb_purchasedate.Enabled = this.chb_purchasedate.Checked;
-            this.datePurchaseCalendar.Enabled = this.chb_purchasedate.Checked;
+            this.nm_remainings.Value = this.nm_count.Value * this.nm_excount.Value;
         }
     }
 }

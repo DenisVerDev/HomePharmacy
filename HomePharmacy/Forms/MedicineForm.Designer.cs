@@ -53,6 +53,7 @@
             this.rb_purchasedate = new HomePharmacy.Controls.RoundedBox();
             this.btn_action = new HomePharmacy.Controls.PhButton();
             this.nm_remainings = new System.Windows.Forms.NumericUpDown();
+            this.btn_remcount = new HomePharmacy.Controls.PhButton();
             ((System.ComponentModel.ISupportInitialize)(this.nm_price)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_count)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_excount)).BeginInit();
@@ -296,7 +297,7 @@
             this.rb_remainings.MinimumSize = new System.Drawing.Size(30, 30);
             this.rb_remainings.Name = "rb_remainings";
             this.rb_remainings.ShowBorder = true;
-            this.rb_remainings.Size = new System.Drawing.Size(226, 37);
+            this.rb_remainings.Size = new System.Drawing.Size(226, 74);
             this.rb_remainings.TabIndex = 45;
             this.rb_remainings.TabStop = false;
             // 
@@ -305,12 +306,11 @@
             this.chb_purchasedate.AutoSize = true;
             this.chb_purchasedate.Checked = true;
             this.chb_purchasedate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chb_purchasedate.Location = new System.Drawing.Point(257, 348);
+            this.chb_purchasedate.Location = new System.Drawing.Point(258, 369);
             this.chb_purchasedate.Name = "chb_purchasedate";
             this.chb_purchasedate.Size = new System.Drawing.Size(15, 14);
             this.chb_purchasedate.TabIndex = 51;
             this.chb_purchasedate.UseVisualStyleBackColor = true;
-            this.chb_purchasedate.CheckedChanged += new System.EventHandler(this.chb_purchasedate_CheckedChanged);
             // 
             // dateExpCalendar
             // 
@@ -345,13 +345,13 @@
             this.rb_expdate.MinimumSize = new System.Drawing.Size(30, 30);
             this.rb_expdate.Name = "rb_expdate";
             this.rb_expdate.ShowBorder = true;
-            this.rb_expdate.Size = new System.Drawing.Size(280, 180);
+            this.rb_expdate.Size = new System.Drawing.Size(280, 197);
             this.rb_expdate.TabIndex = 49;
             this.rb_expdate.TabStop = false;
             // 
             // datePurchaseCalendar
             // 
-            this.datePurchaseCalendar.Location = new System.Drawing.Point(358, 206);
+            this.datePurchaseCalendar.Location = new System.Drawing.Point(358, 223);
             this.datePurchaseCalendar.MaxSelectionCount = 1;
             this.datePurchaseCalendar.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.datePurchaseCalendar.Name = "datePurchaseCalendar";
@@ -363,7 +363,7 @@
             this.lb_purchasedate_title.BackColor = System.Drawing.Color.White;
             this.lb_purchasedate_title.Font = new System.Drawing.Font("Arial", 9.7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lb_purchasedate_title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.lb_purchasedate_title.Location = new System.Drawing.Point(257, 206);
+            this.lb_purchasedate_title.Location = new System.Drawing.Point(255, 223);
             this.lb_purchasedate_title.Name = "lb_purchasedate_title";
             this.lb_purchasedate_title.Size = new System.Drawing.Size(67, 16);
             this.lb_purchasedate_title.TabIndex = 52;
@@ -378,11 +378,11 @@
             this.rb_purchasedate.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
             this.rb_purchasedate.HoverFillColor = System.Drawing.Color.White;
             this.rb_purchasedate.IsSelected = false;
-            this.rb_purchasedate.Location = new System.Drawing.Point(244, 198);
+            this.rb_purchasedate.Location = new System.Drawing.Point(244, 215);
             this.rb_purchasedate.MinimumSize = new System.Drawing.Size(30, 30);
             this.rb_purchasedate.Name = "rb_purchasedate";
             this.rb_purchasedate.ShowBorder = true;
-            this.rb_purchasedate.Size = new System.Drawing.Size(280, 180);
+            this.rb_purchasedate.Size = new System.Drawing.Size(280, 200);
             this.rb_purchasedate.TabIndex = 53;
             this.rb_purchasedate.TabStop = false;
             // 
@@ -396,7 +396,7 @@
             this.btn_action.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
             this.btn_action.HoverFillColor = System.Drawing.Color.White;
             this.btn_action.IsSelected = false;
-            this.btn_action.Location = new System.Drawing.Point(12, 408);
+            this.btn_action.Location = new System.Drawing.Point(12, 433);
             this.btn_action.MinimumSize = new System.Drawing.Size(30, 30);
             this.btn_action.Name = "btn_action";
             this.btn_action.ShowBorder = true;
@@ -413,13 +413,33 @@
             this.nm_remainings.Size = new System.Drawing.Size(120, 23);
             this.nm_remainings.TabIndex = 56;
             // 
+            // btn_remcount
+            // 
+            this.btn_remcount.BackColor = System.Drawing.Color.Transparent;
+            this.btn_remcount.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
+            this.btn_remcount.BorderRadius = 10;
+            this.btn_remcount.Caption = "Count max";
+            this.btn_remcount.FillColor = System.Drawing.Color.White;
+            this.btn_remcount.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.btn_remcount.HoverFillColor = System.Drawing.Color.White;
+            this.btn_remcount.IsSelected = false;
+            this.btn_remcount.Location = new System.Drawing.Point(111, 377);
+            this.btn_remcount.MinimumSize = new System.Drawing.Size(30, 30);
+            this.btn_remcount.Name = "btn_remcount";
+            this.btn_remcount.ShowBorder = true;
+            this.btn_remcount.Size = new System.Drawing.Size(120, 30);
+            this.btn_remcount.TabIndex = 57;
+            this.btn_remcount.TabStop = false;
+            this.btn_remcount.PhClick += new System.EventHandler(this.btn_remcount_PhClick);
+            // 
             // MedicineForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::HomePharmacy.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(536, 450);
+            this.ClientSize = new System.Drawing.Size(536, 477);
+            this.Controls.Add(this.btn_remcount);
             this.Controls.Add(this.nm_remainings);
             this.Controls.Add(this.btn_action);
             this.Controls.Add(this.datePurchaseCalendar);
@@ -486,5 +506,6 @@
         private Controls.RoundedBox rb_purchasedate;
         private Controls.PhButton btn_action;
         private NumericUpDown nm_remainings;
+        private Controls.PhButton btn_remcount;
     }
 }
