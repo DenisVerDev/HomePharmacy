@@ -34,4 +34,19 @@ public partial class Medicine
     public virtual ICollection<MedicinesUsage> MedicinesUsages { get; } = new List<MedicinesUsage>();
 
     public virtual MedicinesType? TypeNavigation { get; set; }
+
+    public void GetSetProperties(Medicine medicine)
+    {
+        this.IdMedicine = medicine.IdMedicine;
+        this.Name = medicine.Name;
+        this.Type = medicine.Type;
+        this.PurchaseDate = medicine.PurchaseDate;
+        this.ExpiryDate = medicine.ExpiryDate;
+        this.Price = medicine.Price;
+        this.CountOrAmount = medicine.CountOrAmount;
+        this.ExemplearsCount = medicine.ExemplearsCount;
+        this.Remainings = medicine.Remainings;
+        this.ForWhom = medicine.ForWhom;
+        this.BelongsToFamily = medicine.BelongsToFamily;
+    }
 }

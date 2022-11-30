@@ -142,8 +142,8 @@ namespace HomePharmacy.Forms
             this.user = user;
             this.family = family;
 
-            if (medicine != null) this.Medicine = medicine;
-            else this.Medicine = new Medicine();
+            this.Medicine = new Medicine();
+            if (medicine != null) this.Medicine.GetSetProperties(medicine);
         }
 
         public void InitAction(ActionType action, Person user, Family? family, Medicine? medicine)
@@ -248,10 +248,27 @@ namespace HomePharmacy.Forms
                 {
                     using(HomePharmacyContext context = new HomePharmacyContext())
                     {
-                        context.Update(this.Medicine);
-                        context.SaveChanges();
+                        Medicine? med = context.Medicines.Where(x => x.IdMedicine == this.Medicine.IdMedicine).FirstOrDefault();
 
-                        result = DialogResult.OK;
+                        if (med != null)
+                        {
+                            med.GetSetProperties(this.Medicine);
+
+                            context.Update(med);
+                            context.SaveChanges();
+
+                            result = DialogResult.OK;
+                        }
+                        else
+                        {
+                            result = DialogResult.TryAgain;
+
+                            if (this.InvokeRequired)
+                                this.Invoke(new MethodInvoker(delegate
+                                {
+                                    MessageBox.Show("There is no such medicine", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }));
+                        }
                     }
                 }
                 catch(Exception ex)
