@@ -287,10 +287,9 @@ partial class MainPage
             // illnessesPage
             // 
             this.illnessesPage.Data = null;
-            this.illnessesPage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.illnessesPage.Location = new System.Drawing.Point(0, 0);
+            this.illnessesPage.Location = new System.Drawing.Point(3, 3);
             this.illnessesPage.Name = "illnessesPage";
-            this.illnessesPage.Size = new System.Drawing.Size(735, 469);
+            this.illnessesPage.Size = new System.Drawing.Size(729, 463);
             this.illnessesPage.TabIndex = 0;
             // 
             // tpage_medicines

@@ -18,6 +18,7 @@ namespace HomePharmacy.MainPages
         private Illness illness;
 
         private DataTable table;
+
         private AppointmentForm form;
 
         public AppointmentsPage()
@@ -58,19 +59,26 @@ namespace HomePharmacy.MainPages
             }
         }
 
-        private Appointment GetSelectedAppointment()
+        private Appointment? GetSelectedAppointment()
         {
-            var selected_row = this.dgv_appointments.SelectedRows[0];
+            if (this.dgv_appointments.SelectedRows.Count == 1)
+            {
+                var selected_row = this.dgv_appointments.SelectedRows[0];
 
-            string meds = (string)selected_row.Cells["Medicines list"].Value;
-            string recom = (string)selected_row.Cells["Recommendator"].Value;
+                string meds = (string)selected_row.Cells["Medicines list"].Value;
+                string recom = (string)selected_row.Cells["Recommendator"].Value;
 
-            return this.illness.Appointments.Where(x => x.MedicineList == meds && x.Recommendator == recom).First();
+                return this.illness.Appointments.Where(x => x.MedicineList == meds && x.Recommendator == recom).First();
+            }
+
+            MessageBox.Show("There are no selected rows", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            return null;
         }
 
         private void btn_add_PhClick(object sender, EventArgs e)
         {
-            this.form.InitAdd(this.illness.IdIllness);
+            this.form.InitAction(ActionType.ADD, this.illness, null);
             if(this.form.ShowDialog() == DialogResult.OK)
             {
                 this.illness.Appointments.Add(this.form.Appointment);
@@ -81,28 +89,40 @@ namespace HomePharmacy.MainPages
 
         private void btn_update_PhClick(object sender, EventArgs e)
         {
-            this.form.InitAction(ActionType.UPDATE, this.GetSelectedAppointment());
-            if(this.form.ShowDialog() == DialogResult.OK)
+            Appointment? selected = this.GetSelectedAppointment();
+
+            if (selected != null)
             {
-                this.ClearDataUI();
-                this.LoadDataUI();
+                this.form.InitAction(ActionType.UPDATE, this.illness, selected);
+                if (this.form.ShowDialog() == DialogResult.OK)
+                {
+                    selected.TransferDataFrom(this.form.Appointment);
+                    this.ClearDataUI();
+                    this.LoadDataUI();
+                }
             }
         }
 
         private void btn_info_PhClick(object sender, EventArgs e)
         {
-            this.form.InitAction(ActionType.INFORMATION, this.GetSelectedAppointment());
-            this.form.ShowDialog();
+            Appointment? selected = this.GetSelectedAppointment();
+
+            if (selected != null)
+            {
+                this.form.InitAction(ActionType.INFORMATION, this.illness, selected);
+                this.form.ShowDialog();
+            }
         }
 
         private async void btn_delete_PhClick(object sender, EventArgs e)
         {
-            if (!this.DbOperation)
+            Appointment? selected = this.GetSelectedAppointment();
+
+            if (!this.DbOperation && selected != null)
             {
                 this.DbOperation = true;
 
-                Appointment appointment = this.GetSelectedAppointment();
-                this.illness.Appointments.Remove(appointment);
+                this.illness.Appointments.Remove(selected);
 
                 await Task.Run(() =>
                 {
@@ -110,7 +130,7 @@ namespace HomePharmacy.MainPages
                     {
                         using (HomePharmacyContext context = new HomePharmacyContext())
                         {
-                            context.Appointments.Remove(appointment);
+                            context.Appointments.Remove(selected);
                             context.SaveChanges();
                         }
                     }

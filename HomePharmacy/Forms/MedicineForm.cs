@@ -143,7 +143,7 @@ namespace HomePharmacy.Forms
             this.family = family;
 
             this.Medicine = new Medicine();
-            if (medicine != null) this.Medicine.GetSetProperties(medicine);
+            if (medicine != null) this.Medicine.TransferDataFrom(medicine);
         }
 
         public void InitAction(ActionType action, Person user, Family? family, Medicine? medicine)
@@ -252,7 +252,7 @@ namespace HomePharmacy.Forms
 
                         if (med != null)
                         {
-                            med.GetSetProperties(this.Medicine);
+                            med.TransferDataFrom(this.Medicine);
 
                             context.Update(med);
                             context.SaveChanges();

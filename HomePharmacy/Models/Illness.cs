@@ -20,4 +20,13 @@ public partial class Illness
     public virtual Person IlledPersonNavigation { get; set; } = null!;
 
     public virtual ICollection<MedicinesUsage> MedicinesUsages { get; } = new List<MedicinesUsage>();
+
+    public void TransferDataFrom(Illness illness)
+    {
+        this.IdIllness = illness.IdIllness;
+        this.IlledPerson = illness.IlledPerson;
+        this.Diagnoses = illness.Diagnoses;
+        this.StartDate = illness.StartDate;
+        this.EndDate = illness.EndDate;
+    }
 }

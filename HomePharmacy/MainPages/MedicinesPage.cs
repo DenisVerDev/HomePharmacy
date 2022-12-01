@@ -131,7 +131,7 @@ namespace HomePharmacy.MainPages
                 this.form.InitAction(ActionType.UPDATE, user, family, selected);
                 if (this.form.ShowDialog() == DialogResult.OK)
                 {
-                    selected.GetSetProperties(this.form.Medicine);
+                    selected.TransferDataFrom(this.form.Medicine);
 
                     this.ClearInput();
                     this.UpdateDataGridView(this.medicines);

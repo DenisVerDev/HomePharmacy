@@ -194,7 +194,6 @@
             this.chb_enddate.Size = new System.Drawing.Size(15, 14);
             this.chb_enddate.TabIndex = 44;
             this.chb_enddate.UseVisualStyleBackColor = true;
-            this.chb_enddate.CheckedChanged += new System.EventHandler(this.chb_enddate_CheckedChanged);
             // 
             // lb_diagnose_title
             // 

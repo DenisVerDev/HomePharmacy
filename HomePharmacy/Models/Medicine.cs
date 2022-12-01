@@ -35,7 +35,7 @@ public partial class Medicine
 
     public virtual MedicinesType? TypeNavigation { get; set; }
 
-    public void GetSetProperties(Medicine medicine)
+    public void TransferDataFrom(Medicine medicine)
     {
         this.IdMedicine = medicine.IdMedicine;
         this.Name = medicine.Name;

@@ -23,6 +23,9 @@ namespace HomePharmacy.Forms
     {
         public Appointment Appointment { get; private set; }
 
+        private Appointment initial_ap; // to track original input values
+        private Illness illness;
+
         private ActionType current_action;
 
         private bool DbOperation;
@@ -33,63 +36,87 @@ namespace HomePharmacy.Forms
             this.DbOperation = false;
         }
 
-        public void InitAdd(int id_illness)
+        #region GUI Initialization
+
+        private void InitTextBoxes(bool read_only)
         {
-            DialogResult = DialogResult.None;
-            this.current_action = ActionType.ADD;
+            if (this.current_action == ActionType.ADD)
+            {
+                this.Controls.OfType<TextBox>().ToList().ForEach((x) =>
+                {
+                    x.Text = String.Empty;
+                    x.ReadOnly = false;
+                });
+            }
+            else
+            {
+                this.tb_medicines.Text = this.initial_ap.MedicineList;
+                this.tb_recommendator.Text = this.initial_ap.Recommendator;
+                this.tb_volume.Text = this.initial_ap.AppointmentVolume;
+                this.tb_comment.Text = this.initial_ap.AdditionalInfo;
 
-            this.Appointment = new Appointment() { IdIllness = id_illness };
-
-            this.Controls.OfType<TextBox>().ToList().ForEach(x => x.ReadOnly = false);
-
-            this.tb_medicines.Text = String.Empty;
-            this.tb_recommendator.Text = String.Empty;
-            this.tb_volume.Text = String.Empty;
-            this.tb_comment.Text = String.Empty;
-
-            this.btn_action.Caption = "Add appointment";
-            this.btn_action.Enabled = true;
+                this.Controls.OfType<TextBox>().ToList().ForEach(x=>x.ReadOnly = read_only);
+            }
         }
 
-        public void InitAction(ActionType action, Appointment appointment)
+        private void InitButton(bool action_enable)
         {
-            if (appointment != null)
+            if (this.current_action == ActionType.ADD) this.btn_action.Caption = "Add appointment";
+            else if (this.current_action == ActionType.UPDATE) this.btn_action.Caption = "Update appointment";
+            else this.btn_action.Caption = "Information";
+
+            this.btn_action.Enabled = action_enable;
+        }
+
+        #endregion
+
+        private void InitParams(ActionType action, Illness illness, Appointment? appointment)
+        {
+            DialogResult = DialogResult.None;
+            this.current_action = action;
+
+            this.illness = illness;
+
+            this.Appointment = new Appointment();
+
+            if(appointment != null)
             {
-                if (action != ActionType.ADD)
-                {
-                    DialogResult = DialogResult.None;
-                    this.current_action = action;
+                this.Appointment.TransferDataFrom(appointment);
 
-                    this.Appointment = appointment;
+                this.initial_ap = new Appointment();
+                this.initial_ap.TransferDataFrom(appointment);
+            }
+        }
 
-                    if (this.current_action == ActionType.INFORMATION)
-                    {
-                        this.Controls.OfType<TextBox>().ToList().ForEach(x => x.ReadOnly = true);
+        public void InitAction(ActionType action, Illness illness, Appointment? appointment)
+        {
+            if (illness != null)
+            {
+                this.InitParams(action, illness, appointment);
 
-                        this.btn_action.Caption = "Information";
-                        this.btn_action.Enabled = false;
-                    }
-                    else
-                    {
-                        this.Controls.OfType<TextBox>().ToList().ForEach(x => x.ReadOnly = false);
+                // gui init
+                bool action_enable = true;
+                if (this.current_action == ActionType.INFORMATION) action_enable = false;
 
-                        this.btn_action.Caption = "Update appointment";
-                        this.btn_action.Enabled = true;
-                    }
-
-                    this.tb_medicines.Text = this.Appointment.MedicineList;
-                    this.tb_recommendator.Text = this.Appointment.Recommendator;
-                    this.tb_volume.Text = this.Appointment.AppointmentVolume;
-                    this.tb_comment.Text = this.Appointment.AdditionalInfo;
-                }
-                else this.InitAdd(appointment.IdIllness);
+                this.InitTextBoxes(!action_enable);
+                this.InitButton(action_enable);
             }
             else this.btn_action.Enabled = false;
         }
 
-        private bool DataValidation(string meds, string recom)
+        private void InputToAppointment()
         {
-            if(!DBValidation.AppointmentValidation.MedicineListValidation(meds) || !DBValidation.AppointmentValidation.RecommendatorValidation(recom))
+            this.Appointment.IdIllness = this.illness.IdIllness;
+            this.Appointment.MedicineList = this.tb_medicines.Text;
+            this.Appointment.Recommendator = this.tb_recommendator.Text;
+            this.Appointment.AppointmentVolume = this.tb_volume.Text != String.Empty ? this.tb_volume.Text : null;
+            this.Appointment.AdditionalInfo = this.tb_comment.Text != String.Empty ? this.tb_comment.Text : null;
+        }
+
+        private bool Validation()
+        {
+            if(!DBValidation.AppointmentValidation.MedicineListValidation(this.Appointment.MedicineList) 
+                || !DBValidation.AppointmentValidation.RecommendatorValidation(this.Appointment.Recommendator))
             {
                 MessageBox.Show(DBValidation.ValidationErrorMsg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -98,16 +125,11 @@ namespace HomePharmacy.Forms
             return true;
         }
 
-        private async void AddAppointment(string meds, string recom, string? volume, string? addition_info)
+        private async void AddAppointment()
         {
             this.DbOperation = true;
 
             DialogResult result = DialogResult.None;
-
-            this.Appointment.MedicineList = meds;
-            this.Appointment.Recommendator = recom;
-            this.Appointment.AppointmentVolume = volume;
-            this.Appointment.AdditionalInfo = addition_info;
 
             await Task.Run(() => 
             { 
@@ -115,7 +137,8 @@ namespace HomePharmacy.Forms
                 {
                     using(HomePharmacyContext context = new HomePharmacyContext())
                     {
-                        if(!context.Appointments.Any(x=>x.IdIllness == this.Appointment.IdIllness && x.MedicineList == meds && x.Recommendator == recom))
+                        if(!context.Appointments.Any(x=>x.IdIllness == this.Appointment.IdIllness && x.MedicineList == this.Appointment.MedicineList
+                        && x.Recommendator == this.Appointment.Recommendator))
                         {
                             context.Appointments.Add(this.Appointment);
                             context.SaveChanges();
@@ -152,7 +175,7 @@ namespace HomePharmacy.Forms
             this.DbOperation = false;
         }
 
-        private async void UpdateAppointment(string meds, string recom, string? volume, string? addition_info)
+        private async void UpdateAppointment()
         {
             this.DbOperation = true;
 
@@ -164,27 +187,21 @@ namespace HomePharmacy.Forms
                 {
                     using(HomePharmacyContext context = new HomePharmacyContext())
                     {
-                        int count = context.Appointments.Count(x => x.IdIllness == this.Appointment.IdIllness && x.MedicineList == meds && x.Recommendator == recom);
+                        bool update_exists = context.Appointments.Any(x => x.IdIllness == this.Appointment.IdIllness 
+                        && x.MedicineList == this.Appointment.MedicineList && x.Recommendator == this.Appointment.Recommendator); // check if updated version alread exists
                        
-                        if (count == 0) result = DialogResult.OK; // we dont have updated appointment
-                        else if (count == 1) // we have the same appointment but we dont know if its the old one(the new values are the same as the old ones)
+                        if (!update_exists) result = DialogResult.OK; // we dont have updated appointment
+                        else // we have the same appointment but we dont know if its the old one(the new values are the same as the old ones)
                         {
-                            if (this.Appointment.MedicineList == meds && this.Appointment.Recommendator == recom) result = DialogResult.OK;
+                            if (this.Appointment.MedicineList == this.initial_ap.MedicineList && this.Appointment.Recommendator == this.initial_ap.Recommendator) result = DialogResult.OK;
                             else result = DialogResult.TryAgain;
                         }
 
                         // processing and analyzing result
                         if(result == DialogResult.OK)
                         {
-                            int rows = context.Database.ExecuteSql($"update Appointments set MedicineList={meds},Recommendator={recom},AppointmentVolume={volume},AdditionalInfo={addition_info} where IdIllness={this.Appointment.IdIllness} and MedicineList={this.Appointment.MedicineList} and Recommendator={this.Appointment.Recommendator}");
-                            if (rows == 1)
-                            {
-                                this.Appointment.MedicineList = meds;
-                                this.Appointment.Recommendator = recom;
-                                this.Appointment.AppointmentVolume = volume;
-                                this.Appointment.AdditionalInfo = addition_info;
-                            }
-                            else throw new Exception("Exception with the update function!");
+                            int rows = context.Database.ExecuteSql($"update Appointments set MedicineList={this.Appointment.MedicineList},Recommendator={this.Appointment.Recommendator},AppointmentVolume={this.Appointment.AppointmentVolume},AdditionalInfo={this.Appointment.AdditionalInfo} where IdIllness={this.initial_ap.IdIllness} and MedicineList={this.initial_ap.MedicineList} and Recommendator={this.initial_ap.Recommendator}");
+                            if (rows != 1) throw new Exception("Exception with the update function!");
                         }
                         else
                         {
@@ -194,7 +211,7 @@ namespace HomePharmacy.Forms
                                     MessageBox.Show("There is already such appointment", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }));
                         }
-
+                        
                     }
                 }
                 catch(Exception ex)
@@ -217,15 +234,12 @@ namespace HomePharmacy.Forms
 
         private void btn_action_PhClick(object sender, EventArgs e)
         {
-            string meds = this.tb_medicines.Text;
-            string recom = this.tb_recommendator.Text;
-            string? volume = this.tb_volume.Text != String.Empty ? this.tb_volume.Text : null;
-            string? addition_info = this.tb_comment.Text != String.Empty ? this.tb_comment.Text : null;
+            this.InputToAppointment();
 
-            if (!this.DbOperation && this.DataValidation(meds, recom))
+            if (!this.DbOperation && this.Validation())
             {
-                if (this.current_action == ActionType.ADD) this.AddAppointment(meds, recom, volume, addition_info);
-                else if (this.current_action == ActionType.UPDATE) this.UpdateAppointment(meds, recom, volume, addition_info);
+                if (this.current_action == ActionType.ADD) this.AddAppointment();
+                else if (this.current_action == ActionType.UPDATE) this.UpdateAppointment();
             }
         }
     }

@@ -16,4 +16,13 @@ public partial class Appointment
     public string? AdditionalInfo { get; set; }
 
     public virtual Illness IdIllnessNavigation { get; set; } = null!;
+
+    public void TransferDataFrom(Appointment appointment)
+    {
+        this.IdIllness = appointment.IdIllness;
+        this.MedicineList = appointment.MedicineList;
+        this.Recommendator = appointment.Recommendator;
+        this.AppointmentVolume = appointment.AppointmentVolume;
+        this.AdditionalInfo = appointment.AdditionalInfo;
+    }
 }
