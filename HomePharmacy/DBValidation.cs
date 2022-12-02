@@ -180,5 +180,32 @@ namespace HomePharmacy
             }
         }
         #endregion
+
+        #region MedicineUsage validation
+
+        public struct MedUsageValidation
+        {
+            public static string[] results = { "helps", "doesnt help", "no opinion"};
+
+            public static bool Validation(Medicine medicine, MedicinesUsage usage)
+            {
+                
+                if(!results.Contains(usage.UsageResult))
+                {
+                    ValidationErrorMsg = "Usage result is incorrect!";
+                    return false;
+                }
+
+                if(usage.CountOrAmount > medicine.Remainings)
+                {
+                    ValidationErrorMsg = "You can't use more than you have!";
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        #endregion
     }
 }

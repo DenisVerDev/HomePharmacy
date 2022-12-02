@@ -20,4 +20,14 @@ public partial class MedicinesUsage
     public virtual Illness IdIllnessNavigation { get; set; } = null!;
 
     public virtual Medicine IdMedicineNavigation { get; set; } = null!;
+
+    public void TrasnferDataFrom(MedicinesUsage usage)
+    {
+        this.IdMedicine = usage.IdMedicine;
+        this.IdIllness = usage.IdIllness;
+        this.UsageDate = usage.UsageDate;
+        this.UsageResult = usage.UsageResult;
+        this.CountOrAmount = usage.CountOrAmount;
+        this.Comment = usage.Comment;
+    }
 }

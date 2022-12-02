@@ -19,6 +19,9 @@
     <Compile Update="Forms\MedicineForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\TakeMedForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormTab\CabinetSelectionPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
