@@ -156,7 +156,12 @@ namespace HomePharmacy.MainPages
                     {
                         using (HomePharmacyContext context = new HomePharmacyContext())
                         {
+                            var usages = context.MedicinesUsages.Where(x => x.IdIllness == selected.IdIllness).ToList();
+                            context.MedicinesUsages.RemoveRange(usages);
+                            context.SaveChanges();
+
                             context.Illnesses.Remove(selected);
+
                             context.SaveChanges();
                         }
                     }

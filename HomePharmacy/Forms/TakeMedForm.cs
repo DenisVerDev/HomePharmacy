@@ -40,7 +40,6 @@ namespace HomePharmacy.Forms
 
         private void InitMaxValues()
         {
-            this.cb_result.Items.AddRange(DBValidation.MedUsageValidation.results);
             this.nm_count.Maximum = Int32.MaxValue;
             this.dateUseCalendar.MaxDate = DateTime.Today;
         }
@@ -72,7 +71,7 @@ namespace HomePharmacy.Forms
             this.dgv_medicines.DataSource = this.table_medicines;
         }
 
-        private void InitDataGridViews(bool action_enable)
+        private void InitDataGridViews()
         {
             this.table_illnesses.Rows.Clear();
             this.table_medicines.Rows.Clear();
@@ -87,14 +86,17 @@ namespace HomePharmacy.Forms
 
                 ill_row.Selected = true;
                 med_row.Selected = true;
-            }
 
-            this.dgv_illnesses.Enabled = action_enable;
-            this.dgv_medicines.Enabled = action_enable;
+                this.Controls.OfType<DataGridView>().ToList().ForEach(x => x.Enabled = false);
+            }
+            else this.Controls.OfType<DataGridView>().ToList().ForEach(x => x.Enabled = true);
         }
 
         private void InitUsageResults(bool action_enable)
         {
+            this.cb_result.Items.Clear();
+            this.cb_result.Items.AddRange(DBValidation.MedUsageValidation.results);
+
             if (this.current_action == ActionType.ADD) this.cb_result.PhText = this.cb_result.Placeholder;
             else this.cb_result.PhText = this.init_usage.UsageResult;
 
@@ -203,7 +205,7 @@ namespace HomePharmacy.Forms
                 bool action_enable = true;
                 if (this.current_action == ActionType.INFORMATION) action_enable = false;
 
-                this.InitDataGridViews(action_enable);
+                this.InitDataGridViews();
                 this.InitUsageResults(action_enable);
                 this.InitCount(action_enable);
                 this.InitComment(!action_enable);
@@ -255,7 +257,7 @@ namespace HomePharmacy.Forms
                 this.MedicinesUsage.UsageDate = this.dateUseCalendar.SelectionRange.Start;
                 this.MedicinesUsage.UsageResult = this.cb_result.PhText;
                 this.MedicinesUsage.CountOrAmount = (int)this.nm_count.Value;
-                this.MedicinesUsage.Comment = this.tb_comment.Text;
+                this.MedicinesUsage.Comment = this.tb_comment.Text != String.Empty ? this.tb_comment.Text : null;
 
                 return true;
             }
@@ -269,7 +271,7 @@ namespace HomePharmacy.Forms
 
             if (selected_medicine != null)
             {
-                if (DBValidation.MedUsageValidation.Validation(selected_medicine, this.MedicinesUsage)) return true;
+                if (DBValidation.MedUsageValidation.Validation(this.current_action,selected_medicine, this.MedicinesUsage)) return true;
                 else
                 {
                     MessageBox.Show(DBValidation.ValidationErrorMsg, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -363,6 +365,13 @@ namespace HomePharmacy.Forms
 
                         if(result == DialogResult.OK)
                         {
+                            Medicine current = this.medicines.Where(x => x.IdMedicine == this.MedicinesUsage.IdMedicine).First();
+                            current.Remainings += this.init_usage.CountOrAmount;
+                            current.Remainings -= this.MedicinesUsage.CountOrAmount;
+
+                            context.Update(current);
+                            context.SaveChanges();
+
                             int rows = context.Database.ExecuteSql($"update MedicinesUsage set IdMedicine={this.MedicinesUsage.IdMedicine}, IdIllness={this.MedicinesUsage.IdIllness},UsageDate={this.MedicinesUsage.UsageDate},UsageResult={this.MedicinesUsage.UsageResult},CountOrAmount={this.MedicinesUsage.CountOrAmount},Comment={this.MedicinesUsage.Comment} where IdMedicine={this.init_usage.IdMedicine} and IdIllness={this.init_usage.IdIllness} and UsageDate={this.init_usage.UsageDate}");
                             if (rows != 1) throw new Exception("Exception with the update function!");
                         }
@@ -401,6 +410,11 @@ namespace HomePharmacy.Forms
                 if (this.current_action == ActionType.ADD) this.AddUsage();
                 else if (this.current_action == ActionType.UPDATE) this.UpdateUsage();
             }
+        }
+
+        private void dgv_medicines_SelectionChanged(object sender, EventArgs e)
+        {
+            if(this.dgv_medicines.SelectedRows.Count == 1) this.InitAvaiableCount();
         }
     }
 }

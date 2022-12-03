@@ -23,12 +23,14 @@ namespace HomePharmacy.FormTab
         private Family? family;
         private List<Illness> illnesses;
         private List<Medicine> medicines;
+        private List<MedicinesUsage> medicinesUsages;
 
         public MainPage()
         {
             InitializeComponent();
             this.illnesses = new List<Illness>();
             this.medicines = new List<Medicine>();
+            this.medicinesUsages = new List<MedicinesUsage>();
            
             // buttons Tag
             this.btn_profile.Tag = MainTabs.Profile;
@@ -81,16 +83,7 @@ namespace HomePharmacy.FormTab
             var button = (PhIcon)sender;
             button.IsSelected = true;
 
-            MainTabs next = (MainTabs)button.Tag;
-            switch (next)
-            {
-
-                case MainTabs.TakeMedicines:
-                    this.ChangeMainTabs((MainTabs)button.Tag, this.medicines);
-                    break;
-
-                default: this.ChangeMainTabs((MainTabs)button.Tag); break;
-            }
+            this.ChangeMainTabs((MainTabs)button.Tag);
         }
 
         private void profilePage_ChangeCabinetEvent(object sender, EventArgs e)
@@ -129,6 +122,7 @@ namespace HomePharmacy.FormTab
                     // clear all previous data
                     this.illnesses.Clear();
                     this.medicines.Clear();
+                    this.medicinesUsages.Clear();
 
                     // load medicines types
                     DBValidation.MedicineValidation.types = context.MedicinesTypes.ToArray();
@@ -145,7 +139,7 @@ namespace HomePharmacy.FormTab
                         }
 
                         // load medicines
-                        this.medicines = context.Families.Where(x => x.IdFamily == this.family.IdFamily).SelectMany(s => s.Medicines).ToList();
+                        this.medicines = context.Families.Where(x => x.IdFamily == this.family.IdFamily).SelectMany(s => s.Medicines).Include(c=>c.MedicinesUsages).ToList();
                     }
                     else
                     {
@@ -153,8 +147,15 @@ namespace HomePharmacy.FormTab
                         this.illnesses = context.Persons.Where(x => x.Email == this.user.Email).SelectMany(s => s.Illnesses).Include(c => c.Appointments).ToList();
 
                         // load medicines
-                        this.medicines = context.Medicines.Where(x => x.BelongsToFamily == null && x.ForWhom == this.user.Email).ToList();
+                        this.medicines = context.Medicines.Where(x => x.BelongsToFamily == null && x.ForWhom == this.user.Email).Include(c => c.MedicinesUsages).ToList();
                     }
+
+                    // load medicine usages
+                    this.medicines.ForEach((x) =>
+                    {
+                        var usages = context.Medicines.Where(s => s.IdMedicine == x.IdMedicine).SelectMany(c => c.MedicinesUsages).ToList();
+                        if(usages.Count > 0) this.medicinesUsages.AddRange(usages);
+                    });
                 }
 
                 // give data to the pages
@@ -162,6 +163,7 @@ namespace HomePharmacy.FormTab
                 this.familyPage.Data = new object[2] { this.user, this.family }; // family page
                 this.illnessesPage.Data = new object[3] { this.user,this.family,this.illnesses }; // illnesses page
                 this.medicinesPage.Data = new object[3] { this.user, this.family, this.medicines }; // medicines page
+                this.takeMedsPage.Data = new object[3] { this.medicinesUsages, this.medicines, this.illnesses }; // take medicines page
             }
             catch(Exception ex)
             {

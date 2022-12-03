@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HomePharmacy.Models;
+using HomePharmacy.Forms;
 
 namespace HomePharmacy
 {
@@ -187,7 +188,7 @@ namespace HomePharmacy
         {
             public static string[] results = { "helps", "doesnt help", "no opinion"};
 
-            public static bool Validation(Medicine medicine, MedicinesUsage usage)
+            public static bool Validation(ActionType action,Medicine medicine, MedicinesUsage usage)
             {
                 
                 if(!results.Contains(usage.UsageResult))
@@ -196,11 +197,18 @@ namespace HomePharmacy
                     return false;
                 }
 
-                if(usage.CountOrAmount > medicine.Remainings)
+                if(action == ActionType.ADD && usage.CountOrAmount > medicine.Remainings)
                 {
                     ValidationErrorMsg = "You can't use more than you have!";
                     return false;
                 }
+
+                if(action == ActionType.UPDATE && usage.CountOrAmount > medicine.CountOrAmount*medicine.ExemplearsCount)
+                {
+                    ValidationErrorMsg = "You can't use more than you can possiby have!";
+                    return false;
+                }
+                
 
                 return true;
             }
