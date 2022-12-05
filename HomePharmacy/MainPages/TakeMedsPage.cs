@@ -160,13 +160,23 @@ namespace HomePharmacy.MainPages
 
         private void TakeMedsPage_DataReceived()
         {
-            if(this.Data != null && this.Data.Length == 3)
+            try
             {
-                this.medicinesUsages = (List<MedicinesUsage>)this.Data[0];
-                this.medicines = (List<Medicine>)this.Data[1];
-                this.illnesses = (List<Illness>)this.Data[2];
+                if (this.Data != null && this.Data.Length == 3)
+                {
+                    this.medicinesUsages = (List<MedicinesUsage>)this.Data[0];
+                    this.medicines = (List<Medicine>)this.Data[1];
+                    this.illnesses = (List<Illness>)this.Data[2];
 
-                this.UpdateDataGridView();
+                    this.Enabled = true;
+
+                    this.UpdateDataGridView();
+                }
+                else throw new Exception();
+            }
+            catch(Exception ex)
+            {
+                this.Enabled = false;
             }
         }
     }

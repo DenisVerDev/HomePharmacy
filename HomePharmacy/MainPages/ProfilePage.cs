@@ -201,12 +201,22 @@ namespace HomePharmacy.MainPages
 
         private void ProfilePage_DataReceived()
         {
-            if (this.Data != null && this.Data.Length == 1)
+            try
             {
-                this.user = (Person)this.Data[0];
+                if (this.Data != null && this.Data.Length == 1)
+                {
+                    this.user = (Person)this.Data[0];
 
-                this.ClearDataUI();
-                this.LoadDataUI();
+                    this.Enabled = true;
+
+                    this.ClearDataUI();
+                    this.LoadDataUI();
+                }
+                else throw new Exception();
+            }
+            catch(Exception ex)
+            {
+                this.Enabled = false;
             }
         }
     }

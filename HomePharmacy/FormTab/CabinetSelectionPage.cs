@@ -27,6 +27,16 @@ namespace HomePharmacy.FormTab
             InitializeComponent();
         }
 
+        public override void ClearDataUI()
+        {
+            int index = 2; // skip personal cabinet and create family
+            int count = this.flowPanel.Controls.Count - index;
+            for (int i = 0; i < count; i++)
+            {
+                this.flowPanel.Controls.RemoveAt(index);
+            }
+        }
+
         public override void LoadDataUI()
         {
             try
@@ -52,16 +62,6 @@ namespace HomePharmacy.FormTab
             catch(Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Families UI exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        public override void ClearDataUI()
-        {
-            int index = 2; // skip personal cabinet and create family
-            int count = this.flowPanel.Controls.Count - index;
-            for(int i = 0; i < count; i++)
-            {
-                this.flowPanel.Controls.RemoveAt(index);
             }
         }
 
@@ -124,13 +124,23 @@ namespace HomePharmacy.FormTab
 
         private void CabinetSelectionPage_DataReceived()
         {
-            if (this.Data != null && this.Data.Length == 2)
+            try
             {
-                this.user = (Person)this.Data[0];
-                this.previous = (Tabs)this.Data[1];
+                if (this.Data != null && this.Data.Length == 2)
+                {
+                    this.user = (Person)this.Data[0];
+                    this.previous = (Tabs)this.Data[1];
 
-                this.ClearDataUI();
-                this.LoadFamilies();
+                    this.Enabled = true;
+
+                    this.ClearDataUI();
+                    this.LoadFamilies();
+                }
+                else throw new Exception();
+            }
+            catch(Exception ex)
+            {
+                this.Enabled = false;
             }
         }
     }

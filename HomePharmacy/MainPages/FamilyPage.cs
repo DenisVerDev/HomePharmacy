@@ -62,6 +62,23 @@ namespace HomePharmacy.MainPages
             return person;
         }
 
+        private bool Validation()
+        {
+            if (this.family.People.Any(x => x.Email == tb_email.PhText))
+            {
+                MessageBox.Show("Such account is already part of your family", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (!DBValidation.PersonValidation.EmailValidation(tb_email.PhText))
+            {
+                MessageBox.Show(DBValidation.ValidationErrorMsg, "Email validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+                
+            return true;
+        }
+
         private async void AddMember(string email)
         {
             this.DbOperation = true;
@@ -163,15 +180,7 @@ namespace HomePharmacy.MainPages
 
         private void btn_add_PhClick(object sender, EventArgs e)
         {
-            if(!this.DbOperation)
-            {
-                if (DBValidation.PersonValidation.EmailValidation(tb_email.PhText))
-                {
-                    if(!this.family.People.Any(x=>x.Email == tb_email.PhText))this.AddMember(tb_email.PhText);
-                    else MessageBox.Show("Such account is already part of your family", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else MessageBox.Show(DBValidation.ValidationErrorMsg, "Email validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            if(!this.DbOperation && this.Validation()) this.AddMember(tb_email.PhText);
         }
 
         private void btn_leave_PhClick(object sender, EventArgs e)
@@ -181,13 +190,23 @@ namespace HomePharmacy.MainPages
 
         private void FamilyPage_DataReceived()
         {
-            if (this.Data != null && this.Data.Length == 2)
+            try
             {
-                this.user = (Person)this.Data[0];
-                this.family = (Family?)this.Data[1];
+                if (this.Data != null && this.Data.Length == 2)
+                {
+                    this.user = (Person)this.Data[0];
+                    this.family = (Family?)this.Data[1];
 
-                this.ClearDataUI();
-                this.LoadDataUI();
+                    this.Enabled = true;
+
+                    this.ClearDataUI();
+                    this.LoadDataUI();
+                }
+                else throw new Exception();
+            }
+            catch(Exception ex)
+            {
+                this.Enabled = false;
             }
         }
     }

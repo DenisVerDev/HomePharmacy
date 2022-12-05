@@ -33,75 +33,81 @@ namespace HomePharmacy.FormTab
             tb_email.PhText = String.Empty;
         }
 
+        private bool Validation(string other_email)
+        {
+            this.HideErrors();
+
+            if(!DBValidation.PersonValidation.EmailValidation(other_email))
+            {
+                lb_email_check.Text = DBValidation.ValidationErrorMsg;
+                return false;
+            }
+
+            return true;
+        }
+
         private async void btn_create_PhClick(object sender, EventArgs e)
         {
             string other_email = tb_email.PhText;
 
-            if (!this.DbOperation)
+            if (!this.DbOperation && this.Validation(other_email))
             {
-                this.HideErrors();
+                this.DbOperation = true;
 
-                if (DBValidation.PersonValidation.EmailValidation(other_email))
+                Family? family = new Family();
+
+                await Task.Run(() =>
                 {
-                    this.DbOperation = true;
-
-                    Family? family = new Family();
-
-                    await Task.Run(() =>
+                    try
                     {
-                        try
+                        using (HomePharmacyContext context = new HomePharmacyContext())
                         {
-                            using (HomePharmacyContext context = new HomePharmacyContext())
+                            Person? user = context.Persons.Where(x => x.Email == this.user.Email).FirstOrDefault();
+                            Person? other_person = context.Persons.Where(x => x.Email == other_email).FirstOrDefault();
+
+                            if (user != null && other_person != null)
                             {
-                                Person? user = context.Persons.Where(x => x.Email == this.user.Email).FirstOrDefault();
-                                Person? other_person = context.Persons.Where(x => x.Email == other_email).FirstOrDefault();
+                                // create new family
+                                context.Families.Add(family);
+                                context.SaveChanges();
 
-                                if (user != null && other_person != null)
-                                {
-                                    // create new family
-                                    context.Families.Add(family);
-                                    context.SaveChanges();
-
-                                    // create relation between persons and family
-                                    user.IdFamilies.Add(family);
-                                    other_person.IdFamilies.Add(family);
-                                    context.Update(user);
-                                    context.SaveChanges();
-                                }
-                                else
-                                {
-                                    family = null;
-
-                                    if (this.lb_email_check.InvokeRequired)
-                                        this.lb_email_check.Invoke(new MethodInvoker(delegate
-                                        {
-                                            this.lb_email_check.Text = "Account with such email does not exist!";
-                                        }));
-                                }
-
+                                // create relation between persons and family
+                                user.IdFamilies.Add(family);
+                                other_person.IdFamilies.Add(family);
+                                context.SaveChanges();
                             }
+                            else
+                            {
+                                family = null;
+
+                                if (this.lb_email_check.InvokeRequired)
+                                    this.lb_email_check.Invoke(new MethodInvoker(delegate
+                                    {
+                                        this.lb_email_check.Text = "Account with such email does not exist!";
+                                    }));
+                            }
+
                         }
-                        catch (Exception ex)
+                    }
+                    catch (Exception ex)
+                    {
+                        family = null;
+
+                        if (this.InvokeRequired)
                         {
-                            family = null;
-
-                            if (this.InvokeRequired)
+                            this.Invoke(new MethodInvoker(delegate
                             {
-                                this.Invoke(new MethodInvoker(delegate
-                                {
-                                    MessageBox.Show(ex.ToString(), "Database exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }));
-                            }
+                                MessageBox.Show(ex.ToString(), "Database exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }));
                         }
-                    });
+                    }
+                });
 
 
-                    // transfer data
-                    if (family != null && this.ChangePage != null) this.ChangePage(Tabs.Main, user, family);
+                // transfer data
+                if (family != null && this.ChangePage != null) this.ChangePage(Tabs.Main, user, family);
 
-                    this.DbOperation = false;
-                }
-                else lb_email_check.Text = DBValidation.ValidationErrorMsg;
+                this.DbOperation = false;
             }
         }
 
@@ -112,7 +118,19 @@ namespace HomePharmacy.FormTab
 
         private void FamCreationPage_DataReceived()
         {
-            if (this.Data != null && this.Data.Length == 1) this.user = (Person)this.Data[0];
+            try
+            {
+                if (this.Data != null && this.Data.Length == 1)
+                {
+                    this.user = (Person)this.Data[0];
+                    this.Enabled = true;
+                }
+                else throw new Exception();
+            }
+            catch(Exception ex)
+            {
+                this.Enabled = false;
+            }
         }
     }
 }

@@ -61,10 +61,13 @@ namespace HomePharmacy.FormTab
 
                 if (next_page != null)
                 {
-                    if (data != null)
+                    var current = next_page.Controls[0] as PhPage;
+
+                    if (data != null && data.Length > 0) current.Data = data;
+                    else
                     {
-                        var current = next_page.Controls[0] as PhPage;
-                        current.Data = data;
+                        current.ClearDataUI();
+                        current.LoadDataUI();
                     }
 
                     this.tab_main.SelectTab(next_page);
@@ -98,18 +101,28 @@ namespace HomePharmacy.FormTab
 
         private void MainPage_DataReceived()
         {
-            if (this.Data != null && this.Data.Length == 2)
+            try
             {
-                // gettind new data
-                this.user = (Person)this.Data[0];
-                this.family = (Family?)this.Data[1];
+                if (this.Data != null && this.Data.Length == 2)
+                {
+                    // gettind new data
+                    this.user = (Person)this.Data[0];
+                    this.family = (Family?)this.Data[1];
 
-                // analyzing data
-                if (this.family != null) this.btn_family.Enabled = true;
-                else this.btn_family.Enabled = false;
+                    this.Enabled = true;
 
-                this.LoadData();
-                this.Page_Select(this.btn_profile, null);
+                    // analyzing data
+                    if (this.family != null) this.btn_family.Enabled = true;
+                    else this.btn_family.Enabled = false;
+
+                    this.LoadData();
+                    this.Page_Select(this.btn_profile, null);
+                }
+                else throw new Exception();
+            }
+            catch(Exception ex)
+            {
+                this.Enabled = false;
             }
         }
 
@@ -139,7 +152,7 @@ namespace HomePharmacy.FormTab
                         }
 
                         // load medicines
-                        this.medicines = context.Families.Where(x => x.IdFamily == this.family.IdFamily).SelectMany(s => s.Medicines).Include(c=>c.MedicinesUsages).ToList();
+                        this.medicines = context.Families.Where(x => x.IdFamily == this.family.IdFamily).SelectMany(s => s.Medicines).ToList();
                     }
                     else
                     {
@@ -147,7 +160,7 @@ namespace HomePharmacy.FormTab
                         this.illnesses = context.Persons.Where(x => x.Email == this.user.Email).SelectMany(s => s.Illnesses).Include(c => c.Appointments).ToList();
 
                         // load medicines
-                        this.medicines = context.Medicines.Where(x => x.BelongsToFamily == null && x.ForWhom == this.user.Email).Include(c => c.MedicinesUsages).ToList();
+                        this.medicines = context.Medicines.Where(x => x.BelongsToFamily == null && x.ForWhom == this.user.Email).ToList();
                     }
 
                     // load medicine usages

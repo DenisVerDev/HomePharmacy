@@ -33,9 +33,7 @@ namespace HomePharmacy.FormTab
 
         public override void ClearInput()
         {
-            this.tb_email.PhText = String.Empty;
-            this.tb_password.PhText = String.Empty;
-            this.tb_name.PhText = String.Empty;
+            this.Controls.OfType<PhTextBox>().ToList().ForEach(x => x.PhText = String.Empty);
             this.cb_sex.PhText = String.Empty;
         }
 

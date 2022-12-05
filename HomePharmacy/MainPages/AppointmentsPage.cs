@@ -153,12 +153,22 @@ namespace HomePharmacy.MainPages
 
         private void AppointmentsPage_DataReceived()
         {
-            if(this.Data != null && this.Data.Length == 1)
+            try
             {
-                this.illness = (Illness)this.Data[0];
+                if (this.Data != null && this.Data.Length == 1)
+                {
+                    this.illness = (Illness)this.Data[0];
 
-                this.ClearDataUI();
-                this.LoadDataUI();
+                    this.Enabled = true;
+
+                    this.ClearDataUI();
+                    this.LoadDataUI();
+                }
+                else throw new Exception();
+            }
+            catch(Exception ex)
+            {
+                this.Enabled = false;
             }
         }
     }
