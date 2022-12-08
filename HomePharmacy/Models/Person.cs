@@ -21,5 +21,5 @@ public partial class Person
 
     public virtual ICollection<Medicine> Medicines { get; } = new List<Medicine>();
 
-    public virtual ICollection<Family> IdFamilies { get; } = new List<Family>();
+    public virtual ICollection<Family> Families { get; } = new List<Family>();
 }

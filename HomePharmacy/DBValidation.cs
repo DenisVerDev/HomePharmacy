@@ -13,204 +13,322 @@ namespace HomePharmacy
         // error message state is different on each validation method call
         public static string? ValidationErrorMsg { get; private set; }
 
-        #region Person validation
+        #region Person Validation
+
         public struct PersonValidation
         {
-            public const int emailMinLength = 10;
-            public const int passMinLength = 8;
-            public const int passMaxLength = 16;
-            public const int nameMaxLength = 200;
+            public const int email_maxsize = 100;
+            public const int email_minsize = 6;
 
-            public static readonly string[] sexTypes = { "male", "female", "other" };
+            public const int password_maxsize = 16;
+            public const int password_minsize = 8;
 
-            public static bool EmailValidation(string email)
+            public const int name_maxsize = 200;
+
+            public static string[] sexTypes = { "male", "female", "other" };
+
+            public static bool Email(string email)
             {
-                if (email.Length < emailMinLength)
+                if (email == null || email == String.Empty)
                 {
-                    ValidationErrorMsg = $"Email address must be at least {emailMinLength} characters long!";
+                    ValidationErrorMsg = "Email must not be empty!";
                     return false;
                 }
 
-                if (!email.Contains('@'))
+                if (email.Length < email_minsize || email.Length > email_maxsize)
                 {
-                    ValidationErrorMsg = "Email address should contain @ symbol!";
+                    ValidationErrorMsg = $"Email must be {email_minsize}-{email_maxsize} characters long!";
+                    return false;
+                }
+
+                if (!email.Contains('@') || !email.Contains('.'))
+                {
+                    ValidationErrorMsg = $"Email must contain '@' and '.' symbols!";
                     return false;
                 }
 
                 return true;
             }
 
-            public static bool PasswordValidation(string password)
+            public static bool Password(string password)
             {
-                if (password.Length < passMinLength || password.Length > passMaxLength)
+                if (password == null || password == String.Empty)
                 {
-                    ValidationErrorMsg = $"Password's length must be {passMinLength}-{passMaxLength} characters long!";
+                    ValidationErrorMsg = "Password must not be empty!";
+                    return false;
+                }
+
+                if (password.Length < password_minsize || password.Length > password_maxsize)
+                {
+                    ValidationErrorMsg = $"Password must be {password_minsize}-{password_maxsize} characters long!";
                     return false;
                 }
 
                 return true;
             }
 
-            public static bool NameValidation(string name)
+            public static bool Name(string name)
             {
-                if (name == String.Empty)
+                if (name == null || name == String.Empty)
                 {
-                    ValidationErrorMsg = "Name field is empty!";
+                    ValidationErrorMsg = "Name must not be empty!";
                     return false;
                 }
 
-                if (name.Length > nameMaxLength)
+                if (name.Length > name_maxsize)
                 {
-                    ValidationErrorMsg = $"Name's length should be less than {nameMaxLength} characters!";
-                    return false;
-                }
-
-                return true;
-            }
-
-            public static bool SexValidation(string sex)
-            {
-                if (!sexTypes.Any(x => x.Equals(sex)))
-                {
-                    ValidationErrorMsg = "Sex field value is not valid!";
-                    return false;
-                }
-
-                return true;
-            }
-        }
-        #endregion
-
-        #region Illness validation
-        public struct IllnessValidation
-        { 
-            public static bool DiagnoseValidation(string diagnose)
-            {
-                if(diagnose == null || diagnose == String.Empty)
-                {
-                    ValidationErrorMsg = "Diagnose must not be empty!";
+                    ValidationErrorMsg = $"Name's length must be less than {name_maxsize} characters!";
                     return false;
                 }
 
                 return true;
             }
 
-            public static bool DateValidation(DateTime start, DateTime? end)
+            public static bool Sex(string sex)
             {
-                if(end != null)
+                if (sex == null || !sexTypes.Any(x=>x.Equals(sex)))
                 {
-                    if(end <= start)
-                    {
-                        ValidationErrorMsg = "End date must be later than the start date!";
-                        return false;
-                    }
+                    ValidationErrorMsg = "Incorrect sex type!";
+                    return false;
                 }
 
                 return true;
+            }
+
+            public static bool Validate(Person person)
+            {
+                if (person != null) return Email(person.Email) && Password(person.Password) && Name(person.Name) && Sex(person.Sex);
+
+                ValidationErrorMsg = "Received person is empty!";
+
+                return false;
             }
         }
 
+        #endregion
+
+        #region Illness Validation
+
+        public struct IllnessValidation 
+        {
+            public const int diagnosis_maxsize = 200;
+
+            public static bool Diagnosis(string diagnosis)
+            {
+                if (diagnosis == null || diagnosis == String.Empty)
+                {
+                    ValidationErrorMsg = "Diagnosis must not be empty!";
+                    return false;
+                }
+
+                if (diagnosis.Length > diagnosis_maxsize)
+                {
+                    ValidationErrorMsg = $"Diagnosis length must be less than {diagnosis_maxsize} characters!";
+                    return false;
+                }
+
+                return true;
+            }
+
+            public static bool Dates(DateTime start, DateTime? end)
+            {
+                if (end != null && end <= start)
+                {
+                    ValidationErrorMsg = "End date must be later than the start date!";
+                    return false;
+                }
+
+                return true;
+            }
+
+            public static bool Validate(Illness illness)
+            {
+                if (illness != null) return Diagnosis(illness.Diagnosis) && Dates(illness.StartDate, illness.EndDate);
+
+                ValidationErrorMsg = "Received illness is empty!";
+
+                return false;
+            }
+        }
 
         #endregion
 
-        #region Appointment validation
+        #region Appointment Validation
 
         public struct AppointmentValidation
-        { 
-            
-            public static bool MedicineListValidation(string meds)
-            {
-                if(meds == null || meds == String.Empty)
-                {
-                    ValidationErrorMsg = "Medicine list must not be empty!";
-                    return false;
-                }
+        {
+            public const int recommendator_maxsize = 200;
+            public const int info_maxsize = 1000;
 
-                return true;
-            }
-
-            public static bool RecommendatorValidation(string recom)
+            public static bool Recommendator(string recommendator)
             {
-                if(recom == null || recom == String.Empty)
+                if (recommendator == null || recommendator == String.Empty)
                 {
                     ValidationErrorMsg = "Recommendator must not be empty!";
                     return false;
                 }
 
+                if (recommendator.Length > recommendator_maxsize)
+                {
+                    ValidationErrorMsg = $"Recommendator's length must be less than {recommendator_maxsize} characters!";
+                    return false;
+                }
+
                 return true;
+            }
+
+            public static bool MedicineData(string medicines, string med_usage_schedule)
+            {
+                if (medicines == null || medicines == String.Empty)
+                {
+                    ValidationErrorMsg = "Medicine list must not be empty!";
+                    return false;
+                }
+
+                if (med_usage_schedule == null || med_usage_schedule == String.Empty)
+                {
+                    ValidationErrorMsg = "Medicine usage schedule must not be empty!";
+                    return false;
+                }
+
+                if (medicines.Length > info_maxsize || med_usage_schedule.Length > info_maxsize)
+                {
+                    ValidationErrorMsg = $"Medicine list and usage schedule must be lesser than {info_maxsize} characters!";
+                    return false;
+                }
+
+                return true;
+            }
+
+            public static bool Validate(Appointment app)
+            {
+                if (app != null) return Recommendator(app.Recommendator) && MedicineData(app.Medicines, app.MedicinesUsageSchedule);
+
+                ValidationErrorMsg = "Received appointment is empty!";
+
+                return false;
             }
         }
 
         #endregion
 
-        #region Medicine validation
+        #region Medicine Validation
 
         public struct MedicineValidation
         {
-            public static MedicinesType[] types;
+            public const int name_maxsize = 200;
+            public static string[] types = { "tablet", "capsules", "liquid", "drops", "inhaler", "injection", "cream", "ointment", "other" };
 
-            public static bool Validation(Medicine medicine)
+            public static bool Name(string name)
             {
-                // name validation
-                if (medicine.Name == null || medicine.Name == String.Empty)
+                if (name == null || name == String.Empty)
                 {
-                    ValidationErrorMsg = "Medicine name must not be empty!";
+                    ValidationErrorMsg = "Medicine's name must not be empty!";
                     return false;
                 }
 
-                // type validation
-                if(!types.Select(x=>x.Type).Contains(medicine.Type))
+                if (name.Length > name_maxsize)
                 {
-                    ValidationErrorMsg = "Medicine type is incorrect!";
-                    return false;
-                }
-
-                if(!(medicine.CountOrAmount > 0 && medicine.ExemplearsCount > 0 && medicine.Remainings >= 0))
-                {
-                    ValidationErrorMsg = "Medicine count properties are incorrect!";
-                    return false;
-                }
-
-                if(medicine.Remainings > medicine.CountOrAmount*medicine.ExemplearsCount)
-                {
-                    ValidationErrorMsg = "Medicine remainings is higher than the max value!";
+                    ValidationErrorMsg = $"Medicine's name must be lesser than {name_maxsize} characters!";
                     return false;
                 }
 
                 return true;
             }
-        }
-        #endregion
 
-        #region MedicineUsage validation
-
-        public struct MedUsageValidation
-        {
-            public static string[] results = { "helps", "doesnt help", "no opinion"};
-
-            public static bool Validation(ActionType action,Medicine medicine, MedicinesUsage usage)
+            public static bool Type(string type)
             {
-                
-                if(!results.Contains(usage.UsageResult))
+                if (type == null || !types.Any(x=>x.Equals(type)))
                 {
-                    ValidationErrorMsg = "Usage result is incorrect!";
+                    ValidationErrorMsg = "Incorrect medicine type!";
                     return false;
                 }
 
-                if(action == ActionType.ADD && usage.CountOrAmount > medicine.Remainings)
+                return true;
+            }
+
+            public static bool Integers(int count, int excount, int rem)
+            {
+                if (!(count > 0 && excount > 0 && rem >= 0))
+                {
+                    ValidationErrorMsg = "Count and Exemplears count must always be more than 0! Remainings can be 0!"; 
+                    return false;
+                }
+
+                if (rem > count * excount)
+                {
+                    ValidationErrorMsg = "Remainings can't be more than you can possibly have!";
+                    return false;
+                }
+
+                return true;
+            }
+
+            public static bool Validate(Medicine med)
+            {
+                if (med != null) return Name(med.Name) && Type(med.Type) && Integers(med.CountOrAmount, med.ExemplearsCount, med.Remainings);
+
+                ValidationErrorMsg = "Received medicine is empty!";
+
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region MedicineUsage Validation
+
+        public struct MedicineUsageValidation
+        {
+            public const int comment_maxsize = 1000;
+            public static string[] results = { "helps", "does not help", "no opinion" };
+
+            public static bool UsageResult(string result)
+            {
+                if (result == null || !results.Any(x=>x.Equals(result)))
+                {
+                    ValidationErrorMsg = "Incorrect usage result!";
+                    return false;
+                }
+
+                return true;
+            }
+
+            public static bool CountOrAmount(ActionType action, MedicinesUsage usage, Medicine medicine)
+            {
+                if (action == ActionType.ADD && usage.CountOrAmount > medicine.Remainings)
                 {
                     ValidationErrorMsg = "You can't use more than you have!";
                     return false;
                 }
 
-                if(action == ActionType.UPDATE && usage.CountOrAmount > medicine.CountOrAmount*medicine.ExemplearsCount)
+                if (action == ActionType.UPDATE && usage.CountOrAmount > medicine.CountOrAmount * medicine.ExemplearsCount)
                 {
                     ValidationErrorMsg = "You can't use more than you can possiby have!";
                     return false;
                 }
-                
 
                 return true;
+            }
+
+            public static bool Comment(string comment)
+            {
+                if (comment != null && comment.Length > comment_maxsize)
+                {
+                    ValidationErrorMsg = $"Comment's length must be less than {comment_maxsize} characters!";
+                    return false;
+                }
+
+                return true;
+            }
+
+            public static bool Validate(ActionType action, MedicinesUsage usage, Medicine medicine)
+            {
+                if (usage != null && medicine != null) return UsageResult(usage.UsageResult) && CountOrAmount(action, usage, medicine) && Comment(usage.Comment);
+
+                ValidationErrorMsg = "Received usage is empty!";
+
+                return false;
             }
         }
 

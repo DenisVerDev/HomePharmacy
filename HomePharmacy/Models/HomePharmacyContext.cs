@@ -24,8 +24,6 @@ public partial class HomePharmacyContext : DbContext
 
     public virtual DbSet<Medicine> Medicines { get; set; }
 
-    public virtual DbSet<MedicinesType> MedicinesTypes { get; set; }
-
     public virtual DbSet<MedicinesUsage> MedicinesUsages { get; set; }
 
     public virtual DbSet<Person> Persons { get; set; }
@@ -37,17 +35,16 @@ public partial class HomePharmacyContext : DbContext
     {
         modelBuilder.Entity<Appointment>(entity =>
         {
-            entity.HasKey(e => new { e.IdIllness, e.MedicineList, e.Recommendator }).HasName("PK_Appointment");
+            entity.HasKey(e => new { e.IdIllness, e.Recommendator, e.AppointmentDate }).HasName("PK_Appointment");
 
-            entity.Property(e => e.MedicineList).HasMaxLength(1000);
             entity.Property(e => e.Recommendator).HasMaxLength(200);
-            entity.Property(e => e.AdditionalInfo).HasMaxLength(400);
-            entity.Property(e => e.AppointmentVolume).HasMaxLength(1000);
+            entity.Property(e => e.AppointmentDate).HasColumnType("date");
+            entity.Property(e => e.Medicines).HasMaxLength(1000);
+            entity.Property(e => e.MedicinesUsageSchedule).HasMaxLength(1000);
 
             entity.HasOne(d => d.IdIllnessNavigation).WithMany(p => p.Appointments)
-                .HasPrincipalKey(p => p.IdIllness)
                 .HasForeignKey(d => d.IdIllness)
-                .HasConstraintName("FK_Illness");
+                .HasConstraintName("FK_AppointmentIllness");
         });
 
         modelBuilder.Entity<Family>(entity =>
@@ -57,17 +54,16 @@ public partial class HomePharmacyContext : DbContext
 
         modelBuilder.Entity<Illness>(entity =>
         {
-            entity.HasKey(e => new { e.IlledPerson, e.Diagnoses, e.StartDate }).HasName("PK_Illness");
+            entity.HasKey(e => e.IdIllness).HasName("PK_Illness");
 
-            entity.HasIndex(e => e.IdIllness, "UK_IdIllness").IsUnique();
+            entity.HasIndex(e => new { e.IlledPerson, e.Diagnosis, e.StartDate }, "UK_Illness").IsUnique();
 
+            entity.Property(e => e.Diagnosis).HasMaxLength(200);
+            entity.Property(e => e.EndDate).HasColumnType("date");
             entity.Property(e => e.IlledPerson)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-            entity.Property(e => e.Diagnoses).HasMaxLength(1000);
             entity.Property(e => e.StartDate).HasColumnType("date");
-            entity.Property(e => e.EndDate).HasColumnType("date");
-            entity.Property(e => e.IdIllness).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.IlledPersonNavigation).WithMany(p => p.Illnesses)
                 .HasForeignKey(d => d.IlledPerson)
@@ -97,20 +93,6 @@ public partial class HomePharmacyContext : DbContext
             entity.HasOne(d => d.ForWhomNavigation).WithMany(p => p.Medicines)
                 .HasForeignKey(d => d.ForWhom)
                 .HasConstraintName("FK_MedicineForWhom");
-
-            entity.HasOne(d => d.TypeNavigation).WithMany(p => p.Medicines)
-                .HasForeignKey(d => d.Type)
-                .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK_MedicineType");
-        });
-
-        modelBuilder.Entity<MedicinesType>(entity =>
-        {
-            entity.HasKey(e => e.Type).HasName("PK_MedicineType");
-
-            entity.Property(e => e.Type)
-                .HasMaxLength(100)
-                .IsUnicode(false);
         });
 
         modelBuilder.Entity<MedicinesUsage>(entity =>
@@ -126,7 +108,6 @@ public partial class HomePharmacyContext : DbContext
                 .IsUnicode(false);
 
             entity.HasOne(d => d.IdIllnessNavigation).WithMany(p => p.MedicinesUsages)
-                .HasPrincipalKey(p => p.IdIllness)
                 .HasForeignKey(d => d.IdIllness)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MedicineForIllness");
@@ -149,21 +130,21 @@ public partial class HomePharmacyContext : DbContext
                 .HasMaxLength(16)
                 .IsUnicode(false);
             entity.Property(e => e.Sex)
-                .HasMaxLength(6)
+                .HasMaxLength(10)
                 .IsUnicode(false);
 
-            entity.HasMany(d => d.IdFamilies).WithMany(p => p.People)
+            entity.HasMany(d => d.Families).WithMany(p => p.People)
                 .UsingEntity<Dictionary<string, object>>(
                     "PersonsFamilies",
                     r => r.HasOne<Family>().WithMany()
-                        .HasForeignKey("IdFamily")
+                        .HasForeignKey("Family")
                         .HasConstraintName("FK_Family"),
                     l => l.HasOne<Person>().WithMany()
                         .HasForeignKey("Person")
                         .HasConstraintName("FK_Person"),
                     j =>
                     {
-                        j.HasKey("Person", "IdFamily").HasName("PK_FamilyRelation");
+                        j.HasKey("Person", "Family").HasName("PK_FamilyRelation");
                     });
         });
 
