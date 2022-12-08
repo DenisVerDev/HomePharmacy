@@ -56,7 +56,7 @@ namespace HomePharmacy.MainPages
 
                 row["Id"] = illness.IdIllness;
                 row["Illed person"] = illness.IlledPerson;
-                row["Diagnose"] = illness.Diagnoses;
+                row["Diagnose"] = illness.Diagnosis;
                 row["Start date"] = illness.StartDate.ToShortDateString();
                 row["End date"] = illness.EndDate?.ToShortDateString();
 
@@ -186,7 +186,7 @@ namespace HomePharmacy.MainPages
         {
             List<Illness>? filter_illnesses;
 
-            if (DBValidation.PersonValidation.EmailValidation(this.cb_email.PhText))
+            if (DBValidation.PersonValidation.Email(this.cb_email.PhText))
                 filter_illnesses = this.illnesses.Where(x => x.IlledPerson == this.cb_email.PhText).ToList();
             else filter_illnesses = this.illnesses;
 

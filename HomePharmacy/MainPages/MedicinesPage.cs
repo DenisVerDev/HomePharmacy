@@ -90,7 +90,7 @@ namespace HomePharmacy.MainPages
         public override void LoadDataUI()
         {
             this.cb_type.Items.Add("All");
-            this.cb_type.Items.AddRange(DBValidation.MedicineValidation.types.Select(x => x.Type).ToArray());
+            this.cb_type.Items.AddRange(DBValidation.MedicineValidation.types);
 
             this.UpdateDataGridView(this.medicines);
         }
@@ -191,7 +191,7 @@ namespace HomePharmacy.MainPages
         {
             List<Medicine> medicines;
 
-            string[] types = DBValidation.MedicineValidation.types.Select(x => x.Type).ToArray();
+            string[] types = DBValidation.MedicineValidation.types;
 
             if (types.Contains(this.cb_type.PhText)) medicines = this.medicines.Where(x => x.Type == this.cb_type.PhText).ToList();
             else medicines = this.medicines;

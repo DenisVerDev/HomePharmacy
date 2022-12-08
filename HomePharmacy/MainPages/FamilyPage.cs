@@ -55,7 +55,7 @@ namespace HomePharmacy.MainPages
         {
             Person[]? person = null;
 
-            if (DBValidation.PersonValidation.SexValidation(this.cb_sex.PhText))
+            if (DBValidation.PersonValidation.Sex(this.cb_sex.PhText))
                 person = this.family?.People.Where(x => x.Sex == cb_sex.PhText).ToArray();
             else person = this.family?.People.ToArray();
 
@@ -70,7 +70,7 @@ namespace HomePharmacy.MainPages
                 return false;
             }
 
-            if (!DBValidation.PersonValidation.EmailValidation(tb_email.PhText))
+            if (!DBValidation.PersonValidation.Email(tb_email.PhText))
             {
                 MessageBox.Show(DBValidation.ValidationErrorMsg, "Email validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -95,7 +95,7 @@ namespace HomePharmacy.MainPages
                         {
                             Family fam = new Family() { IdFamily = this.family.IdFamily }; // to track remote data, it doesn't work with the local one
 
-                            person.IdFamilies.Add(fam);
+                            person.Families.Add(fam);
                             context.Update(person);
                             context.SaveChanges();
 

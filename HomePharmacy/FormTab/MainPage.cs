@@ -137,9 +137,6 @@ namespace HomePharmacy.FormTab
                     this.medicines.Clear();
                     this.medicinesUsages.Clear();
 
-                    // load medicines types
-                    DBValidation.MedicineValidation.types = context.MedicinesTypes.ToArray();
-
                     // load new data
                     if (this.family != null)
                     {

@@ -33,9 +33,9 @@ namespace HomePharmacy.MainPages
         {
             this.table = new DataTable();
             this.table.Columns.Add(new DataColumn("Recommendator", typeof(string)));
+            this.table.Columns.Add(new DataColumn("Appointment's date", typeof(string)));
             this.table.Columns.Add(new DataColumn("Medicines list", typeof(string)));
-            this.table.Columns.Add(new DataColumn("Appointment's volume", typeof(string)));
-            this.table.Columns.Add(new DataColumn("Additional information", typeof(string)));
+            this.table.Columns.Add(new DataColumn("Meds usage schedule", typeof(string)));
 
             this.dgv_appointments.DataSource = this.table;
         }
@@ -51,9 +51,9 @@ namespace HomePharmacy.MainPages
             {
                 var row = this.table.NewRow();
                 row["Recommendator"] = appointment.Recommendator;
-                row["Medicines list"] = appointment.MedicineList;
-                row["Appointment's volume"] = appointment.AppointmentVolume;
-                row["Additional information"] = appointment.AdditionalInfo;
+                row["Appointment's date"] = appointment.AppointmentDate.ToShortDateString();
+                row["Medicines list"] = appointment.Medicines;
+                row["Meds usage schedule"] = appointment.MedicinesUsageSchedule;
                 
                 this.table.Rows.Add(row);
             }
@@ -68,7 +68,7 @@ namespace HomePharmacy.MainPages
                 string meds = (string)selected_row.Cells["Medicines list"].Value;
                 string recom = (string)selected_row.Cells["Recommendator"].Value;
 
-                return this.illness.Appointments.Where(x => x.MedicineList == meds && x.Recommendator == recom).First();
+                return this.illness.Appointments.Where(x => x.Medicines == meds && x.Recommendator == recom).First();
             }
 
             MessageBox.Show("There are no selected rows", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);

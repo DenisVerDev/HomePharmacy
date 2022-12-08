@@ -32,4 +32,19 @@ public partial class Medicine
     public virtual Person ForWhomNavigation { get; set; } = null!;
 
     public virtual ICollection<MedicinesUsage> MedicinesUsages { get; } = new List<MedicinesUsage>();
+
+    public void TransferDataFrom(Medicine medicine)
+    {
+        this.IdMedicine = medicine.IdMedicine;
+        this.Name = medicine.Name;
+        this.Type = medicine.Type;
+        this.ExpiryDate = medicine.ExpiryDate;
+        this.PurchaseDate = medicine.PurchaseDate;
+        this.Price = medicine.Price;
+        this.CountOrAmount = medicine.CountOrAmount;
+        this.ExemplearsCount = medicine.ExemplearsCount;
+        this.Remainings = medicine.Remainings;
+        this.ForWhom = medicine.ForWhom;
+        this.BelongsToFamily = medicine.BelongsToFamily;
+    }
 }

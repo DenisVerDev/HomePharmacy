@@ -37,7 +37,7 @@ namespace HomePharmacy.FormTab
         {
             this.HideErrors();
 
-            if(!DBValidation.PersonValidation.EmailValidation(other_email))
+            if(!DBValidation.PersonValidation.Email(other_email))
             {
                 lb_email_check.Text = DBValidation.ValidationErrorMsg;
                 return false;
@@ -72,8 +72,8 @@ namespace HomePharmacy.FormTab
                                 context.SaveChanges();
 
                                 // create relation between persons and family
-                                user.IdFamilies.Add(family);
-                                other_person.IdFamilies.Add(family);
+                                user.Families.Add(family);
+                                other_person.Families.Add(family);
                                 context.SaveChanges();
                             }
                             else

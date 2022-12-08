@@ -42,14 +42,14 @@ namespace HomePharmacy.FormTab
                 bool validation = true;
 
                 // email check block
-                if (!DBValidation.PersonValidation.EmailValidation(tb_email.PhText))
+                if (!DBValidation.PersonValidation.Email(tb_email.PhText))
                 {
                     validation = false;
                     lb_email_check.Text = DBValidation.ValidationErrorMsg;
                 }
 
                 // password check block
-                if (!DBValidation.PersonValidation.PasswordValidation(tb_password.PhText))
+                if (!DBValidation.PersonValidation.Password(tb_password.PhText))
                 {
                     validation = false;
                     lb_password_check.Text = DBValidation.ValidationErrorMsg;

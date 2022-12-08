@@ -75,7 +75,7 @@ namespace HomePharmacy.FormTab
                 {
                     using (HomePharmacyContext context = new HomePharmacyContext())
                     {
-                        this.families = context.Persons.Where(x => x.Email == this.user.Email).SelectMany(s => s.IdFamilies).Include(c => c.People).ToArray();
+                        this.families = context.Persons.Where(x => x.Email == this.user.Email).SelectMany(s => s.Families).Include(c => c.People).ToArray();
                     }
                 }
                 catch (Exception ex)
