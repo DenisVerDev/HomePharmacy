@@ -18,6 +18,7 @@ namespace HomePharmacy.MainPages
         private Person user;
         private Family? family;
         private List<Medicine> medicines;
+        private List<MedicinesUsage> medicinesUsages;
 
         private DataTable table;
 
@@ -152,13 +153,13 @@ namespace HomePharmacy.MainPages
 
         private async void btn_delete_PhClick(object sender, EventArgs e)
         {
-            Medicine? medicine = this.GetSelectedMedicine();
+            Medicine? selected = this.GetSelectedMedicine();
 
-            if (!this.DbOperation && medicine != null)
+            if (!this.DbOperation && selected != null)
             {
                 this.DbOperation = true;
 
-                this.medicines.Remove(medicine);
+                this.medicines.Remove(selected);
 
                 await Task.Run(() =>
                 {
@@ -166,8 +167,20 @@ namespace HomePharmacy.MainPages
                     {
                         using (HomePharmacyContext context = new HomePharmacyContext())
                         {
-                            context.Medicines.Remove(medicine);
-                            context.SaveChanges();
+                            Medicine? medicine = context.Medicines.Where(x => x.IdMedicine == selected.IdMedicine).FirstOrDefault();
+
+                            if (medicine != null)
+                            {
+                                context.Medicines.Remove(medicine);
+                                var usages = context.MedicinesUsages.Where(x => x.IdMedicine == selected.IdMedicine).ToList();
+                                context.SaveChanges();
+
+                                usages.ForEach(x =>
+                                {
+                                    var usage = this.medicinesUsages.Where(c => c.IdIllness == x.IdIllness && c.IdMedicine == x.IdMedicine && x.UsageDate == c.UsageDate).First();
+                                    this.medicinesUsages.Remove(usage);
+                                });
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -206,11 +219,12 @@ namespace HomePharmacy.MainPages
         {
             try
             {
-                if (this.Data != null && this.Data.Length == 3)
+                if (this.Data != null && this.Data.Length == 4)
                 {
                     this.user = (Person)this.Data[0];
                     this.family = (Family?)this.Data[1];
                     this.medicines = (List<Medicine>)this.Data[2];
+                    this.medicinesUsages = (List<MedicinesUsage>)this.Data[3];
 
                     this.Enabled = true;
 

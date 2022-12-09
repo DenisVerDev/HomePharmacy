@@ -17,7 +17,7 @@ namespace HomePharmacy.MainPages
         public event EventHandler LogoutEvent;
         public event EventHandler ChangeCabinetEvent;
 
-        private const long max_size = 204800; // size in bytes(200kb)
+        private const long max_size = 1000000; // 1mb
 
         private Person user;
 

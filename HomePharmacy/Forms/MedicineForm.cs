@@ -34,6 +34,8 @@ namespace HomePharmacy.Forms
         #region GUI Initialization
         private void InitMaxValues()
         {
+            this.tb_name.MaxLength = DBValidation.MedicineValidation.name_maxsize;
+
             this.Controls.OfType<NumericUpDown>().ToList().ForEach(x => x.Maximum = Int32.MaxValue);
 
             this.dateExpCalendar.MaxDate = DateTime.MaxValue;
@@ -71,7 +73,7 @@ namespace HomePharmacy.Forms
         private void InitType(bool action_enable)
         {
             this.cb_type.Items.Clear();
-            this.cb_type.Items.AddRange(DBValidation.MedicineValidation.types.Select(x=>x.Type).ToArray());
+            this.cb_type.Items.AddRange(DBValidation.MedicineValidation.types);
 
             if (this.Medicine.Type != null) this.cb_type.PhText = this.Medicine.Type;
             else this.cb_type.PhText = this.cb_type.Placeholder;
@@ -91,11 +93,15 @@ namespace HomePharmacy.Forms
             }
             else
             {
-                this.Controls.OfType<NumericUpDown>().ToList().ForEach(x=>x.Enabled = action_enable);
                 this.nm_price.Value = this.Medicine.Price;
+                this.nm_price.Enabled = action_enable;
+
                 this.nm_count.Value = this.Medicine.CountOrAmount;
+                this.nm_count.Enabled = false;
                 this.nm_excount.Value = this.Medicine.ExemplearsCount;
+                this.nm_excount.Enabled = false;
                 this.nm_remainings.Value = this.Medicine.Remainings;
+                this.nm_remainings.Enabled = false;
             }
         }
 
@@ -124,12 +130,16 @@ namespace HomePharmacy.Forms
 
         private void InitButtons(bool action_enable)
         {
-            if (this.current_action == ActionType.ADD) this.btn_action.Caption = "Add medicine";
+            this.btn_action.Enabled = action_enable;
+            this.btn_remcount.Enabled = false;
+
+            if (this.current_action == ActionType.ADD)
+            {
+                this.btn_action.Caption = "Add medicine";
+                this.btn_remcount.Enabled = true;
+            }
             else if (this.current_action == ActionType.UPDATE) this.btn_action.Caption = "Update medicine";
             else this.btn_action.Caption = "Information";
-
-            this.btn_action.Enabled = action_enable;
-            this.btn_remcount.Enabled = action_enable;
         }
 
         #endregion
@@ -178,10 +188,6 @@ namespace HomePharmacy.Forms
             this.Medicine.ExpiryDate = this.dateExpCalendar.SelectionRange.Start;
             this.Medicine.PurchaseDate = this.chb_purchasedate.Checked ? this.datePurchaseCalendar.SelectionRange.Start : null;
             this.Medicine.BelongsToFamily = this.family != null ? this.family.IdFamily : null;
-
-            // to update this problematic foreign key
-            if(this.current_action == ActionType.UPDATE)
-                this.Medicine.TypeNavigation = DBValidation.MedicineValidation.types.Where(x => x.Type == this.cb_type.PhText).FirstOrDefault();
         }
 
         private bool Validation()
@@ -192,7 +198,7 @@ namespace HomePharmacy.Forms
                 return false;
             }
 
-            if(!DBValidation.MedicineValidation.Validation(this.Medicine))
+            if(!DBValidation.MedicineValidation.Validate(this.Medicine))
             {
                 MessageBox.Show(DBValidation.ValidationErrorMsg, "Validation warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -283,7 +289,8 @@ namespace HomePharmacy.Forms
                 }
             });
 
-            this.DialogResult = result;
+            // exit if everything was good or exception
+            if (result == DialogResult.OK || result == DialogResult.Abort) this.DialogResult = result;
 
             this.DbOperation = false;
         }

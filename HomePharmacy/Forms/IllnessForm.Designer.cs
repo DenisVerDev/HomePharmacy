@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.cb_email = new HomePharmacy.Controls.PhComboBox();
-            this.tb_diagnose = new System.Windows.Forms.TextBox();
-            this.rb_diagnoses = new HomePharmacy.Controls.RoundedBox();
             this.dateStartCalendar = new System.Windows.Forms.MonthCalendar();
             this.lb_startdate = new System.Windows.Forms.Label();
             this.rb_startdate = new HomePharmacy.Controls.RoundedBox();
@@ -40,6 +38,8 @@
             this.btn_action = new HomePharmacy.Controls.PhButton();
             this.chb_enddate = new System.Windows.Forms.CheckBox();
             this.lb_diagnose_title = new System.Windows.Forms.Label();
+            this.tb_diagnose = new System.Windows.Forms.TextBox();
+            this.rb_diagnoses = new HomePharmacy.Controls.RoundedBox();
             this.SuspendLayout();
             // 
             // cb_email
@@ -60,36 +60,6 @@
             this.cb_email.Size = new System.Drawing.Size(274, 31);
             this.cb_email.TabIndex = 33;
             this.cb_email.TabStop = false;
-            // 
-            // tb_diagnose
-            // 
-            this.tb_diagnose.BackColor = System.Drawing.Color.White;
-            this.tb_diagnose.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tb_diagnose.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tb_diagnose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.tb_diagnose.Location = new System.Drawing.Point(21, 119);
-            this.tb_diagnose.MaxLength = 400;
-            this.tb_diagnose.Multiline = true;
-            this.tb_diagnose.Name = "tb_diagnose";
-            this.tb_diagnose.Size = new System.Drawing.Size(257, 280);
-            this.tb_diagnose.TabIndex = 35;
-            // 
-            // rb_diagnoses
-            // 
-            this.rb_diagnoses.BackColor = System.Drawing.Color.Transparent;
-            this.rb_diagnoses.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
-            this.rb_diagnoses.BorderRadius = 10;
-            this.rb_diagnoses.FillColor = System.Drawing.Color.White;
-            this.rb_diagnoses.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
-            this.rb_diagnoses.HoverFillColor = System.Drawing.Color.White;
-            this.rb_diagnoses.IsSelected = false;
-            this.rb_diagnoses.Location = new System.Drawing.Point(12, 80);
-            this.rb_diagnoses.MinimumSize = new System.Drawing.Size(30, 30);
-            this.rb_diagnoses.Name = "rb_diagnoses";
-            this.rb_diagnoses.ShowBorder = true;
-            this.rb_diagnoses.Size = new System.Drawing.Size(274, 329);
-            this.rb_diagnoses.TabIndex = 36;
-            this.rb_diagnoses.TabStop = false;
             // 
             // dateStartCalendar
             // 
@@ -207,6 +177,36 @@
             this.lb_diagnose_title.TabIndex = 45;
             this.lb_diagnose_title.Text = "Diagnose:";
             // 
+            // tb_diagnose
+            // 
+            this.tb_diagnose.BackColor = System.Drawing.Color.White;
+            this.tb_diagnose.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_diagnose.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tb_diagnose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.tb_diagnose.Location = new System.Drawing.Point(21, 119);
+            this.tb_diagnose.MaxLength = 200;
+            this.tb_diagnose.Multiline = true;
+            this.tb_diagnose.Name = "tb_diagnose";
+            this.tb_diagnose.Size = new System.Drawing.Size(257, 280);
+            this.tb_diagnose.TabIndex = 35;
+            // 
+            // rb_diagnoses
+            // 
+            this.rb_diagnoses.BackColor = System.Drawing.Color.Transparent;
+            this.rb_diagnoses.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
+            this.rb_diagnoses.BorderRadius = 10;
+            this.rb_diagnoses.FillColor = System.Drawing.Color.White;
+            this.rb_diagnoses.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
+            this.rb_diagnoses.HoverFillColor = System.Drawing.Color.White;
+            this.rb_diagnoses.IsSelected = false;
+            this.rb_diagnoses.Location = new System.Drawing.Point(12, 80);
+            this.rb_diagnoses.MinimumSize = new System.Drawing.Size(30, 30);
+            this.rb_diagnoses.Name = "rb_diagnoses";
+            this.rb_diagnoses.ShowBorder = true;
+            this.rb_diagnoses.Size = new System.Drawing.Size(274, 329);
+            this.rb_diagnoses.TabIndex = 36;
+            this.rb_diagnoses.TabStop = false;
+            // 
             // IllnessForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -239,8 +239,6 @@
 
         #endregion
         private Controls.PhComboBox cb_email;
-        private TextBox tb_diagnose;
-        private Controls.RoundedBox rb_diagnoses;
         private MonthCalendar dateStartCalendar;
         private Label lb_startdate;
         private Controls.RoundedBox rb_startdate;
@@ -250,5 +248,7 @@
         private Controls.PhButton btn_action;
         private CheckBox chb_enddate;
         private Label lb_diagnose_title;
+        private TextBox tb_diagnose;
+        private Controls.RoundedBox rb_diagnoses;
     }
 }

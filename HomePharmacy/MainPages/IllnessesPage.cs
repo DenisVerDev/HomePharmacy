@@ -20,6 +20,7 @@ namespace HomePharmacy.MainPages
         private Person user;
         private Family? family;
         private List<Illness> illnesses;
+        private List<MedicinesUsage> medicinesUsages;
 
         private DataTable table;
 
@@ -160,6 +161,12 @@ namespace HomePharmacy.MainPages
                             context.MedicinesUsages.RemoveRange(usages);
                             context.SaveChanges();
 
+                            usages.ForEach(x =>
+                            {
+                                var usage = this.medicinesUsages.Where(c => c.IdIllness == x.IdIllness && c.IdMedicine == x.IdMedicine && x.UsageDate == c.UsageDate).First();
+                                this.medicinesUsages.Remove(usage);
+                            });
+
                             context.Illnesses.Remove(selected);
 
                             context.SaveChanges();
@@ -204,11 +211,12 @@ namespace HomePharmacy.MainPages
         {
             try
             {
-                if (Data != null && Data.Length == 3)
+                if (Data != null && Data.Length == 4)
                 {
                     this.user = (Person)this.Data[0];
                     this.family = (Family?)this.Data[1];
                     this.illnesses = (List<Illness>)Data[2];
+                    this.medicinesUsages = (List<MedicinesUsage>)Data[3];
 
                     this.Enabled = true;
 

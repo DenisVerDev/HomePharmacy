@@ -39,7 +39,6 @@
             this.chb_used = new System.Windows.Forms.CheckBox();
             this.rb_used = new HomePharmacy.Controls.RoundedBox();
             this.btn_apply = new HomePharmacy.Controls.PhButton();
-            this.btn_takemed = new HomePharmacy.Controls.PhButton();
             this.dgv_medicines = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_medicines)).BeginInit();
             this.SuspendLayout();
@@ -238,28 +237,6 @@
             this.btn_apply.TabStop = false;
             this.btn_apply.PhClick += new System.EventHandler(this.btn_apply_PhClick);
             // 
-            // btn_takemed
-            // 
-            this.btn_takemed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_takemed.AutoSize = true;
-            this.btn_takemed.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btn_takemed.BackColor = System.Drawing.Color.Transparent;
-            this.btn_takemed.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
-            this.btn_takemed.BorderRadius = 10;
-            this.btn_takemed.Caption = "Take medicine";
-            this.btn_takemed.FillColor = System.Drawing.Color.White;
-            this.btn_takemed.HoverBorderColor = System.Drawing.Color.DarkSlateBlue;
-            this.btn_takemed.HoverFillColor = System.Drawing.Color.White;
-            this.btn_takemed.IsSelected = false;
-            this.btn_takemed.Location = new System.Drawing.Point(420, 12);
-            this.btn_takemed.MinimumSize = new System.Drawing.Size(30, 30);
-            this.btn_takemed.Name = "btn_takemed";
-            this.btn_takemed.ShowBorder = true;
-            this.btn_takemed.Size = new System.Drawing.Size(192, 31);
-            this.btn_takemed.TabIndex = 59;
-            this.btn_takemed.TabStop = false;
-            // 
             // dgv_medicines
             // 
             this.dgv_medicines.AllowUserToAddRows = false;
@@ -285,7 +262,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btn_takemed);
             this.Controls.Add(this.btn_apply);
             this.Controls.Add(this.chb_used);
             this.Controls.Add(this.rb_used);
@@ -320,7 +296,6 @@
         private CheckBox chb_used;
         private Controls.RoundedBox rb_used;
         private Controls.PhButton btn_apply;
-        private Controls.PhButton btn_takemed;
         private DataGridView dgv_medicines;
     }
 }

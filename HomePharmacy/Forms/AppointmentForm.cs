@@ -33,10 +33,19 @@ namespace HomePharmacy.Forms
         public AppointmentForm()
         {
             InitializeComponent();
+            this.InitMaxValues();
+
             this.DbOperation = false;
         }
 
         #region GUI Initialization
+
+        private void InitMaxValues()
+        {
+            this.tb_recommendator.MaxLength = DBValidation.AppointmentValidation.recommendator_maxsize;
+            this.tb_medicines.MaxLength = DBValidation.AppointmentValidation.info_maxsize;
+            this.tb_usagesch.MaxLength = DBValidation.AppointmentValidation.info_maxsize;
+        }
 
         private void InitTextBoxes(bool read_only)
         {
@@ -50,13 +59,24 @@ namespace HomePharmacy.Forms
             }
             else
             {
-                this.tb_medicines.Text = this.initial_ap.MedicineList;
+                this.tb_medicines.Text = this.initial_ap.Medicines;
                 this.tb_recommendator.Text = this.initial_ap.Recommendator;
-                this.tb_volume.Text = this.initial_ap.AppointmentVolume;
-                this.tb_comment.Text = this.initial_ap.AdditionalInfo;
+                this.tb_usagesch.Text = this.initial_ap.MedicinesUsageSchedule;
 
                 this.Controls.OfType<TextBox>().ToList().ForEach(x=>x.ReadOnly = read_only);
             }
+        }
+
+        private void InitDate(bool action_enable)
+        {
+            this.dateAppCalendar.Enabled = action_enable;
+
+            this.dateAppCalendar.MinDate = this.illness.StartDate;
+            if (this.illness.EndDate != null) this.dateAppCalendar.MaxDate = this.illness.EndDate.Value;
+            else this.dateAppCalendar.MaxDate = DateTime.Today;
+
+            if (this.current_action == ActionType.ADD) this.dateAppCalendar.SetDate(this.dateAppCalendar.MaxDate);
+            else this.dateAppCalendar.SetDate(this.initial_ap.AppointmentDate);
         }
 
         private void InitButton(bool action_enable)
@@ -99,6 +119,7 @@ namespace HomePharmacy.Forms
                 if (this.current_action == ActionType.INFORMATION) action_enable = false;
 
                 this.InitTextBoxes(!action_enable);
+                this.InitDate(action_enable);
                 this.InitButton(action_enable);
             }
             else this.btn_action.Enabled = false;
@@ -107,16 +128,15 @@ namespace HomePharmacy.Forms
         private void InputToAppointment()
         {
             this.Appointment.IdIllness = this.illness.IdIllness;
-            this.Appointment.MedicineList = this.tb_medicines.Text;
+            this.Appointment.Medicines = this.tb_medicines.Text;
             this.Appointment.Recommendator = this.tb_recommendator.Text;
-            this.Appointment.AppointmentVolume = this.tb_volume.Text != String.Empty ? this.tb_volume.Text : null;
-            this.Appointment.AdditionalInfo = this.tb_comment.Text != String.Empty ? this.tb_comment.Text : null;
+            this.Appointment.AppointmentDate = this.dateAppCalendar.SelectionRange.Start;
+            this.Appointment.MedicinesUsageSchedule = this.tb_usagesch.Text;
         }
 
         private bool Validation()
         {
-            if(!DBValidation.AppointmentValidation.MedicineListValidation(this.Appointment.MedicineList) 
-                || !DBValidation.AppointmentValidation.RecommendatorValidation(this.Appointment.Recommendator))
+            if(!DBValidation.AppointmentValidation.Validate(this.Appointment))
             {
                 MessageBox.Show(DBValidation.ValidationErrorMsg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -137,7 +157,7 @@ namespace HomePharmacy.Forms
                 {
                     using(HomePharmacyContext context = new HomePharmacyContext())
                     {
-                        if(!context.Appointments.Any(x=>x.IdIllness == this.Appointment.IdIllness && x.MedicineList == this.Appointment.MedicineList
+                        if(!context.Appointments.Any(x=>x.IdIllness == this.Appointment.IdIllness && x.AppointmentDate == this.Appointment.AppointmentDate
                         && x.Recommendator == this.Appointment.Recommendator))
                         {
                             context.Appointments.Add(this.Appointment);
@@ -188,19 +208,19 @@ namespace HomePharmacy.Forms
                     using(HomePharmacyContext context = new HomePharmacyContext())
                     {
                         bool update_exists = context.Appointments.Any(x => x.IdIllness == this.Appointment.IdIllness 
-                        && x.MedicineList == this.Appointment.MedicineList && x.Recommendator == this.Appointment.Recommendator); // check if updated version alread exists
+                        && x.AppointmentDate == this.Appointment.AppointmentDate && x.Recommendator == this.Appointment.Recommendator); // check if updated version alread exists
                        
                         if (!update_exists) result = DialogResult.OK; // we dont have updated appointment
                         else // we have the same appointment but we dont know if its the old one(the new values are the same as the old ones)
                         {
-                            if (this.Appointment.MedicineList == this.initial_ap.MedicineList && this.Appointment.Recommendator == this.initial_ap.Recommendator) result = DialogResult.OK;
+                            if (this.Appointment.AppointmentDate == this.initial_ap.AppointmentDate && this.Appointment.Recommendator == this.initial_ap.Recommendator) result = DialogResult.OK;
                             else result = DialogResult.TryAgain;
                         }
 
                         // processing and analyzing result
                         if(result == DialogResult.OK)
                         {
-                            int rows = context.Database.ExecuteSql($"update Appointments set MedicineList={this.Appointment.MedicineList},Recommendator={this.Appointment.Recommendator},AppointmentVolume={this.Appointment.AppointmentVolume},AdditionalInfo={this.Appointment.AdditionalInfo} where IdIllness={this.initial_ap.IdIllness} and MedicineList={this.initial_ap.MedicineList} and Recommendator={this.initial_ap.Recommendator}");
+                            int rows = context.Database.ExecuteSql($"update Appointments set Medicines={this.Appointment.Medicines},Recommendator={this.Appointment.Recommendator},AppointmentDate={this.Appointment.AppointmentDate},MedicinesUsageSchedule={this.Appointment.MedicinesUsageSchedule} where IdIllness={this.initial_ap.IdIllness} and AppointmentDate={this.initial_ap.AppointmentDate} and Recommendator={this.initial_ap.Recommendator}");
                             if (rows != 1) throw new Exception("Exception with the update function!");
                         }
                         else

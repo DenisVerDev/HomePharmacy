@@ -42,6 +42,7 @@ namespace HomePharmacy.Forms
         {
             this.nm_count.Maximum = Int32.MaxValue;
             this.dateUseCalendar.MaxDate = DateTime.Today;
+            this.tb_comment.MaxLength = DBValidation.MedicineUsageValidation.comment_maxsize;
         }
 
         private void InitDataTables()
@@ -78,24 +79,12 @@ namespace HomePharmacy.Forms
 
             this.illnesses.ForEach(x => this.AddIllness(x));
             this.medicines.ForEach(x => this.AddMedicine(x));
-
-            if (this.current_action != ActionType.ADD)
-            {
-                var ill_row = this.dgv_illnesses.Rows.Cast<DataGridViewRow>().ToList().Where(x => (int)x.Cells["Id"].Value == this.init_usage.IdIllness).First();
-                var med_row = this.dgv_medicines.Rows.Cast<DataGridViewRow>().ToList().Where(x => (int)x.Cells["Id"].Value == this.init_usage.IdMedicine).First();
-
-                ill_row.Selected = true;
-                med_row.Selected = true;
-
-                this.Controls.OfType<DataGridView>().ToList().ForEach(x => x.Enabled = false);
-            }
-            else this.Controls.OfType<DataGridView>().ToList().ForEach(x => x.Enabled = true);
         }
 
         private void InitUsageResults(bool action_enable)
         {
             this.cb_result.Items.Clear();
-            this.cb_result.Items.AddRange(DBValidation.MedUsageValidation.results);
+            this.cb_result.Items.AddRange(DBValidation.MedicineUsageValidation.results);
 
             if (this.current_action == ActionType.ADD) this.cb_result.PhText = this.cb_result.Placeholder;
             else this.cb_result.PhText = this.init_usage.UsageResult;
@@ -131,7 +120,7 @@ namespace HomePharmacy.Forms
 
         private void InitDate(bool action_enable)
         {
-            if (this.current_action == ActionType.ADD) this.dateUseCalendar.SetDate(DateTime.Today);
+            if (this.current_action == ActionType.ADD) this.dateUseCalendar.SetDate(this.dateUseCalendar.MinDate);
             else this.dateUseCalendar.SetDate(this.init_usage.UsageDate);
 
             this.dateUseCalendar.Enabled = action_enable;
@@ -152,7 +141,7 @@ namespace HomePharmacy.Forms
 
             row["Id"] = illness.IdIllness;
             row["Illed person"] = illness.IlledPerson;
-            row["Diagnose"] = illness.Diagnoses;
+            row["Diagnose"] = illness.Diagnosis;
             row["Start date"] = illness.StartDate.ToShortDateString();
             row["End date"] = illness.EndDate?.ToShortDateString();
 
@@ -271,12 +260,13 @@ namespace HomePharmacy.Forms
 
             if (selected_medicine != null)
             {
-                if (DBValidation.MedUsageValidation.Validation(this.current_action,selected_medicine, this.MedicinesUsage)) return true;
-                else
+                if (!DBValidation.MedicineUsageValidation.Validate(this.current_action, this.MedicinesUsage,selected_medicine))
                 {
                     MessageBox.Show(DBValidation.ValidationErrorMsg, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
+
+                return true;
             }
 
             return false;
@@ -415,6 +405,58 @@ namespace HomePharmacy.Forms
         private void dgv_medicines_SelectionChanged(object sender, EventArgs e)
         {
             if(this.dgv_medicines.SelectedRows.Count == 1) this.InitAvaiableCount();
+        }
+
+        private void dgv_illnesses_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (this.illnesses != null && this.table_illnesses.Rows.Count == this.illnesses.Count && this.current_action != ActionType.ADD)
+            {
+                this.dgv_illnesses.ClearSelection();
+
+                var ill_row = this.dgv_illnesses.Rows.Cast<DataGridViewRow>().ToList().Where(x => (int)x.Cells["Id"].Value == this.init_usage.IdIllness).First();
+                ill_row.Selected = true;
+
+                this.dgv_illnesses.Enabled = false;
+            }
+            else this.dgv_illnesses.Enabled = true;
+        }
+
+        private void dgv_medicines_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (this.medicines != null && this.table_medicines.Rows.Count == this.medicines.Count && this.current_action != ActionType.ADD)
+            {
+                this.dgv_medicines.ClearSelection();
+
+                var med_row = this.dgv_medicines.Rows.Cast<DataGridViewRow>().ToList().Where(x => (int)x.Cells["Id"].Value == this.init_usage.IdMedicine).First();
+                med_row.Selected = true;
+
+                this.dgv_medicines.Enabled = false;
+            }
+            else this.dgv_medicines.Enabled = true;
+        }
+
+        private void dgv_illnesses_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.dateUseCalendar.MaxDate = DateTime.MaxValue;
+                this.dateUseCalendar.MinDate = DateTime.Today;
+
+                var row = this.dgv_illnesses.SelectedRows[0];
+                int id = (int)row.Cells["Id"].Value;
+
+                Illness illness = this.illnesses.Where(x => x.IdIllness == id).FirstOrDefault();
+
+
+                this.dateUseCalendar.MinDate = illness.StartDate;
+
+                if (illness.EndDate != null) this.dateUseCalendar.MaxDate = illness.EndDate.Value;
+                else this.dateUseCalendar.MaxDate = DateTime.Today;
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
     }
 }

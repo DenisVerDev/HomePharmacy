@@ -45,11 +45,11 @@ namespace HomePharmacy.MainPages
             this.dgv_takemed.DataSource = this.table;
         }
 
-        private void UpdateDataGridView()
+        public override void LoadDataUI()
         {
             this.table.Rows.Clear();
 
-            this.medicinesUsages.ForEach((x) => 
+            this.medicinesUsages.ForEach((x) =>
             {
                 var row = this.table.NewRow();
 
@@ -87,7 +87,7 @@ namespace HomePharmacy.MainPages
             if(this.form.ShowDialog() == DialogResult.OK)
             {
                 this.medicinesUsages.Add(this.form.MedicinesUsage);
-                this.UpdateDataGridView();
+                this.LoadDataUI();
             }
         }
 
@@ -101,7 +101,7 @@ namespace HomePharmacy.MainPages
                 if(this.form.ShowDialog() == DialogResult.OK)
                 {
                     selected.TrasnferDataFrom(this.form.MedicinesUsage);
-                    this.UpdateDataGridView();
+                    this.LoadDataUI();
                 }
             }
         }
@@ -152,7 +152,7 @@ namespace HomePharmacy.MainPages
                     }
                 });
 
-                this.UpdateDataGridView();
+                this.LoadDataUI();
 
                 this.DbOperation = false;
             }
@@ -170,7 +170,7 @@ namespace HomePharmacy.MainPages
 
                     this.Enabled = true;
 
-                    this.UpdateDataGridView();
+                    this.LoadDataUI();
                 }
                 else throw new Exception();
             }

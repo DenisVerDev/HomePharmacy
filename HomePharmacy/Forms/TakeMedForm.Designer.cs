@@ -70,6 +70,9 @@
             this.dgv_illnesses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_illnesses.Size = new System.Drawing.Size(509, 144);
             this.dgv_illnesses.TabIndex = 41;
+            this.dgv_illnesses.TabStop = false;
+            this.dgv_illnesses.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv_illnesses_DataBindingComplete);
+            this.dgv_illnesses.SelectionChanged += new System.EventHandler(this.dgv_illnesses_SelectionChanged);
             // 
             // rb_illnesses
             // 
@@ -125,6 +128,8 @@
             this.dgv_medicines.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_medicines.Size = new System.Drawing.Size(509, 125);
             this.dgv_medicines.TabIndex = 51;
+            this.dgv_medicines.TabStop = false;
+            this.dgv_medicines.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv_medicines_DataBindingComplete);
             this.dgv_medicines.SelectionChanged += new System.EventHandler(this.dgv_medicines_SelectionChanged);
             // 
             // cb_result

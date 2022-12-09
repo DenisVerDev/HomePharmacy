@@ -118,7 +118,6 @@ namespace HomePharmacy.FormTab
                     this.LoadData();
                     this.Page_Select(this.btn_profile, null);
                 }
-                else throw new Exception();
             }
             catch(Exception ex)
             {
@@ -171,8 +170,8 @@ namespace HomePharmacy.FormTab
                 // give data to the pages
                 this.profilePage.Data = new object[1] { this.user }; // profile page
                 this.familyPage.Data = new object[2] { this.user, this.family }; // family page
-                this.illnessesPage.Data = new object[3] { this.user,this.family,this.illnesses }; // illnesses page
-                this.medicinesPage.Data = new object[3] { this.user, this.family, this.medicines }; // medicines page
+                this.illnessesPage.Data = new object[4] { this.user,this.family,this.illnesses,this.medicinesUsages }; // illnesses page
+                this.medicinesPage.Data = new object[4] { this.user, this.family, this.medicines,this.medicinesUsages }; // medicines page
                 this.takeMedsPage.Data = new object[3] { this.medicinesUsages, this.medicines, this.illnesses }; // take medicines page
             }
             catch(Exception ex)

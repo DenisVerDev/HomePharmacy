@@ -184,7 +184,7 @@ namespace HomePharmacy.Controls
 
         protected void RoundedBox_Click(object? sender, EventArgs e)
         {
-            if (!this.selectedMode && PhClick != null) PhClick(this, e);
+            if (PhClick != null) PhClick(this, e);
         }
     }
 }

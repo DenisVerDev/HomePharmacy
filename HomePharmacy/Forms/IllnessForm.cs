@@ -15,6 +15,7 @@ namespace HomePharmacy.Forms
     public partial class IllnessForm : Form
     {
         public Illness Illness { get; private set; }
+        private Illness init_ill;
 
         private Person user;
         private Family? family;
@@ -37,6 +38,7 @@ namespace HomePharmacy.Forms
         {
             this.dateStartCalendar.MaxDate = DateTime.Today;
             this.dateEndCalendar.MaxDate = DateTime.Today;
+            this.tb_diagnose.MaxLength = DBValidation.IllnessValidation.diagnosis_maxsize;
         }
 
         private void InitEmail(bool action_enable)
@@ -47,7 +49,7 @@ namespace HomePharmacy.Forms
             {
                 this.cb_email.Items.AddRange(this.family.People.Select(x => x.Email).ToArray());
 
-                if (this.Illness.IlledPerson != null) this.cb_email.PhText = this.Illness.IlledPerson;
+                if (this.init_ill.IlledPerson != null) this.cb_email.PhText = this.init_ill.IlledPerson;
                 else this.cb_email.PhText = this.cb_email.Placeholder;
 
                 this.cb_email.Enabled = action_enable;
@@ -68,7 +70,7 @@ namespace HomePharmacy.Forms
             }
             else
             {
-                this.tb_diagnose.Text = this.Illness.Diagnoses;
+                this.tb_diagnose.Text = this.init_ill.Diagnosis;
                 this.tb_diagnose.ReadOnly = read_only;
             }
         }
@@ -88,10 +90,10 @@ namespace HomePharmacy.Forms
             }
             else
             {
-                this.dateStartCalendar.SetDate(this.Illness.StartDate);
+                this.dateStartCalendar.SetDate(this.init_ill.StartDate);
 
-                this.chb_enddate.Checked = (this.Illness.EndDate != null);
-                if (this.chb_enddate.Checked) this.dateEndCalendar.SetDate((DateTime)this.Illness.EndDate);
+                this.chb_enddate.Checked = (this.init_ill.EndDate != null);
+                if (this.chb_enddate.Checked) this.dateEndCalendar.SetDate((DateTime)this.init_ill.EndDate);
                 else this.dateEndCalendar.SetDate(DateTime.Today);
             }
         }
@@ -117,7 +119,13 @@ namespace HomePharmacy.Forms
 
             this.Illness = new Illness();
 
-            if(illness != null) this.Illness.TransferDataFrom(illness);
+            if (illness != null)
+            {
+                this.Illness.TransferDataFrom(illness);
+
+                this.init_ill = new Illness();
+                this.init_ill.TransferDataFrom(illness);
+            }
         }
 
         public void InitAction(ActionType action, Person user, Family? family, Illness? illness)
@@ -141,7 +149,7 @@ namespace HomePharmacy.Forms
         private void InputToIllness()
         {
             this.Illness.IlledPerson = this.cb_email.PhText;
-            this.Illness.Diagnoses = this.tb_diagnose.Text;
+            this.Illness.Diagnosis = this.tb_diagnose.Text;
             this.Illness.StartDate = this.dateStartCalendar.SelectionRange.Start;
             this.Illness.EndDate = this.chb_enddate.Checked ? this.dateEndCalendar.SelectionRange.Start : null;
         }
@@ -154,8 +162,7 @@ namespace HomePharmacy.Forms
                 return false;
             }
 
-            if (!DBValidation.IllnessValidation.DiagnoseValidation(this.Illness.Diagnoses) 
-                || !DBValidation.IllnessValidation.DateValidation(this.Illness.StartDate, this.Illness.EndDate))
+            if (!DBValidation.IllnessValidation.Validate(this.Illness))
             {
                 MessageBox.Show(DBValidation.ValidationErrorMsg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -164,7 +171,7 @@ namespace HomePharmacy.Forms
             return true;
         }
 
-        private async void CreateIllness()
+        private async void AddIllness()
         {
             this.DbOperation = true;
 
@@ -177,7 +184,7 @@ namespace HomePharmacy.Forms
                     using (HomePharmacyContext context = new HomePharmacyContext())
                     {
                         if (!context.Illnesses.Any(x => x.IlledPerson == this.Illness.IlledPerson 
-                        && x.Diagnoses == this.Illness.Diagnoses && x.StartDate == this.Illness.StartDate))
+                        && x.Diagnosis == this.Illness.Diagnosis && x.StartDate == this.Illness.StartDate))
                         {
                             context.Illnesses.Add(this.Illness);
                             context.SaveChanges();
@@ -226,9 +233,31 @@ namespace HomePharmacy.Forms
                 {
                     using(HomePharmacyContext context = new HomePharmacyContext())
                     {
-                        int rows = context.Database.ExecuteSql($"update Illnesses set IlledPerson={this.Illness.IlledPerson}, Diagnoses={this.Illness.Diagnoses},StartDate={this.Illness.StartDate},EndDate={this.Illness.EndDate} where IdIllness = {this.Illness.IdIllness}");
-                        if (rows == 1) result = DialogResult.OK;
-                        else throw new Exception("Exception with the update function!");
+                        bool update_exists = context.Illnesses.Any(x=>x.IlledPerson == this.Illness.IlledPerson &&
+                        x.Diagnosis == this.Illness.Diagnosis && x.StartDate == this.Illness.StartDate);
+
+                        if(!update_exists) result = DialogResult.OK; // we dont have updated illness
+                        else // we have the same illness but we dont know if its the old one(the new values are the same as the old ones)
+                        {
+                            if (this.Illness.IlledPerson == this.init_ill.IlledPerson && this.Illness.Diagnosis == this.init_ill.Diagnosis
+                            && this.Illness.StartDate == this.init_ill.StartDate) result = DialogResult.OK;
+                            else result = DialogResult.TryAgain;
+                        }
+
+                        // processing and analyzing result
+                        if (result == DialogResult.OK)
+                        {
+                            int rows = context.Database.ExecuteSql($"update Illnesses set IlledPerson={this.Illness.IlledPerson}, Diagnosis={this.Illness.Diagnosis},StartDate={this.Illness.StartDate},EndDate={this.Illness.EndDate} where IdIllness = {this.Illness.IdIllness}");
+                            if (rows != 1) throw new Exception("Exception with the update function!");
+                        }
+                        else
+                        {
+                            if (this.InvokeRequired)
+                                this.Invoke(new MethodInvoker(delegate
+                                {
+                                    MessageBox.Show("There is already such illness", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }));
+                        }
                     }
                 }
                 catch(Exception ex)
@@ -243,7 +272,8 @@ namespace HomePharmacy.Forms
                 }
             });
 
-            this.DialogResult = result;
+            // exit if everything was good or exception
+            if (result == DialogResult.OK || result == DialogResult.Abort) this.DialogResult = result;
 
             this.DbOperation = false;
         }
@@ -254,7 +284,7 @@ namespace HomePharmacy.Forms
 
             if (!this.DbOperation && this.Validation())
             {
-                if (this.current_action == ActionType.ADD) this.CreateIllness();
+                if (this.current_action == ActionType.ADD) this.AddIllness();
                 else if(this.current_action == ActionType.UPDATE) this.UpdateIllness();
             }
         }

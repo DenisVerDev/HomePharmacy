@@ -46,10 +46,10 @@ partial class MainPage
             this.tpage_medicines = new System.Windows.Forms.TabPage();
             this.medicinesPage = new HomePharmacy.MainPages.MedicinesPage();
             this.tpage_takemed = new System.Windows.Forms.TabPage();
+            this.takeMedsPage = new HomePharmacy.MainPages.TakeMedsPage();
             this.tpage_statistics = new System.Windows.Forms.TabPage();
             this.tpage_appoint = new System.Windows.Forms.TabPage();
             this.appointmentsPage = new HomePharmacy.MainPages.AppointmentsPage();
-            this.takeMedsPage = new HomePharmacy.MainPages.TakeMedsPage();
             this.flowPanelTabs.SuspendLayout();
             this.panel.SuspendLayout();
             this.tab_main.SuspendLayout();
@@ -269,10 +269,9 @@ partial class MainPage
             // familyPage
             // 
             this.familyPage.Data = null;
-            this.familyPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.familyPage.Location = new System.Drawing.Point(3, 3);
             this.familyPage.Name = "familyPage";
-            this.familyPage.Size = new System.Drawing.Size(729, 463);
+            this.familyPage.Size = new System.Drawing.Size(729, 450);
             this.familyPage.TabIndex = 0;
             this.familyPage.LeaveFamily += new System.EventHandler(this.profilePage_ChangeCabinetEvent);
             // 
@@ -309,7 +308,7 @@ partial class MainPage
             this.medicinesPage.Data = null;
             this.medicinesPage.Location = new System.Drawing.Point(3, 3);
             this.medicinesPage.Name = "medicinesPage";
-            this.medicinesPage.Size = new System.Drawing.Size(729, 463);
+            this.medicinesPage.Size = new System.Drawing.Size(729, 450);
             this.medicinesPage.TabIndex = 0;
             // 
             // tpage_takemed
@@ -321,6 +320,14 @@ partial class MainPage
             this.tpage_takemed.TabIndex = 4;
             this.tpage_takemed.Text = "Taking medicines";
             this.tpage_takemed.UseVisualStyleBackColor = true;
+            // 
+            // takeMedsPage
+            // 
+            this.takeMedsPage.Data = null;
+            this.takeMedsPage.Location = new System.Drawing.Point(3, 3);
+            this.takeMedsPage.Name = "takeMedsPage";
+            this.takeMedsPage.Size = new System.Drawing.Size(729, 463);
+            this.takeMedsPage.TabIndex = 0;
             // 
             // tpage_statistics
             // 
@@ -349,14 +356,6 @@ partial class MainPage
             this.appointmentsPage.Name = "appointmentsPage";
             this.appointmentsPage.Size = new System.Drawing.Size(735, 469);
             this.appointmentsPage.TabIndex = 0;
-            // 
-            // takeMedsPage
-            // 
-            this.takeMedsPage.Data = null;
-            this.takeMedsPage.Location = new System.Drawing.Point(3, 3);
-            this.takeMedsPage.Name = "takeMedsPage";
-            this.takeMedsPage.Size = new System.Drawing.Size(729, 463);
-            this.takeMedsPage.TabIndex = 0;
             // 
             // MainPage
             // 

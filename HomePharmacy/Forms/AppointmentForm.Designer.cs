@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.rb_medicines = new HomePharmacy.Controls.RoundedBox();
-            this.rb_volume = new HomePharmacy.Controls.RoundedBox();
             this.rb_recommendator = new HomePharmacy.Controls.RoundedBox();
             this.btn_action = new HomePharmacy.Controls.PhButton();
             this.tb_medicines = new System.Windows.Forms.TextBox();
             this.tb_recommendator = new System.Windows.Forms.TextBox();
-            this.tb_volume = new System.Windows.Forms.TextBox();
-            this.tb_comment = new System.Windows.Forms.TextBox();
-            this.rb_comments = new HomePharmacy.Controls.RoundedBox();
-            this.lb_addinfo_title = new System.Windows.Forms.Label();
+            this.tb_usagesch = new System.Windows.Forms.TextBox();
+            this.rb_usagesch = new HomePharmacy.Controls.RoundedBox();
+            this.lb_usagesch_title = new System.Windows.Forms.Label();
             this.lb_med_title = new System.Windows.Forms.Label();
-            this.lb_volume_title = new System.Windows.Forms.Label();
             this.lb_recommendator_title = new System.Windows.Forms.Label();
+            this.dateAppCalendar = new System.Windows.Forms.MonthCalendar();
+            this.lb_appdate = new System.Windows.Forms.Label();
+            this.rb_appdate = new HomePharmacy.Controls.RoundedBox();
             this.SuspendLayout();
             // 
             // rb_medicines
@@ -59,23 +59,6 @@
             this.rb_medicines.Size = new System.Drawing.Size(244, 325);
             this.rb_medicines.TabIndex = 0;
             this.rb_medicines.TabStop = false;
-            // 
-            // rb_volume
-            // 
-            this.rb_volume.BackColor = System.Drawing.Color.Transparent;
-            this.rb_volume.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
-            this.rb_volume.BorderRadius = 10;
-            this.rb_volume.FillColor = System.Drawing.Color.White;
-            this.rb_volume.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
-            this.rb_volume.HoverFillColor = System.Drawing.Color.White;
-            this.rb_volume.IsSelected = false;
-            this.rb_volume.Location = new System.Drawing.Point(262, 135);
-            this.rb_volume.MinimumSize = new System.Drawing.Size(30, 30);
-            this.rb_volume.Name = "rb_volume";
-            this.rb_volume.ShowBorder = true;
-            this.rb_volume.Size = new System.Drawing.Size(244, 200);
-            this.rb_volume.TabIndex = 1;
-            this.rb_volume.TabStop = false;
             // 
             // rb_recommendator
             // 
@@ -139,60 +122,47 @@
             this.tb_recommendator.Size = new System.Drawing.Size(222, 65);
             this.tb_recommendator.TabIndex = 6;
             // 
-            // tb_volume
+            // tb_usagesch
             // 
-            this.tb_volume.BackColor = System.Drawing.Color.White;
-            this.tb_volume.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tb_volume.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tb_volume.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.tb_volume.Location = new System.Drawing.Point(273, 174);
-            this.tb_volume.MaxLength = 1000;
-            this.tb_volume.Multiline = true;
-            this.tb_volume.Name = "tb_volume";
-            this.tb_volume.Size = new System.Drawing.Size(222, 152);
-            this.tb_volume.TabIndex = 7;
+            this.tb_usagesch.BackColor = System.Drawing.Color.White;
+            this.tb_usagesch.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_usagesch.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tb_usagesch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.tb_usagesch.Location = new System.Drawing.Point(23, 376);
+            this.tb_usagesch.MaxLength = 400;
+            this.tb_usagesch.Multiline = true;
+            this.tb_usagesch.Name = "tb_usagesch";
+            this.tb_usagesch.Size = new System.Drawing.Size(472, 100);
+            this.tb_usagesch.TabIndex = 8;
             // 
-            // tb_comment
+            // rb_usagesch
             // 
-            this.tb_comment.BackColor = System.Drawing.Color.White;
-            this.tb_comment.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tb_comment.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tb_comment.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.tb_comment.Location = new System.Drawing.Point(23, 376);
-            this.tb_comment.MaxLength = 400;
-            this.tb_comment.Multiline = true;
-            this.tb_comment.Name = "tb_comment";
-            this.tb_comment.Size = new System.Drawing.Size(472, 100);
-            this.tb_comment.TabIndex = 8;
+            this.rb_usagesch.BackColor = System.Drawing.Color.Transparent;
+            this.rb_usagesch.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
+            this.rb_usagesch.BorderRadius = 10;
+            this.rb_usagesch.FillColor = System.Drawing.Color.White;
+            this.rb_usagesch.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
+            this.rb_usagesch.HoverFillColor = System.Drawing.Color.White;
+            this.rb_usagesch.IsSelected = false;
+            this.rb_usagesch.Location = new System.Drawing.Point(12, 343);
+            this.rb_usagesch.MinimumSize = new System.Drawing.Size(30, 30);
+            this.rb_usagesch.Name = "rb_usagesch";
+            this.rb_usagesch.ShowBorder = true;
+            this.rb_usagesch.Size = new System.Drawing.Size(494, 146);
+            this.rb_usagesch.TabIndex = 3;
+            this.rb_usagesch.TabStop = false;
             // 
-            // rb_comments
+            // lb_usagesch_title
             // 
-            this.rb_comments.BackColor = System.Drawing.Color.Transparent;
-            this.rb_comments.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
-            this.rb_comments.BorderRadius = 10;
-            this.rb_comments.FillColor = System.Drawing.Color.White;
-            this.rb_comments.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
-            this.rb_comments.HoverFillColor = System.Drawing.Color.White;
-            this.rb_comments.IsSelected = false;
-            this.rb_comments.Location = new System.Drawing.Point(12, 343);
-            this.rb_comments.MinimumSize = new System.Drawing.Size(30, 30);
-            this.rb_comments.Name = "rb_comments";
-            this.rb_comments.ShowBorder = true;
-            this.rb_comments.Size = new System.Drawing.Size(494, 146);
-            this.rb_comments.TabIndex = 3;
-            this.rb_comments.TabStop = false;
-            // 
-            // lb_addinfo_title
-            // 
-            this.lb_addinfo_title.AutoSize = true;
-            this.lb_addinfo_title.BackColor = System.Drawing.Color.White;
-            this.lb_addinfo_title.Font = new System.Drawing.Font("Arial", 9.7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lb_addinfo_title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.lb_addinfo_title.Location = new System.Drawing.Point(23, 354);
-            this.lb_addinfo_title.Name = "lb_addinfo_title";
-            this.lb_addinfo_title.Size = new System.Drawing.Size(153, 16);
-            this.lb_addinfo_title.TabIndex = 9;
-            this.lb_addinfo_title.Text = "Additional information:";
+            this.lb_usagesch_title.AutoSize = true;
+            this.lb_usagesch_title.BackColor = System.Drawing.Color.White;
+            this.lb_usagesch_title.Font = new System.Drawing.Font("Arial", 9.7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lb_usagesch_title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.lb_usagesch_title.Location = new System.Drawing.Point(23, 354);
+            this.lb_usagesch_title.Name = "lb_usagesch_title";
+            this.lb_usagesch_title.Size = new System.Drawing.Size(172, 16);
+            this.lb_usagesch_title.TabIndex = 9;
+            this.lb_usagesch_title.Text = "Medicine usage schedule:";
             // 
             // lb_med_title
             // 
@@ -206,18 +176,6 @@
             this.lb_med_title.TabIndex = 10;
             this.lb_med_title.Text = "List of medicines:";
             // 
-            // lb_volume_title
-            // 
-            this.lb_volume_title.AutoSize = true;
-            this.lb_volume_title.BackColor = System.Drawing.Color.White;
-            this.lb_volume_title.Font = new System.Drawing.Font("Arial", 9.7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lb_volume_title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
-            this.lb_volume_title.Location = new System.Drawing.Point(273, 147);
-            this.lb_volume_title.Name = "lb_volume_title";
-            this.lb_volume_title.Size = new System.Drawing.Size(152, 16);
-            this.lb_volume_title.TabIndex = 11;
-            this.lb_volume_title.Text = "Appointment\'s volume:";
-            // 
             // lb_recommendator_title
             // 
             this.lb_recommendator_title.AutoSize = true;
@@ -230,6 +188,43 @@
             this.lb_recommendator_title.TabIndex = 12;
             this.lb_recommendator_title.Text = "Recommendator:";
             // 
+            // dateAppCalendar
+            // 
+            this.dateAppCalendar.Location = new System.Drawing.Point(299, 167);
+            this.dateAppCalendar.MaxSelectionCount = 1;
+            this.dateAppCalendar.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.dateAppCalendar.Name = "dateAppCalendar";
+            this.dateAppCalendar.TabIndex = 42;
+            // 
+            // lb_appdate
+            // 
+            this.lb_appdate.AutoSize = true;
+            this.lb_appdate.BackColor = System.Drawing.Color.White;
+            this.lb_appdate.Font = new System.Drawing.Font("Arial", 9.7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lb_appdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(127)))), ((int)(((byte)(120)))));
+            this.lb_appdate.Location = new System.Drawing.Point(273, 142);
+            this.lb_appdate.Name = "lb_appdate";
+            this.lb_appdate.Size = new System.Drawing.Size(124, 16);
+            this.lb_appdate.TabIndex = 40;
+            this.lb_appdate.Text = "Appointment date:";
+            // 
+            // rb_appdate
+            // 
+            this.rb_appdate.BackColor = System.Drawing.Color.Transparent;
+            this.rb_appdate.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
+            this.rb_appdate.BorderRadius = 10;
+            this.rb_appdate.FillColor = System.Drawing.Color.White;
+            this.rb_appdate.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(178)))), ((int)(((byte)(169)))));
+            this.rb_appdate.HoverFillColor = System.Drawing.Color.White;
+            this.rb_appdate.IsSelected = false;
+            this.rb_appdate.Location = new System.Drawing.Point(262, 135);
+            this.rb_appdate.MinimumSize = new System.Drawing.Size(30, 30);
+            this.rb_appdate.Name = "rb_appdate";
+            this.rb_appdate.ShowBorder = true;
+            this.rb_appdate.Size = new System.Drawing.Size(244, 202);
+            this.rb_appdate.TabIndex = 41;
+            this.rb_appdate.TabStop = false;
+            // 
             // AppointmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -237,18 +232,18 @@
             this.BackgroundImage = global::HomePharmacy.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(516, 551);
+            this.Controls.Add(this.dateAppCalendar);
+            this.Controls.Add(this.lb_appdate);
+            this.Controls.Add(this.rb_appdate);
             this.Controls.Add(this.lb_recommendator_title);
-            this.Controls.Add(this.lb_volume_title);
             this.Controls.Add(this.lb_med_title);
-            this.Controls.Add(this.lb_addinfo_title);
-            this.Controls.Add(this.tb_comment);
-            this.Controls.Add(this.tb_volume);
+            this.Controls.Add(this.lb_usagesch_title);
+            this.Controls.Add(this.tb_usagesch);
             this.Controls.Add(this.tb_recommendator);
             this.Controls.Add(this.tb_medicines);
             this.Controls.Add(this.btn_action);
-            this.Controls.Add(this.rb_comments);
+            this.Controls.Add(this.rb_usagesch);
             this.Controls.Add(this.rb_recommendator);
-            this.Controls.Add(this.rb_volume);
             this.Controls.Add(this.rb_medicines);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -263,17 +258,17 @@
         #endregion
 
         private Controls.RoundedBox rb_medicines;
-        private Controls.RoundedBox rb_volume;
         private Controls.RoundedBox rb_recommendator;
         private Controls.PhButton btn_action;
         private TextBox tb_medicines;
         private TextBox tb_recommendator;
-        private TextBox tb_volume;
-        private TextBox tb_comment;
-        private Controls.RoundedBox rb_comments;
-        private Label lb_addinfo_title;
+        private TextBox tb_usagesch;
+        private Controls.RoundedBox rb_usagesch;
+        private Label lb_usagesch_title;
         private Label lb_med_title;
-        private Label lb_volume_title;
         private Label lb_recommendator_title;
+        private MonthCalendar dateAppCalendar;
+        private Label lb_appdate;
+        private Controls.RoundedBox rb_appdate;
     }
 }

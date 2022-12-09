@@ -119,7 +119,7 @@ namespace HomePharmacy.FormTab
 
         private void btn_back_PhClick(object sender, EventArgs e)
         {
-            if (!this.DbOperation && ChangePage != null) ChangePage(this.previous);
+            if (!this.DbOperation && ChangePage != null && previous != Tabs.Main) ChangePage(this.previous);
         }
 
         private void CabinetSelectionPage_DataReceived()
