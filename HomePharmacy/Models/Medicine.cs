@@ -13,7 +13,7 @@ public partial class Medicine
 
     public DateTime ExpiryDate { get; set; }
 
-    public DateTime? PurchaseDate { get; set; }
+    public DateTime PurchaseDate { get; set; }
 
     public decimal Price { get; set; }
 

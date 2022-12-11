@@ -50,6 +50,7 @@ partial class MainPage
             this.tpage_statistics = new System.Windows.Forms.TabPage();
             this.tpage_appoint = new System.Windows.Forms.TabPage();
             this.appointmentsPage = new HomePharmacy.MainPages.AppointmentsPage();
+            this.statisticsPage = new HomePharmacy.MainPages.StatisticsPage();
             this.flowPanelTabs.SuspendLayout();
             this.panel.SuspendLayout();
             this.tab_main.SuspendLayout();
@@ -58,6 +59,7 @@ partial class MainPage
             this.tpage_ilnesses.SuspendLayout();
             this.tpage_medicines.SuspendLayout();
             this.tpage_takemed.SuspendLayout();
+            this.tpage_statistics.SuspendLayout();
             this.tpage_appoint.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -331,6 +333,7 @@ partial class MainPage
             // 
             // tpage_statistics
             // 
+            this.tpage_statistics.Controls.Add(this.statisticsPage);
             this.tpage_statistics.Location = new System.Drawing.Point(4, 5);
             this.tpage_statistics.Name = "tpage_statistics";
             this.tpage_statistics.Size = new System.Drawing.Size(735, 469);
@@ -357,6 +360,14 @@ partial class MainPage
             this.appointmentsPage.Size = new System.Drawing.Size(735, 469);
             this.appointmentsPage.TabIndex = 0;
             // 
+            // statisticsPage
+            // 
+            this.statisticsPage.Data = null;
+            this.statisticsPage.Location = new System.Drawing.Point(3, 3);
+            this.statisticsPage.Name = "statisticsPage";
+            this.statisticsPage.Size = new System.Drawing.Size(729, 450);
+            this.statisticsPage.TabIndex = 0;
+            // 
             // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -376,6 +387,7 @@ partial class MainPage
             this.tpage_ilnesses.ResumeLayout(false);
             this.tpage_medicines.ResumeLayout(false);
             this.tpage_takemed.ResumeLayout(false);
+            this.tpage_statistics.ResumeLayout(false);
             this.tpage_appoint.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -404,4 +416,5 @@ partial class MainPage
     private MainPages.AppointmentsPage appointmentsPage;
     private MainPages.MedicinesPage medicinesPage;
     private MainPages.TakeMedsPage takeMedsPage;
+    private MainPages.StatisticsPage statisticsPage;
 }

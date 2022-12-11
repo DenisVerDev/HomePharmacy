@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Vo86qtSJqkPyVSfmEANFd6F2SiQhnPhSfDNbOjKNQ34o2jBx4xDgulCP5dAxj75aQdUBy/dLCSoudf6/AFxuGg==",
+  "dgSpecHash": "la9oKdrZi4qy0yUmMZsPC6MV0Z0jYwl8gt2Vnlii1bd5fuf7GEOVMoc4Uw8wOAuPB4znW6DtTdULivfU7izv0w==",
   "success": true,
   "projectFilePath": "D:\\Курсовой проект 2 курс 1 семестр\\HomePharmacy\\HomePharmacy\\HomePharmacy.csproj",
   "expectedPackageFiles": [
@@ -42,6 +42,11 @@
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\syncfusion.chart.base\\20.3.0.60\\syncfusion.chart.base.20.3.0.60.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\syncfusion.chart.windows\\20.3.0.60\\syncfusion.chart.windows.20.3.0.60.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\syncfusion.grouping.base\\20.3.0.60\\syncfusion.grouping.base.20.3.0.60.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\syncfusion.licensing\\20.3.0.60\\syncfusion.licensing.20.3.0.60.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\syncfusion.shared.base\\20.3.0.60\\syncfusion.shared.base.20.3.0.60.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\system.configuration.configurationmanager\\5.0.0\\system.configuration.configurationmanager.5.0.0.nupkg.sha512",

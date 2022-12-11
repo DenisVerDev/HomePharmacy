@@ -173,6 +173,7 @@ namespace HomePharmacy.FormTab
                 this.illnessesPage.Data = new object[4] { this.user,this.family,this.illnesses,this.medicinesUsages }; // illnesses page
                 this.medicinesPage.Data = new object[4] { this.user, this.family, this.medicines,this.medicinesUsages }; // medicines page
                 this.takeMedsPage.Data = new object[3] { this.medicinesUsages, this.medicines, this.illnesses }; // take medicines page
+                this.statisticsPage.Data = new object[4] { this.user, this.family, this.illnesses, this.medicines }; // statistics page
             }
             catch(Exception ex)
             {

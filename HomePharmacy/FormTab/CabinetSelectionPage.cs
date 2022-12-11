@@ -136,7 +136,6 @@ namespace HomePharmacy.FormTab
                     this.ClearDataUI();
                     this.LoadFamilies();
                 }
-                else throw new Exception();
             }
             catch(Exception ex)
             {

@@ -61,7 +61,7 @@ namespace HomePharmacy.MainPages
                 row["Name"] = medicine.Name;
                 row["Type"] = medicine.Type;
                 row["Expiary date"] = medicine.ExpiryDate.ToShortDateString();
-                row["Buy date"] = medicine.PurchaseDate.HasValue ? medicine.PurchaseDate.Value.ToShortDateString() : null;
+                row["Buy date"] = medicine.PurchaseDate;
                 row["Price"] = medicine.Price;
                 row["Remainings"] = medicine.Remainings;
                 row["Count"] = medicine.CountOrAmount;

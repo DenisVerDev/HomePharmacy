@@ -84,3 +84,9 @@ D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePh
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.MainPages.MedicinesPage.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.Forms.TakeMedForm.resources
 D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.MainPages.TakeMedsPage.resources
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\obj\Debug\net6.0-windows\HomePharmacy.MainPages.StatisticsPage.resources
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\bin\Debug\net6.0-windows\Syncfusion.Chart.Base.dll
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\bin\Debug\net6.0-windows\Syncfusion.Chart.Windows.dll
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\bin\Debug\net6.0-windows\Syncfusion.Grouping.Base.dll
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\bin\Debug\net6.0-windows\Syncfusion.Licensing.dll
+D:\Курсовой проект 2 курс 1 семестр\HomePharmacy\HomePharmacy\bin\Debug\net6.0-windows\Syncfusion.Shared.Base.dll

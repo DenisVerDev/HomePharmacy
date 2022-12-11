@@ -109,22 +109,16 @@ namespace HomePharmacy.Forms
         {
             this.dateExpCalendar.Enabled = action_enable;
             this.datePurchaseCalendar.Enabled = action_enable;
-            this.chb_purchasedate.Enabled = action_enable;
 
             if (this.current_action == ActionType.ADD)
             {
                 this.dateExpCalendar.SetDate(DateTime.Today);
                 this.datePurchaseCalendar.SetDate(DateTime.Today);
-
-                this.chb_purchasedate.Checked = false;
             }
             else
             {
                 this.dateExpCalendar.SetDate(this.Medicine.ExpiryDate);
-
-                this.chb_purchasedate.Checked = (this.Medicine.PurchaseDate != null);
-                if (this.chb_purchasedate.Checked) this.datePurchaseCalendar.SetDate((DateTime)this.Medicine.PurchaseDate);
-                else this.datePurchaseCalendar.SetDate(DateTime.Today);
+                this.datePurchaseCalendar.SetDate(this.Medicine.PurchaseDate);
             }
         }
 
@@ -186,7 +180,7 @@ namespace HomePharmacy.Forms
             this.Medicine.ExemplearsCount = (int)this.nm_excount.Value;
             this.Medicine.Remainings = (int)this.nm_remainings.Value;
             this.Medicine.ExpiryDate = this.dateExpCalendar.SelectionRange.Start;
-            this.Medicine.PurchaseDate = this.chb_purchasedate.Checked ? this.datePurchaseCalendar.SelectionRange.Start : null;
+            this.Medicine.PurchaseDate = this.datePurchaseCalendar.SelectionRange.Start;
             this.Medicine.BelongsToFamily = this.family != null ? this.family.IdFamily : null;
         }
 

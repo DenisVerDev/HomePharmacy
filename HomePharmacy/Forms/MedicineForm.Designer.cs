@@ -44,7 +44,6 @@
             this.rb_excount = new HomePharmacy.Controls.RoundedBox();
             this.lb_remainings_title = new System.Windows.Forms.Label();
             this.rb_remainings = new HomePharmacy.Controls.RoundedBox();
-            this.chb_purchasedate = new System.Windows.Forms.CheckBox();
             this.dateExpCalendar = new System.Windows.Forms.MonthCalendar();
             this.lb_expdate_title = new System.Windows.Forms.Label();
             this.rb_expdate = new HomePharmacy.Controls.RoundedBox();
@@ -301,17 +300,6 @@
             this.rb_remainings.TabIndex = 45;
             this.rb_remainings.TabStop = false;
             // 
-            // chb_purchasedate
-            // 
-            this.chb_purchasedate.AutoSize = true;
-            this.chb_purchasedate.Checked = true;
-            this.chb_purchasedate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chb_purchasedate.Location = new System.Drawing.Point(258, 369);
-            this.chb_purchasedate.Name = "chb_purchasedate";
-            this.chb_purchasedate.Size = new System.Drawing.Size(15, 14);
-            this.chb_purchasedate.TabIndex = 51;
-            this.chb_purchasedate.UseVisualStyleBackColor = true;
-            // 
             // dateExpCalendar
             // 
             this.dateExpCalendar.Location = new System.Drawing.Point(358, 20);
@@ -444,7 +432,6 @@
             this.Controls.Add(this.btn_action);
             this.Controls.Add(this.datePurchaseCalendar);
             this.Controls.Add(this.lb_purchasedate_title);
-            this.Controls.Add(this.chb_purchasedate);
             this.Controls.Add(this.dateExpCalendar);
             this.Controls.Add(this.lb_expdate_title);
             this.Controls.Add(this.rb_expdate);
@@ -497,7 +484,6 @@
         private Controls.RoundedBox rb_excount;
         private Label lb_remainings_title;
         private Controls.RoundedBox rb_remainings;
-        private CheckBox chb_purchasedate;
         private MonthCalendar dateExpCalendar;
         private Label lb_expdate_title;
         private Controls.RoundedBox rb_expdate;

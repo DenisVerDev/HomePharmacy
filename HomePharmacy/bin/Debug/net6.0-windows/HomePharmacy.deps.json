@@ -9,7 +9,8 @@
       "HomePharmacy/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.0",
-          "Microsoft.EntityFrameworkCore.Tools": "7.0.0"
+          "Microsoft.EntityFrameworkCore.Tools": "7.0.0",
+          "Syncfusion.Chart.Windows": "20.3.0.60"
         },
         "runtime": {
           "HomePharmacy.dll": {}
@@ -430,6 +431,63 @@
           "lib/netstandard2.0/Mono.TextTemplating.dll": {
             "assemblyVersion": "2.2.0.0",
             "fileVersion": "2.2.1.1"
+          }
+        }
+      },
+      "Syncfusion.Chart.Base/20.3.0.60": {
+        "dependencies": {
+          "Syncfusion.Licensing": "20.3.0.60",
+          "Syncfusion.Shared.Base": "20.3.0.60"
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/Syncfusion.Chart.Base.dll": {
+            "assemblyVersion": "20.3500.0.60",
+            "fileVersion": "20.3500.0.60"
+          }
+        }
+      },
+      "Syncfusion.Chart.Windows/20.3.0.60": {
+        "dependencies": {
+          "Syncfusion.Chart.Base": "20.3.0.60",
+          "Syncfusion.Grouping.Base": "20.3.0.60",
+          "Syncfusion.Licensing": "20.3.0.60",
+          "Syncfusion.Shared.Base": "20.3.0.60"
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/Syncfusion.Chart.Windows.dll": {
+            "assemblyVersion": "20.3500.0.60",
+            "fileVersion": "20.3500.0.60"
+          }
+        }
+      },
+      "Syncfusion.Grouping.Base/20.3.0.60": {
+        "dependencies": {
+          "Syncfusion.Licensing": "20.3.0.60",
+          "Syncfusion.Shared.Base": "20.3.0.60"
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/Syncfusion.Grouping.Base.dll": {
+            "assemblyVersion": "20.3500.0.60",
+            "fileVersion": "20.3500.0.60"
+          }
+        }
+      },
+      "Syncfusion.Licensing/20.3.0.60": {
+        "runtime": {
+          "lib/net6.0/Syncfusion.Licensing.dll": {
+            "assemblyVersion": "20.3.0.60",
+            "fileVersion": "20.3.0.60"
+          }
+        }
+      },
+      "Syncfusion.Shared.Base/20.3.0.60": {
+        "dependencies": {
+          "Syncfusion.Licensing": "20.3.0.60"
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/Syncfusion.Shared.Base.dll": {
+            "assemblyVersion": "20.3500.0.60",
+            "fileVersion": "20.3500.0.60"
           }
         }
       },
@@ -889,6 +947,41 @@
       "sha512": "sha512-KZYeKBET/2Z0gY1WlTAK7+RHTl7GSbtvTLDXEZZojUdAPqpQNDL6tHv7VUpqfX5VEOh+uRGKaZXkuD253nEOBQ==",
       "path": "mono.texttemplating/2.2.1",
       "hashPath": "mono.texttemplating.2.2.1.nupkg.sha512"
+    },
+    "Syncfusion.Chart.Base/20.3.0.60": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-T/18DKNETUjyJht+R6ch7lvS68I6onfr+fG8PjtLNbSzM+1pFsHjeddxErES71nV7EyHWPFeSonCXN/WpGJ5XA==",
+      "path": "syncfusion.chart.base/20.3.0.60",
+      "hashPath": "syncfusion.chart.base.20.3.0.60.nupkg.sha512"
+    },
+    "Syncfusion.Chart.Windows/20.3.0.60": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JLPmXi3aOhRn6ZB2k9nQdRl81CWg48/nbvKgsPwa5aMgZwyz2WkKx78ZeFZTrHtHPRjnMHibPmC2WzJGGUrypw==",
+      "path": "syncfusion.chart.windows/20.3.0.60",
+      "hashPath": "syncfusion.chart.windows.20.3.0.60.nupkg.sha512"
+    },
+    "Syncfusion.Grouping.Base/20.3.0.60": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yImNPLF227oYayH27pX3vaKG+qAr8XLWLj6Zc15mH8HDPpQIFjb/5LqYuwj47QLBPZTASFGNCwm6h17bpD8SUw==",
+      "path": "syncfusion.grouping.base/20.3.0.60",
+      "hashPath": "syncfusion.grouping.base.20.3.0.60.nupkg.sha512"
+    },
+    "Syncfusion.Licensing/20.3.0.60": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CqgwRK4uKKx/2i9FRzM/N+sym1PqFBeWJglcXsREEQliLaesjsb/++ebSn81MVuoKWusTFNv5TlrqThnXXeUxA==",
+      "path": "syncfusion.licensing/20.3.0.60",
+      "hashPath": "syncfusion.licensing.20.3.0.60.nupkg.sha512"
+    },
+    "Syncfusion.Shared.Base/20.3.0.60": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cLnJOh9GxNKZFah8QcAC7ztPf1emg+hX+JfmRANxuIjn3v8xpvGgbIMa4/R2r5l6kORbmbGhT/125LtjvQyEHg==",
+      "path": "syncfusion.shared.base/20.3.0.60",
+      "hashPath": "syncfusion.shared.base.20.3.0.60.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",

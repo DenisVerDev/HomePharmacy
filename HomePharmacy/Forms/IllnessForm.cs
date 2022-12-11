@@ -118,12 +118,11 @@ namespace HomePharmacy.Forms
             this.family = family;
 
             this.Illness = new Illness();
+            this.init_ill = new Illness();
 
             if (illness != null)
             {
                 this.Illness.TransferDataFrom(illness);
-
-                this.init_ill = new Illness();
                 this.init_ill.TransferDataFrom(illness);
             }
         }
