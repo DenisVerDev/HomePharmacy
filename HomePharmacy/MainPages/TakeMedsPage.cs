@@ -168,11 +168,8 @@ namespace HomePharmacy.MainPages
                     this.medicines = (List<Medicine>)this.Data[1];
                     this.illnesses = (List<Illness>)this.Data[2];
 
-                    this.Enabled = true;
-
                     this.LoadDataUI();
                 }
-                else throw new Exception();
             }
             catch(Exception ex)
             {

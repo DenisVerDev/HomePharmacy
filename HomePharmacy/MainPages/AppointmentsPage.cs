@@ -65,10 +65,10 @@ namespace HomePharmacy.MainPages
             {
                 var selected_row = this.dgv_appointments.SelectedRows[0];
 
-                string meds = (string)selected_row.Cells["Medicines list"].Value;
                 string recom = (string)selected_row.Cells["Recommendator"].Value;
+                DateTime app_date = DateTime.Parse((string)selected_row.Cells["Appointment's date"].Value);
 
-                return this.illness.Appointments.Where(x => x.Medicines == meds && x.Recommendator == recom).First();
+                return this.illness.Appointments.Where(x => x.Recommendator == recom && x.AppointmentDate == app_date).First();
             }
 
             MessageBox.Show("There are no selected rows", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -159,12 +159,9 @@ namespace HomePharmacy.MainPages
                 {
                     this.illness = (Illness)this.Data[0];
 
-                    this.Enabled = true;
-
                     this.ClearDataUI();
                     this.LoadDataUI();
                 }
-                else throw new Exception();
             }
             catch(Exception ex)
             {

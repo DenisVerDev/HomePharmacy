@@ -120,12 +120,7 @@ namespace HomePharmacy.FormTab
         {
             try
             {
-                if (this.Data != null && this.Data.Length == 1)
-                {
-                    this.user = (Person)this.Data[0];
-                    this.Enabled = true;
-                }
-                else throw new Exception();
+                if (this.Data != null && this.Data.Length == 1) this.user = (Person)this.Data[0];
             }
             catch(Exception ex)
             {

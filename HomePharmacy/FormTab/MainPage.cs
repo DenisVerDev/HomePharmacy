@@ -38,7 +38,7 @@ namespace HomePharmacy.FormTab
             this.btn_illneses.Tag = MainTabs.Illnesses;
             this.btn_medicines.Tag = MainTabs.Medicines;
             this.btn_medusage.Tag = MainTabs.TakeMedicines;
-            this.btn_statistics.Tag = MainTabs.Statisctics;
+            this.btn_statistics.Tag = MainTabs.Statistics;
             // tpages Tag
             this.tpage_profile.Tag = MainTabs.Profile;
             this.tpage_family.Tag = MainTabs.Family;
@@ -46,7 +46,7 @@ namespace HomePharmacy.FormTab
             this.tpage_appoint.Tag = MainTabs.Appointments;
             this.tpage_medicines.Tag = MainTabs.Medicines;
             this.tpage_takemed.Tag = MainTabs.TakeMedicines;
-            this.tpage_statistics.Tag = MainTabs.Statisctics;
+            this.tpage_statistics.Tag = MainTabs.Statistics;
 
             this.illnessesPage.ChangeMainPageEvent += this.ChangeMainTabs;
         }
@@ -108,8 +108,6 @@ namespace HomePharmacy.FormTab
                     // gettind new data
                     this.user = (Person)this.Data[0];
                     this.family = (Family?)this.Data[1];
-
-                    this.Enabled = true;
 
                     // analyzing data
                     if (this.family != null) this.btn_family.Enabled = true;
@@ -177,7 +175,7 @@ namespace HomePharmacy.FormTab
             }
             catch(Exception ex)
             {
-                this.flowPanelTabs.Controls.Cast<PhIcon>().ToList().ForEach(x => x.Enabled = false);
+                this.Enabled = false;
                 MessageBox.Show(ex.ToString(), "Loading data exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -196,6 +194,6 @@ namespace HomePharmacy.MainPages
         Appointments,
         Medicines,
         TakeMedicines,
-        Statisctics
+        Statistics
     }
 }

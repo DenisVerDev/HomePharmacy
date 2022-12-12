@@ -171,8 +171,9 @@ namespace HomePharmacy.MainPages
 
                             if (medicine != null)
                             {
-                                context.Medicines.Remove(medicine);
                                 var usages = context.MedicinesUsages.Where(x => x.IdMedicine == selected.IdMedicine).ToList();
+
+                                context.Medicines.Remove(medicine);
                                 context.SaveChanges();
 
                                 usages.ForEach(x =>
@@ -206,7 +207,7 @@ namespace HomePharmacy.MainPages
 
             string[] types = DBValidation.MedicineValidation.types;
 
-            if (types.Contains(this.cb_type.PhText)) medicines = this.medicines.Where(x => x.Type == this.cb_type.PhText).ToList();
+            if (DBValidation.MedicineValidation.Type(this.cb_type.PhText)) medicines = this.medicines.Where(x => x.Type == this.cb_type.PhText).ToList();
             else medicines = this.medicines;
 
             if (this.chb_expired.Checked) medicines = medicines.Where(x => x.ExpiryDate < DateTime.Today).ToList();
@@ -226,12 +227,9 @@ namespace HomePharmacy.MainPages
                     this.medicines = (List<Medicine>)this.Data[2];
                     this.medicinesUsages = (List<MedicinesUsage>)this.Data[3];
 
-                    this.Enabled = true;
-
                     this.ClearDataUI();
                     this.LoadDataUI();
                 }
-                else throw new Exception();
             }
             catch(Exception ex)
             {

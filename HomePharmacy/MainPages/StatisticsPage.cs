@@ -43,14 +43,23 @@ namespace HomePharmacy.MainPages
 
         public override void LoadDataUI()
         {
-            int year = this.illnesses.Select(x => x.StartDate).Min().Year;
-            for(int i = year; i <= DateTime.Today.Year; i++)
-            {
-                this.cb_selectyear.Items.Add(i);
-            }
-
             this.InitCharts(DateTime.Today.Year);
-            this.LoadCharts(DateTime.Today.Year);
+
+            if (this.illnesses.Count > 0)
+            {
+                int year = this.illnesses.Select(x => x.StartDate).Min().Year;
+                for (int i = year; i <= DateTime.Today.Year; i++)
+                {
+                    this.cb_selectyear.Items.Add(i);
+                }
+
+                this.LoadCharts(DateTime.Today.Year);
+            }
+            else
+            {
+                this.chartIllnesses.Series.Clear();
+                this.chartMoney.Series.Clear();
+            }
         }
 
         private void LoadIllnessesStatistics(int year, Person person)
@@ -141,12 +150,9 @@ namespace HomePharmacy.MainPages
                     this.illnesses = (List<Illness>)this.Data[2];
                     this.medicines = (List<Medicine>)this.Data[3];
 
-                    this.Enabled = true;
-
                     this.ClearDataUI();
                     this.LoadDataUI();
                 }
-                else throw new Exception();
             }
             catch(Exception ex)
             {

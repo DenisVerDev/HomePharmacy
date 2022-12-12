@@ -147,7 +147,7 @@
             this.chartIllnesses.Skins = Syncfusion.Windows.Forms.Chart.Skins.Metro;
             this.chartIllnesses.Style3D = true;
             this.chartIllnesses.TabIndex = 0;
-            this.chartIllnesses.Text = "Illnesses count";
+            this.chartIllnesses.Text = "Illnesses count(during year)";
             // 
             // 
             // 
@@ -197,7 +197,7 @@
             this.chartMoney.Skins = Syncfusion.Windows.Forms.Chart.Skins.Metro;
             this.chartMoney.Style3D = true;
             this.chartMoney.TabIndex = 1;
-            this.chartMoney.Text = "Money spent on medicines";
+            this.chartMoney.Text = "Money spent on medicines(during year)";
             // 
             // 
             // 

@@ -23,7 +23,7 @@ namespace HomePharmacy.MainPages
         public FamilyPage()
         {
             InitializeComponent();
-            this.cb_sex.Items.Add(String.Empty);
+            this.cb_sex.Items.Add("All");
             this.cb_sex.Items.AddRange(DBValidation.PersonValidation.sexTypes);
         }
 
@@ -141,7 +141,7 @@ namespace HomePharmacy.MainPages
                         Family? family = context.Families.Where(x => x.IdFamily == this.family.IdFamily).Include(s => s.People).FirstOrDefault();
                         if (family != null)
                         {
-                            if (family.People.Count == 2)
+                            if (family.People.Count == 2) // there should be at least 2 persons for family to exist
                             {
                                 family.People.Clear();
                                 context.Families.Remove(family);
@@ -197,12 +197,9 @@ namespace HomePharmacy.MainPages
                     this.user = (Person)this.Data[0];
                     this.family = (Family?)this.Data[1];
 
-                    this.Enabled = true;
-
                     this.ClearDataUI();
                     this.LoadDataUI();
                 }
-                else throw new Exception();
             }
             catch(Exception ex)
             {

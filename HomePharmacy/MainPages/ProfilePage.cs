@@ -207,12 +207,9 @@ namespace HomePharmacy.MainPages
                 {
                     this.user = (Person)this.Data[0];
 
-                    this.Enabled = true;
-
                     this.ClearDataUI();
                     this.LoadDataUI();
                 }
-                else throw new Exception();
             }
             catch(Exception ex)
             {

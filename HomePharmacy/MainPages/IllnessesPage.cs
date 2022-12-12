@@ -218,12 +218,9 @@ namespace HomePharmacy.MainPages
                     this.illnesses = (List<Illness>)Data[2];
                     this.medicinesUsages = (List<MedicinesUsage>)Data[3];
 
-                    this.Enabled = true;
-
                     this.ClearDataUI();
                     this.LoadDataUI();
                 }
-                else throw new Exception();
             }
             catch(Exception ex)
             {
