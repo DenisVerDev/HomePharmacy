@@ -135,7 +135,7 @@ namespace HomePharmacy.MainPages
                             this.LoadImage(img);
                             this.UploadPhoto(data);
                         }
-                        else MessageBox.Show("Size of the uploaded image must be under 200kb", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        else MessageBox.Show("Size of the uploaded image must be under 1mb", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 catch (Exception ex)

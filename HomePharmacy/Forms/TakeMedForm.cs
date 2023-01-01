@@ -78,7 +78,7 @@ namespace HomePharmacy.Forms
             this.table_medicines.Rows.Clear();
 
             this.illnesses.ForEach(x => this.AddIllness(x));
-            this.medicines.ForEach(x => this.AddMedicine(x));
+            this.medicines.Where(x=>x.Remainings > 0).ToList().ForEach(x => this.AddMedicine(x));
         }
 
         private void InitUsageResults(bool action_enable)
