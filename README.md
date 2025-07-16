@@ -1,40 +1,18 @@
-# Course project "Home pharmacy"
-This project was developed within a strict time frame (1 month) as a 2nd year course project.
+# Home Pharmacy
+Desktop app to help record history of illnesses, medicine drugs and to view statistics.
 
-## Features:
-- Ability to keep records of diseases and medicines
-- Ability to keep records of the use of drugs
-- View statistics
-- Ability to create a family for general accounting
-- Division into personal account and family
+This project was developed within a **strict time frame (1 month)** as a 2nd year university course project.
 
-## Technologies:
-- **WindowsForms** and **.NET 6** 
+See screenshots folder for visual presentation of features.
+
+## Features
+1. Keep records of diseases and medicines
+2. Keep records of the use of drugs
+3. View statistics
+4. Create a family for general accounting
+5. Separate personal and family profiles
+
+## Technologies
+- **.NET 6** and **WindowsForms**
 - **Syncfusion** for statistics charts
 - **Entity Framework Core**
-
-## Screenshots:
-
-### Login page:
-![Login page](/Screenshots/login_window.png?raw=true)
-
-### Registration page:
-![Reg page](/Screenshots/reg_window.png?raw=true)
-
-### Cabinet selection page:
-![CabSel page](/Screenshots/cabsel_window.png?raw=true)
-
-### Profile page:
-![Profile page](/Screenshots/profile_window.png?raw=true)
-
-### Family page:
-![Family page](/Screenshots/fam_window.png?raw=true)
-
-### Illnesses page:
-![Illnesses page](/Screenshots/illnesses_window.png?raw=true)
-
-### Medicines page:
-![Medicines page](/Screenshots/meds_window.png?raw=true)
-
-### Statistis page:
-![Statistis page](/Screenshots/statistics_window.png?raw=true)
